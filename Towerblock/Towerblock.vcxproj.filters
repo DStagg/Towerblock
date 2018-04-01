@@ -21,6 +21,9 @@
     <Filter Include="Framework\IO">
       <UniqueIdentifier>{5012e7e2-b5d5-407b-8fdc-2cc32ceb7019}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Entities">
+      <UniqueIdentifier>{0442cc3d-e8dc-470b-8695-fa9d597dcaf3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

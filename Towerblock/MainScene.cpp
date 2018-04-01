@@ -18,9 +18,9 @@ void MainScene::Begin()
 	dic[1] = PairInt(1, 0);
 	dic[2] = PairInt(1, 0);
 	dic[3] = PairInt(1, 1);
-	CompositeBuilder builder(img,PairInt(16,16),dic);
+	CompositeBuilder builder(img,PairInt(32,32),dic);
 	Grid grid;
-	grid.Resize(10, 10);
+	grid.Resize(20, 10);
 	grid.SetCell(5, 6, 2);
 	builder.BuildCompositeTex(grid, &_CompositeTex);
 };
@@ -52,6 +52,5 @@ void MainScene::Update(float dt)
 void MainScene::DrawScreen()
 {
 	sf::Sprite temp = _CompositeTex.BuildSprite();
-	temp.setPosition(100.f, 100.f);
 	_Window->draw(temp);
 };

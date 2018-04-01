@@ -11,7 +11,7 @@ int main()
 	sf::Clock UpdateClock;
 
 	sf::RenderWindow _Window;
-	_Window.create(sf::VideoMode(624, 624), "SFML Window");
+	_Window.create(sf::VideoMode(640, 640), "SFML Window");
 
 	SceneManager SCM;
 	SCM.PushScene(new MainScene(&_Window));
