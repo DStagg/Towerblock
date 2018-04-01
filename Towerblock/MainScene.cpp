@@ -72,6 +72,12 @@ void MainScene::Update(float dt)
 	}
 
 	_Player.Update(dt);
+	if (_Level.WallCollision(&_Player))
+	{
+		_Player._Position._X -= _Player._Velocity._X * dt;
+		_Player._Position._Y -= _Player._Velocity._Y * dt;
+		_Player._Velocity = PairFloat(0.f, 0.f);
+	}
 };
 void MainScene::DrawScreen()
 {
@@ -80,4 +86,19 @@ void MainScene::DrawScreen()
 	_Window->draw(temp);
 
 	_Player.Draw(_Window);
+
+	//	Debug Draw Player
+	DebugDrawAABB(_Player.GenAABB(), _Window);
+};
+
+void DebugDrawAABB(AABB box, sf::RenderWindow* rw)
+{
+	sf::RectangleShape rect;
+	rect.setSize(sf::Vector2f(box._Width, box._Height));
+	rect.setOutlineThickness(1.f);
+	rect.setOutlineColor(sf::Color::Green);
+	rect.setFillColor(sf::Color::Transparent);
+	rect.setPosition(box._X, box._Y);
+	rw->draw(rect);
+
 };

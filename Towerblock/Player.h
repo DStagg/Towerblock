@@ -7,8 +7,12 @@ class Player : public Entity
 {
 public:
 
+	Player();
+	~Player();
+
 	void Update(float dt);
 	void Draw(sf::RenderWindow* rw);
+	AABB GenAABB();
 
 private:
 

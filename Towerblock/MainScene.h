@@ -36,4 +36,6 @@ private:
 	Level _Level;
 };
 
+void DebugDrawAABB(AABB box, sf::RenderWindow* rw);
+
 #endif

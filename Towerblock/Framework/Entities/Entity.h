@@ -14,6 +14,7 @@ public:
 
 	virtual void Update(float dt) = 0;
 	virtual void Draw(sf::RenderWindow* rw) = 0;
+	virtual AABB GenAABB() = 0;
 
 	bool _Alive;
 

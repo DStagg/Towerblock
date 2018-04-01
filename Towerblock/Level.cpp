@@ -51,3 +51,34 @@ bool Level::IsSolid(int x, int y)
 	if ((x < 0) || (y < 0) || (x >= _Tiles.GetWidth()) || (y >= _Tiles.GetHeight())) return false;
 	return _TileTypes[_Tiles.GetCell(x, y)]._Solid;
 };
+
+int Level::CalcCol(float x)
+{
+	return ((int)x - ( (int)x % _TileWidth)) / _TileWidth;
+};
+
+int Level::CalcRow(float y)
+{
+	return ((int)y - ((int)y % _TileHeight)) / _TileHeight;
+};
+
+bool Level::WallCollision(Player* player)
+{
+	AABB pBox = player->GenAABB();
+
+	int lCol = CalcCol(pBox._X);
+	int rCol = CalcCol(pBox.Right());
+	int tRow = CalcCol(pBox._Y);
+	int bRow = CalcRow(pBox.Bottom());
+
+	for (int x = lCol; x <= rCol; x++)
+		for (int y = tRow; y <= bRow; y++)
+		{
+			if (IsSolid(x, y))
+			{
+				return true;
+			}
+		}
+
+	return false;
+};
