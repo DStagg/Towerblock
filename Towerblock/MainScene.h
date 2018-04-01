@@ -8,6 +8,8 @@
 #include "Framework\Data\Grid.h"
 #include "CompositeTex.h"
 
+#include "Player.h"
+
 class MainScene : public Scene
 {
 public:
@@ -25,8 +27,11 @@ public:
 private:
 
 	sf::RenderWindow* _Window;
+	sf::View _CameraView;
 
 	CompositeTex _CompositeTex;
+
+	Player _Player;
 };
 
 #endif

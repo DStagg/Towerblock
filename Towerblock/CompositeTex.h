@@ -52,4 +52,7 @@ private:
 //		as individual CompositeTexs.
 
 //	NOTE: is the use of CompositeTex necessary? Could we not just build ordinary sf::Textures and then have a subsection function?
+
+//	HACK: can we be passing the tilesheet by reference?
+
 #endif

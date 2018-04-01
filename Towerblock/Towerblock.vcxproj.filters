@@ -65,9 +65,6 @@
     <ClCompile Include="Framework\Entities\Entity.cpp">
       <Filter>Framework\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Framework\Entities\EntityComponents.cpp">
-      <Filter>Framework\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="Framework\Utility\Random.cpp">
       <Filter>Framework\Utility</Filter>
     </ClCompile>
@@ -76,6 +73,9 @@
     </ClCompile>
     <ClCompile Include="CompositeTex.cpp">
       <Filter>Framework\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -118,9 +118,6 @@
     <ClInclude Include="Framework\Entities\Entity.h">
       <Filter>Framework\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Framework\Entities\EntityComponents.h">
-      <Filter>Framework\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="Framework\Utility\Random.h">
       <Filter>Framework\Utility</Filter>
     </ClInclude>
@@ -129,6 +126,9 @@
     </ClInclude>
     <ClInclude Include="CompositeTex.h">
       <Filter>Framework\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Source Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
