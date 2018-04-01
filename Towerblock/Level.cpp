@@ -1,5 +1,14 @@
 #include "Level.h"
 
+CollisionResults::CollisionResults(bool collided, int axis, float over)
+{
+	_Collided = collided;
+	_MajorAxis = axis;
+	_Overlap = over;
+};
+
+/////
+
 Tile::Tile(int str_id, bool s)
 {
 	_SpriteID = str_id;
@@ -62,9 +71,9 @@ int Level::CalcRow(float y)
 	return ((int)y - ((int)y % _TileHeight)) / _TileHeight;
 };
 
-bool Level::WallCollision(Player* player)
+CollisionResults Level::WallCollision(Entity* ent)
 {
-	AABB pBox = player->GenAABB();
+	AABB pBox = ent->GenAABB();
 
 	int lCol = CalcCol(pBox._X);
 	int rCol = CalcCol(pBox.Right());
@@ -76,9 +85,9 @@ bool Level::WallCollision(Player* player)
 		{
 			if (IsSolid(x, y))
 			{
-				return true;
+				return CollisionResults(true);	//	TODO: need to fill in rest of CollisionResults (axis & overlap)
 			}
 		}
 
-	return false;
+	return CollisionResults();
 };

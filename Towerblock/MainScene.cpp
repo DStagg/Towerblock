@@ -23,6 +23,8 @@ void MainScene::Begin()
 	CompositeBuilder builder(img,PairInt(32,32),dic);
 
 	_Player._Position = PairFloat(100.f, 100.f);
+	_Enemy._Position = PairFloat(200.f, 200.f);
+	_Enemy._Velocity = PairFloat(70.f, 70.f);
 	_Level.GenerateBox(20, 10);
 
 	builder.BuildCompositeTex(_Level.GetGrid(), &_CompositeTex);
@@ -72,11 +74,21 @@ void MainScene::Update(float dt)
 	}
 
 	_Player.Update(dt);
-	if (_Level.WallCollision(&_Player))
+	_Enemy.Update(dt);
+	CollisionResults pRes = _Level.WallCollision(&_Player);
+	CollisionResults eRes = _Level.WallCollision(&_Enemy);
+	if (pRes._Collided)
 	{
 		_Player._Position._X -= _Player._Velocity._X * dt;
 		_Player._Position._Y -= _Player._Velocity._Y * dt;
 		_Player._Velocity = PairFloat(0.f, 0.f);
+	}
+	if (eRes._Collided)
+	{
+		_Enemy._Position._X -= _Enemy._Velocity._X * dt;
+		_Enemy._Position._Y -= _Enemy._Velocity._Y * dt;
+		_Enemy._Velocity._X = -_Enemy._Velocity._X;
+		_Enemy._Velocity._Y = -_Enemy._Velocity._Y;
 	}
 };
 void MainScene::DrawScreen()
@@ -86,9 +98,11 @@ void MainScene::DrawScreen()
 	_Window->draw(temp);
 
 	_Player.Draw(_Window);
+	_Enemy.Draw(_Window);
 
 	//	Debug Draw Player
 	DebugDrawAABB(_Player.GenAABB(), _Window);
+	DebugDrawAABB(_Enemy.GenAABB(), _Window);
 };
 
 void DebugDrawAABB(AABB box, sf::RenderWindow* rw)
