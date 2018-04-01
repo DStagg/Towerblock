@@ -48,6 +48,12 @@ void MainScene::Update(float dt)
 	{
 		if (Event.type == sf::Event::Closed)
 			SetRunning(false);
+		else if (Event.type == sf::Event::MouseButtonPressed)
+		{
+			std::cout << "Heading: " << CalcHeading(_Player._Position._X, _Player._Position._Y, sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y) << std::endl;
+			
+			std::cout << "Angle: " << CalcAngle(_Player._Position._X, _Player._Position._Y, sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y) << std::endl;
+		}
 		else if (Event.type == sf::Event::KeyPressed && Event.key.code == sf::Keyboard::Escape)
 			SetRunning(false);
 		else if (Event.type == sf::Event::KeyPressed)

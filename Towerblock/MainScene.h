@@ -12,6 +12,8 @@
 #include "Enemy.h"
 #include "Level.h"
 
+#include "Rotation.h"
+
 class MainScene : public Scene
 {
 public:

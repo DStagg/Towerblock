@@ -1,12 +1,9 @@
 #ifndef UTILITY_H
 #define UTILITY_H
 
-#define Pi 3.14159265358979323846264f
-
 #include <iostream>
 #include <sstream>
 #include <fstream>
-#include <math.h>
 
 std::string IntToString(int i);
 
@@ -16,17 +13,9 @@ int StringToInt(std::string s);
 
 float StringToFloat(std::string s);
 
-float DegreeToRad(float d);
-
-float RadToDegree(float r);
-
 int Random(int min = 0, int max = RAND_MAX, bool inczero = true);
 
 int RandomSign();
-
-float CalcHeading(float startx, float starty, float endx, float endy);
-
-float CalcAngle(float startx, float starty, float endx, float endy);
 
 float Strip(float in, float factor = 100.f);
 

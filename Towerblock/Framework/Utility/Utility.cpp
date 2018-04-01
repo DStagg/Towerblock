@@ -35,19 +35,6 @@ float StringToFloat(std::string s)
 	return temp;
 };
 
-float DegreeToRad(float d)
-{
-	float Temp = (d / 360.f) * 2.f * (float)Pi;
-	return Temp;
-};
-
-float RadToDegree(float r)
-{
-	float TwoPi = 2.f * (float)Pi;
-	float Temp = (r / TwoPi) * 360.f;
-	return Temp;
-};
-
 int Random(int min, int max, bool inczero)
 {
 	int value = rand() % (max - min + 1) + min;
@@ -61,25 +48,6 @@ int Random(int min, int max, bool inczero)
 int RandomSign()
 {
 	return Random(-1, 1, false);
-};
-
-float CalcHeading(float startx, float starty, float endx, float endy)
-{
-	float Deg = CalcAngle(startx, starty, endx, endy);
-
-	Deg += 90.f;
-
-	if (Deg < 0.f)
-		Deg += 360.f;
-	if (Deg >= 359.999f)
-		Deg = 0.f;
-
-	return Deg;
-};
-
-float CalcAngle(float startx, float starty, float endx, float endy)
-{
-	return RadToDegree(atan2(endy - starty, endx - startx));
 };
 
 float Strip(float in, float factor)
