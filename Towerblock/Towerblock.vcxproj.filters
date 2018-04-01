@@ -71,6 +71,9 @@
     <ClCompile Include="Framework\Utility\Utility.cpp">
       <Filter>Framework\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="CompositeTex.cpp">
+      <Filter>Framework\Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainScene.h">
@@ -119,6 +122,9 @@
       <Filter>Framework\Utility</Filter>
     </ClInclude>
     <ClInclude Include="Framework\Utility\Utility.h">
+      <Filter>Framework\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="CompositeTex.h">
       <Filter>Framework\Utility</Filter>
     </ClInclude>
   </ItemGroup>

@@ -118,6 +118,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CompositeTex.cpp" />
     <ClCompile Include="Framework\Data\AABB.cpp" />
     <ClCompile Include="Framework\Data\Grid.cpp" />
     <ClCompile Include="Framework\Entities\Entity.cpp" />
@@ -136,6 +137,7 @@
     <ClCompile Include="MainScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CompositeTex.h" />
     <ClInclude Include="Framework\Data\AABB.h" />
     <ClInclude Include="Framework\Data\Grid.h" />
     <ClInclude Include="Framework\Data\Pair.h" />
