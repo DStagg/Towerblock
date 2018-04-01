@@ -9,6 +9,7 @@
 #include "CompositeTex.h"
 
 #include "Player.h"
+#include "Level.h"
 
 class MainScene : public Scene
 {
@@ -32,6 +33,7 @@ private:
 	CompositeTex _CompositeTex;
 
 	Player _Player;
+	Level _Level;
 };
 
 #endif
