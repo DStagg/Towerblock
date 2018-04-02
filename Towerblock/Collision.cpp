@@ -19,7 +19,8 @@ bool PointWithinCircle(PairFloat point, Circle circ)
 
 bool PointWithinLine(PairFloat point, Line line)
 {
-	return false;	//	TODO: fill in point<->line collision
+	float marginOfError = 0.000001f;
+	return (CalcDistance(line._X1, line._Y1, point._X, point._Y) + CalcDistance(line._X2, line._Y2, point._X, point._Y)) - CalcDistance(line._X1, line._Y1, line._X2, line._Y2) < marginOfError;
 };
 
 //	AABB
