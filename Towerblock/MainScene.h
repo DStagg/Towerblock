@@ -38,6 +38,7 @@ private:
 	Player _Player;
 	Enemy _Enemy;
 	Level _Level;
+
 };
 
 void DebugDrawAABB(AABB box, sf::RenderWindow* rw);

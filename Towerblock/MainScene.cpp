@@ -28,6 +28,7 @@ void MainScene::Begin()
 	_Level.GenerateBox(20, 10);
 
 	builder.BuildCompositeTex(_Level.GetGrid(), &_CompositeTex);
+
 };
 void MainScene::End()
 {
@@ -50,9 +51,9 @@ void MainScene::Update(float dt)
 			SetRunning(false);
 		else if (Event.type == sf::Event::MouseButtonPressed)
 		{
-			std::cout << "Heading: " << CalcHeading(_Player._Position._X, _Player._Position._Y, sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y) << std::endl;
+			std::cout << "Heading: " << CalcHeading(_Player._Position._X, _Player._Position._Y, (float)sf::Mouse::getPosition(*_Window).x, (float)sf::Mouse::getPosition(*_Window).y) << std::endl;
 			
-			std::cout << "Angle: " << CalcAngle(_Player._Position._X, _Player._Position._Y, sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y) << std::endl;
+			std::cout << "Angle: " << CalcAngle(_Player._Position._X, _Player._Position._Y, (float)sf::Mouse::getPosition(*_Window).x, (float)sf::Mouse::getPosition(*_Window).y) << std::endl;
 		}
 		else if (Event.type == sf::Event::KeyPressed && Event.key.code == sf::Keyboard::Escape)
 			SetRunning(false);
@@ -109,6 +110,7 @@ void MainScene::DrawScreen()
 	//	Debug Draw Player
 	DebugDrawAABB(_Player.GenAABB(), _Window);
 	DebugDrawAABB(_Enemy.GenAABB(), _Window);
+
 };
 
 void DebugDrawAABB(AABB box, sf::RenderWindow* rw)

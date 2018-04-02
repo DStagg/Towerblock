@@ -31,3 +31,8 @@ float CalcHeading(float startx, float starty, float endx, float endy)
 
 	return Deg;
 };
+
+float CalcSFMLAngle(float startx, float starty, float endx, float endy)
+{
+	return CalcHeading(startx, starty, endx, endy);
+};
