@@ -41,10 +41,10 @@ bool CollideAABBtoCircle(AABB box, Circle circ)
 	//	6 collisions to test (check if center of circle is within each):
 	PairFloat point(circ._X, circ._Y);
 	//	1: is the center of the circle within a rectangle of width box._W + circ._R, laid accross the AABB?
-	AABB widebox(box._X - (circ._Radius / 2.f), box._Y, box._Width + circ._Radius, box._Height);
+	AABB widebox(box._X - circ._Radius, box._Y, box._Width + (circ._Radius * 2.f), box._Height);
 	if (PointWithinAABB(point, widebox)) return true;
 	//	2: is the center of the circle within a rectangle of height box._H + circ._R, laid accross the AABB?
-	AABB tallbox(box._X, box._Y - (circ._Radius / 2.f), box._Width, box._Height + circ._Radius);
+	AABB tallbox(box._X, box._Y - circ._Radius, box._Width, box._Height + (circ._Radius * 2.f));
 	if (PointWithinAABB(point, tallbox)) return true;
 	//	3-6: is the center of the circle within a circle of radius circ._R on each of the four corners of the AABB?
 	Circle c1(box._X, box._Y, circ._Radius);

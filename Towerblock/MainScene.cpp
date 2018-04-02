@@ -193,11 +193,17 @@ void MainScene::DrawScreen()
 
 	DebugDrawAABB(_Box1, _Window);
 	DebugDrawAABB(_Box2, _Window);
+	DebugDrawCirc(Circle(_Box2._X, _Box2._Y, _Circ1._Radius), _Window);
+	DebugDrawCirc(Circle(_Box2.Right(), _Box2._Y, _Circ1._Radius), _Window);
+	DebugDrawCirc(Circle(_Box2._X, _Box2.Bottom(), _Circ1._Radius), _Window);
+	DebugDrawCirc(Circle(_Box2.Right(), _Box2.Bottom(), _Circ1._Radius), _Window);
+	
 	if (CollideCircletoAABB(_Circ1, _Box1) || CollideCircletoAABB(_Circ1, _Box2) || CollideCircletoCircle(_Circ1, _Circ2))
 		DebugDrawCirc(_Circ1, _Window, sf::Color::Green);
 	else
 		DebugDrawCirc(_Circ1, _Window, sf::Color::Red);
 	DebugDrawCirc(_Circ2, _Window, sf::Color::Yellow);
+	
 	
 	//	Health Bar
 	float barHeight = 50.f;
