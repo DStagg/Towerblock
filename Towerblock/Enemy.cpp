@@ -27,11 +27,6 @@ void Enemy::Draw(sf::RenderWindow* rw)
 	rw->draw(circ);
 };
 
-AABB Enemy::GenAABB()
-{
-	return AABB(_Position._X, _Position._Y, _Size._X, _Size._Y);
-};
-
 CircleMask& Enemy::GetMask()
 {
 	return _Mask;

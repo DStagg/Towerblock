@@ -64,27 +64,6 @@ int Level::CalcRow(float y)
 	return ((int)y - ((int)y % _TileHeight)) / _TileHeight;
 };
 
-CollisionResults Level::WallCollision(Entity* ent)
-{
-	AABB pBox = ent->GenAABB();
-
-	int lCol = CalcCol(pBox._X);
-	int rCol = CalcCol(pBox.Right());
-	int tRow = CalcCol(pBox._Y);
-	int bRow = CalcRow(pBox.Bottom());
-
-	for (int x = lCol; x <= rCol; x++)
-		for (int y = tRow; y <= bRow; y++)
-		{
-			if (IsSolid(x, y))
-			{
-				return CollisionResults(true);	//	TODO: need to fill in rest of CollisionResults (axis & overlap)
-			}
-		}
-
-	return CollisionResults();
-};
-
 CollisionResults Level::WallCollision(AABBMask mask)
 {
 	int lCol = CalcCol(mask._Mask._X);

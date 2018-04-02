@@ -13,6 +13,8 @@ void Bullet::Update(float dt)
 {
 	_Position._X += _Velocity._X * dt;
 	_Position._Y += _Velocity._Y * dt;
+
+	_Mask._Mask = Circle(_Position._X, _Position._Y, 16.f);
 };
 
 void Bullet::Draw(sf::RenderWindow* rw)
@@ -24,7 +26,7 @@ void Bullet::Draw(sf::RenderWindow* rw)
 	rw->draw(rect);
 };
 
-AABB Bullet::GenAABB()
+CircleMask& Bullet::GetMask()
 {
-	return AABB(_Position._X, _Position._Y, _Size._X, _Size._Y);
+	return _Mask;
 };

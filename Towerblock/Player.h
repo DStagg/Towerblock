@@ -13,7 +13,6 @@ public:
 
 	void Update(float dt);
 	void Draw(sf::RenderWindow* rw);
-	AABB GenAABB();
 
 	void Knockback();
 

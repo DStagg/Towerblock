@@ -31,7 +31,6 @@ public:
 	int CalcCol(float x);
 	int CalcRow(float y);
 
-	CollisionResults WallCollision(Entity* ent);
 	CollisionResults WallCollision(AABBMask mask);
 	CollisionResults WallCollision(CircleMask mask);
 

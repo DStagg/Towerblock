@@ -122,10 +122,10 @@ void MainScene::Update(float dt)
 		_Enemy._Velocity._Y = -_Enemy._Velocity._Y;
 	}
 
-	CollisionResults b1 = _Level.WallCollision(&_B1);
-	CollisionResults b2 = _Level.WallCollision(&_B2);
-	CollisionResults b3 = _Level.WallCollision(&_B3);
-	CollisionResults b4 = _Level.WallCollision(&_B4);
+	CollisionResults b1 = _Level.WallCollision(_B1.GetMask());
+	CollisionResults b2 = _Level.WallCollision(_B2.GetMask());
+	CollisionResults b3 = _Level.WallCollision(_B3.GetMask());
+	CollisionResults b4 = _Level.WallCollision(_B4.GetMask());
 
 	if (b1._Collided) _B1._Velocity = PairFloat(0.f, 0.f);
 	if (b2._Collided) _B2._Velocity = PairFloat(0.f, 0.f);
@@ -141,18 +141,14 @@ void MainScene::DrawScreen()
 
 	sf::Sprite temp = _CompositeTex.BuildSprite();
 	_Window->draw(temp);
-	
-	//_Player.Draw(_Window);
-	//_Enemy.Draw(_Window);
-
-	_B1.Draw(_Window);
-	_B2.Draw(_Window);
-	_B3.Draw(_Window);
-	_B4.Draw(_Window);
 
 	//	Debug Draw Player
 	DebugDrawMask(_Player.GetMask(), _Window);
 	DebugDrawMask(_Enemy.GetMask(), _Window);
+	DebugDrawMask(_B1.GetMask(), _Window, sf::Color::Black);
+	DebugDrawMask(_B2.GetMask(), _Window, sf::Color::Black);
+	DebugDrawMask(_B3.GetMask(), _Window, sf::Color::Black);
+	DebugDrawMask(_B4.GetMask(), _Window, sf::Color::Black);
 		
 	//	Health Bar
 	float barHeight = 50.f;

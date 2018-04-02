@@ -52,11 +52,6 @@ void Player::Draw(sf::RenderWindow* rw)
 
 };
 
-AABB Player::GenAABB()
-{
-	return AABB(_Position._X, _Position._Y, _Size._X, _Size._Y);
-};
-
 void Player::Knockback()
 {
 	if (_KnockbackTimer > 0.f)
