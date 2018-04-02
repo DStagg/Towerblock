@@ -44,21 +44,6 @@ void MainScene::Begin()
 
 	Console::C()->Init(_Font, ConsoleTextSize, ConsoleLineLimit);
 
-	_Circ1._X = 100.f;
-	_Circ1._Y = 100.f;
-	_Circ1._Radius = 50.f;
-	_Circ2._X = 175.f;
-	_Circ2._Y = 100.f;
-	_Circ2._Radius = 25.f;
-	_Box1._X = 200.f;
-	_Box1._Y = 100.f;
-	_Box1._Width = 100.f;
-	_Box1._Height = 50.f;
-	_Box2._X = 500.f;
-	_Box2._Y = 300.f;
-	_Box2._Width = 50.f;
-	_Box2._Height = 150.f;
-
 };
 void MainScene::End()
 {
@@ -81,8 +66,7 @@ void MainScene::Update(float dt)
 			SetRunning(false);
 		else if (Event.type == sf::Event::MouseButtonPressed)
 		{
-			_Circ1._X = (float)sf::Mouse::getPosition(*_Window).x;
-			_Circ1._Y = (float)sf::Mouse::getPosition(*_Window).y;
+
 		}
 		else if (Event.type == sf::Event::KeyPressed && Event.key.code == sf::Keyboard::Escape)
 			SetRunning(false);
@@ -91,18 +75,6 @@ void MainScene::Update(float dt)
 			{
 			case sf::Keyboard::F1:
 				_DrawLog = !_DrawLog;
-				break;
-			case sf::Keyboard::A:
-				_Circ1._X -= 1.f;
-				break;
-			case sf::Keyboard::D:
-				_Circ1._X += 1.f;
-				break;
-			case sf::Keyboard::W:
-				_Circ1._Y -= 1.f;
-				break;
-			case sf::Keyboard::S:
-				_Circ1._Y += 1.f;
 				break;
 			case sf::Keyboard::Left:
 				_CameraView.move(-32.f, 0.f);
@@ -162,19 +134,14 @@ void MainScene::Update(float dt)
 
 	float pSize = (_Player._Size._X + _Player._Size._Y) / 4.f;
 	float eSize = (_Enemy._Size._X + _Enemy._Size._Y) / 4.f;
-	if (CalcDistance(_Player._Position._X, _Player._Position._Y, _Enemy._Position._X, _Enemy._Position._Y) < pSize + eSize)
+	if (CollideCircletoCircle(Circle(_Player._Position._X, _Player._Position._Y, pSize), Circle(_Enemy._Position._X, _Enemy._Position._Y, eSize)))
 		_Player.Knockback();//	TODO: add proper, sensibly located collision detection between enemy and player
-
-	//_Circ1._X = (float)sf::Mouse::getPosition(*_Window).x;
-	//_Circ1._Y = (float)sf::Mouse::getPosition(*_Window).y;
-
-	Console::C()->Clear();
-	Log("(" + FloatToString(_Circ1._X) + "," + FloatToString(_Circ1._Y) + ")");
+	//	TODO: get entities to generate generic collision masks (so far: AABB or Circle) and have a generic collision test
 };
 void MainScene::DrawScreen()
 {
 	_Window->setView(_CameraView);
-	/*
+
 	sf::Sprite temp = _CompositeTex.BuildSprite();
 	_Window->draw(temp);
 	
@@ -189,22 +156,7 @@ void MainScene::DrawScreen()
 	//	Debug Draw Player
 	DebugDrawAABB(_Player.GenAABB(), _Window);
 	DebugDrawAABB(_Enemy.GenAABB(), _Window);
-	*/
-
-	DebugDrawAABB(_Box1, _Window);
-	DebugDrawAABB(_Box2, _Window);
-	DebugDrawCirc(Circle(_Box2._X, _Box2._Y, _Circ1._Radius), _Window);
-	DebugDrawCirc(Circle(_Box2.Right(), _Box2._Y, _Circ1._Radius), _Window);
-	DebugDrawCirc(Circle(_Box2._X, _Box2.Bottom(), _Circ1._Radius), _Window);
-	DebugDrawCirc(Circle(_Box2.Right(), _Box2.Bottom(), _Circ1._Radius), _Window);
-	
-	if (CollideCircletoAABB(_Circ1, _Box1) || CollideCircletoAABB(_Circ1, _Box2) || CollideCircletoCircle(_Circ1, _Circ2))
-		DebugDrawCirc(_Circ1, _Window, sf::Color::Green);
-	else
-		DebugDrawCirc(_Circ1, _Window, sf::Color::Red);
-	DebugDrawCirc(_Circ2, _Window, sf::Color::Yellow);
-	
-	
+		
 	//	Health Bar
 	float barHeight = 50.f;
 	sf::RectangleShape backBar;
