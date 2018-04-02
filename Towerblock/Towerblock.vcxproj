@@ -119,6 +119,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CompositeTex.cpp" />
+    <ClCompile Include="Console.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Framework\Data\AABB.cpp" />
     <ClCompile Include="Framework\Data\Grid.cpp" />
@@ -138,9 +139,11 @@
     <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rotation.cpp" />
+    <ClCompile Include="TextFile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CompositeTex.h" />
+    <ClInclude Include="Console.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Framework\Data\AABB.h" />
     <ClInclude Include="Framework\Data\Grid.h" />
@@ -160,6 +163,7 @@
     <ClInclude Include="MainScene.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Rotation.h" />
+    <ClInclude Include="TextFile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

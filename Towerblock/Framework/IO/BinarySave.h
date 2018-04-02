@@ -6,6 +6,8 @@
 
 #include "BinaryFile.h"
 
+//	TODO: would help to merge this with BinaryFile.h so there's just the one file (similar to TextFile.h)
+
 //	Explicit implementations	//
 
 //std::string

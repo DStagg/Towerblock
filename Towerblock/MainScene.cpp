@@ -13,6 +13,8 @@ void MainScene::Begin()
 {
 	_CameraView = _Window->getDefaultView();
 
+	_DrawLog = false;
+
 	sf::Image img;
 	img.loadFromFile("Tilesheet.png");
 	std::map<int, PairInt> dic;
@@ -30,10 +32,12 @@ void MainScene::Begin()
 	builder.BuildCompositeTex(_Level.GetGrid(), &_CompositeTex);
 
 	_Font.loadFromFile("Roboto-Regular.ttf");
+
+	Console::C()->Init(_Font, ConsoleTextSize, ConsoleLineLimit);
 };
 void MainScene::End()
 {
-	
+	Console::C()->DumpLog("Testlog");
 };
 void MainScene::Pause()
 {
@@ -59,6 +63,9 @@ void MainScene::Update(float dt)
 		else if (Event.type == sf::Event::KeyPressed)
 			switch (Event.key.code) 
 			{
+			case sf::Keyboard::F1:
+				_DrawLog = !_DrawLog;
+				break;
 			case sf::Keyboard::Left:
 				_CameraView.move(-32.f, 0.f);
 				break;
@@ -111,6 +118,8 @@ void MainScene::DrawScreen()
 	DebugDrawAABB(_Player.GenAABB(), _Window);
 	DebugDrawAABB(_Enemy.GenAABB(), _Window);
 
+	if (_DrawLog)
+		Console::C()->Draw(_Window);
 };
 
 void DebugDrawAABB(AABB box, sf::RenderWindow* rw)

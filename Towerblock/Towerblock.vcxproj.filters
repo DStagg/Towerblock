@@ -27,6 +27,9 @@
     <Filter Include="Source Files\Level">
       <UniqueIdentifier>{da7f6af7-75be-4cbf-a5de-af1ff7e040bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Debug">
+      <UniqueIdentifier>{7c066d40-6f7f-49ef-bf93-7d85ef3d5d27}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -89,6 +92,12 @@
     <ClCompile Include="Rotation.cpp">
       <Filter>Framework\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="Console.cpp">
+      <Filter>Framework\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="TextFile.cpp">
+      <Filter>Framework\IO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainScene.h">
@@ -150,6 +159,12 @@
     </ClInclude>
     <ClInclude Include="Rotation.h">
       <Filter>Framework\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Console.h">
+      <Filter>Framework\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="TextFile.h">
+      <Filter>Framework\IO</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

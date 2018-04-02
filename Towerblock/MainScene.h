@@ -14,6 +14,8 @@
 
 #include "Rotation.h"
 
+#include "Console.h"
+
 class MainScene : public Scene
 {
 public:
@@ -40,6 +42,8 @@ private:
 	Level _Level;
 
 	sf::Font _Font;
+
+	bool _DrawLog;
 };
 
 void DebugDrawAABB(AABB box, sf::RenderWindow* rw);

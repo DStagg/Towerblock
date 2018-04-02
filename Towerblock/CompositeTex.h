@@ -1,6 +1,6 @@
 #ifndef COMPOSITE_TEX_H
 #define COMPOSITE_TEX_H
-
+//	TODO: move to framework folders
 #include "SFML\Graphics.hpp"
 #include "Framework\Data\Grid.h"
 #include "Framework\Data\Pair.h"
