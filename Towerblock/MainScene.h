@@ -16,6 +16,8 @@
 
 #include "Console.h"
 
+#include "Bullet.h"
+
 class MainScene : public Scene
 {
 public:
@@ -44,6 +46,8 @@ private:
 	sf::Font _Font;
 
 	bool _DrawLog;
+
+	Bullet _B1, _B2, _B3, _B4;
 };
 
 void DebugDrawAABB(AABB box, sf::RenderWindow* rw);

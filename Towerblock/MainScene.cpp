@@ -24,6 +24,15 @@ void MainScene::Begin()
 	dic[3] = PairInt(1, 1);
 	CompositeBuilder builder(img,PairInt(32,32),dic);
 
+	_B1._Position = PairFloat(250.f, 250.f);
+	_B2._Position = PairFloat(250.f, 250.f);
+	_B3._Position = PairFloat(250.f, 250.f);
+	_B4._Position = PairFloat(250.f, 250.f);
+	_B1._Velocity = PairFloat(100.f, 0.f);
+	_B2._Velocity = PairFloat(-100.f, 0.f);
+	_B3._Velocity = PairFloat(0.f, 100.f);
+	_B4._Velocity = PairFloat(0.f, -100.f);
+
 	_Player._Position = PairFloat(100.f, 100.f);
 	_Enemy._Position = PairFloat(200.f, 200.f);
 	_Enemy._Velocity = PairFloat(70.f, 70.f);
@@ -90,6 +99,13 @@ void MainScene::Update(float dt)
 	_Player._Facing = CalcHeading(_Player._Position._X, _Player._Position._Y, _Enemy._Position._X, _Enemy._Position._Y);
 	_Player.Update(dt);
 	_Enemy.Update(dt);
+
+	_B1.Update(dt);
+	_B2.Update(dt);
+	_B3.Update(dt);
+	_B4.Update(dt);
+
+
 	CollisionResults pRes = _Level.WallCollision(&_Player);
 	CollisionResults eRes = _Level.WallCollision(&_Enemy);
 	if (pRes._Collided)
@@ -106,6 +122,16 @@ void MainScene::Update(float dt)
 		_Enemy._Velocity._Y = -_Enemy._Velocity._Y;
 	}
 
+	CollisionResults b1 = _Level.WallCollision(&_B1);
+	CollisionResults b2 = _Level.WallCollision(&_B2);
+	CollisionResults b3 = _Level.WallCollision(&_B3);
+	CollisionResults b4 = _Level.WallCollision(&_B4);
+
+	if (b1._Collided) _B1._Velocity = PairFloat(0.f, 0.f);
+	if (b2._Collided) _B2._Velocity = PairFloat(0.f, 0.f);
+	if (b3._Collided) _B3._Velocity = PairFloat(0.f, 0.f);
+	if (b4._Collided) _B4._Velocity = PairFloat(0.f, 0.f);
+
 	float pSize = (_Player._Size._X + _Player._Size._Y) / 4.f;
 	float eSize = (_Enemy._Size._X + _Enemy._Size._Y) / 4.f;
 	if (CalcDistance(_Player._Position._X, _Player._Position._Y, _Enemy._Position._X, _Enemy._Position._Y) < pSize + eSize)
@@ -119,6 +145,11 @@ void MainScene::DrawScreen()
 
 	_Player.Draw(_Window);
 	_Enemy.Draw(_Window);
+
+	_B1.Draw(_Window);
+	_B2.Draw(_Window);
+	_B3.Draw(_Window);
+	_B4.Draw(_Window);
 
 	//	Debug Draw Player
 	DebugDrawAABB(_Player.GenAABB(), _Window);

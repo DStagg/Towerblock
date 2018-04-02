@@ -98,6 +98,9 @@
     <ClCompile Include="TextFile.cpp">
       <Filter>Framework\IO</Filter>
     </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainScene.h">
@@ -165,6 +168,9 @@
     </ClInclude>
     <ClInclude Include="TextFile.h">
       <Filter>Framework\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Source Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
