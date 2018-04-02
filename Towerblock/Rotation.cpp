@@ -2,15 +2,12 @@
 
 float DegreeToRad(float d)
 {
-	float Temp = (d / 360.f) * 2.f * (float)Pi;
-	return Temp;
+	return d * Pi / 180.f;
 };
 
 float RadToDegree(float r)
 {
-	float TwoPi = 2.f * (float)Pi;
-	float Temp = (r / TwoPi) * 360.f;
-	return Temp;
+	return r * 180.f / Pi;
 };
 
 float CalcAngle(float startx, float starty, float endx, float endy)
