@@ -15,21 +15,24 @@ float RadToDegree(float r)
 
 float CalcAngle(float startx, float starty, float endx, float endy)
 {
-	return RadToDegree((float)atan2(endy - starty, endx - startx));
+	return (float)atan2(endy - starty, endx - startx);
+};
+
+float CalcAngle(float dx, float dy)
+{
+	return CalcAngle(0.f, 0.f, dx, dy);
 };
 
 float CalcHeading(float startx, float starty, float endx, float endy)
 {
-	float Deg = CalcAngle(startx, starty, endx, endy);
+	float result = CalcAngle(startx, starty, endx, endy) + (Pi / 2.f);
+	if (result < 0.f) result += (Pi * 2.f);
+	return result;
+};
 
-	Deg += 90.f;
-
-	if (Deg < 0.f)
-		Deg += 360.f;
-	if (Deg >= 359.999f)
-		Deg = 0.f;
-
-	return Deg;
+float CalcHeading(float dx, float dy)
+{
+	return CalcHeading(0.f, 0.f, dx, dy);
 };
 
 float CalcSFMLAngle(float startx, float starty, float endx, float endy)

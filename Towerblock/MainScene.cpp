@@ -29,6 +29,7 @@ void MainScene::Begin()
 
 	builder.BuildCompositeTex(_Level.GetGrid(), &_CompositeTex);
 
+	_Font.loadFromFile("Roboto-Regular.ttf");
 };
 void MainScene::End()
 {
@@ -51,6 +52,7 @@ void MainScene::Update(float dt)
 			SetRunning(false);
 		else if (Event.type == sf::Event::MouseButtonPressed)
 		{
+			/*
 			float heading = CalcHeading(_Player._Position._X, _Player._Position._Y, (float)sf::Mouse::getPosition(*_Window).x, (float)sf::Mouse::getPosition(*_Window).y);
 			std::cout << "Heading  : " << heading << std::endl;
 			std::cout << "- In rads: " << DegreeToRad(heading) << std::endl;
@@ -59,6 +61,13 @@ void MainScene::Update(float dt)
 			std::cout << "0: " << DegreeToRad(0.f) << " |90: " << DegreeToRad(90.f) << " |180: " << DegreeToRad(180.f) << " |270: " << DegreeToRad(270.f) << std::endl;
 			std::cout << "Cos: 0: " << CalcYComp(DegreeToRad(0.f)) << " |90: " << CalcYComp(DegreeToRad(90.f)) << " |180: " << CalcYComp(DegreeToRad(180.f)) << " |270: " << CalcYComp(DegreeToRad(270.f)) << std::endl;
 			std::cout << "Cos(0): " << cosf(0.f) << std::endl;
+			std::cout << "-----------" << std::endl;
+			*/
+			std::cout << "Up: " << CalcAngle(100.f, 100.f, 100.f, 0.f) << " ( " << CalcXComp(CalcAngle(100.f, 100.f, 100.f, 0.f)) << "," << CalcYComp(CalcAngle(100.f, 100.f, 100.f, 0.f)) << ")" << std::endl;
+			std::cout << "Ri: " << CalcAngle(100.f, 100.f, 200.f, 100.f) << " ( " << CalcXComp(CalcAngle(100.f, 100.f, 200.f, 100.f)) << "," << CalcYComp(CalcAngle(100.f, 100.f, 200.f, 100.f)) << ")" << std::endl;
+			std::cout << "Dn: " << CalcAngle(100.f, 100.f, 100.f, 200.f) << " ( " << CalcXComp(CalcAngle(100.f, 100.f, 100.f, 200.f)) << "," << CalcYComp(CalcAngle(100.f, 100.f, 100.f, 200.f)) << ")" << std::endl;
+			std::cout << "Le: " << CalcAngle(100.f, 100.f, 0.f, 100.f) << " ( " << CalcXComp(CalcAngle(100.f, 100.f, 0.f, 100.f)) << "," << CalcYComp(CalcAngle(100.f, 100.f, 0.f, 100.f)) << ")" << std::endl;
+			std::cout << "NW: " << CalcAngle(100.f, 100.f, 0.f, 0.f) << " ( " << CalcXComp(CalcAngle(100.f, 100.f, 0.f, 0.f)) << "," << CalcYComp(CalcAngle(100.f, 100.f, 0.f, 0.f)) << ")" << std::endl;
 			std::cout << "-----------" << std::endl;
 		}
 		else if (Event.type == sf::Event::KeyPressed && Event.key.code == sf::Keyboard::Escape)
@@ -111,15 +120,38 @@ void MainScene::DrawScreen()
 	sf::Sprite temp = _CompositeTex.BuildSprite();
 	_Window->draw(temp);
 
-	_Player.Draw(_Window);
-	_Enemy.Draw(_Window);
+//	_Player.Draw(_Window);
+//	_Enemy.Draw(_Window);
 
 	//	Debug Draw Player
-	DebugDrawAABB(_Player.GenAABB(), _Window);
-	DebugDrawAABB(_Enemy.GenAABB(), _Window);
+//	DebugDrawAABB(_Player.GenAABB(), _Window);
+//	DebugDrawAABB(_Enemy.GenAABB(), _Window);
 
+	sf::RectangleShape square;
+	square.setSize(sf::Vector2f(16.f, 16.f));
+	square.setOrigin(8.f, 8.f);
+	square.setPosition(320.f, 320.f);
+	square.setFillColor(sf::Color::White);
+	_Window->draw(square);
 	
+	sf::Text text;
+	text.setFont(_Font);
 
+	text.setString("Mouse at: (" + FloatToString(sf::Mouse::getPosition(*_Window).x) + "," + FloatToString(sf::Mouse::getPosition(*_Window).y) + ")");
+	text.setPosition(0.f, 0.f);
+	_Window->draw(text);
+
+	text.setString("Difference: " + FloatToString(CalcDistance(320.f, 320.f, sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y)) + " (" + FloatToString(sf::Mouse::getPosition(*_Window).x - 320.f) + "," + FloatToString(sf::Mouse::getPosition(*_Window).y - 320.f) + ")");
+	text.setPosition(0.f, 50.f);
+	_Window->draw(text);
+
+	text.setString("Angle: " + FloatToString(CalcAngle(320.f, 320.f, sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y)) + " | " + FloatToString(CalcAngle(320.f, 320.f, sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y)*180.f / Pi) );
+	text.setPosition(0.f, 100.f);
+	_Window->draw(text);
+
+	text.setString("Heading: " + FloatToString(CalcHeading(320.f, 320.f, sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y)) + " | " + FloatToString(CalcHeading(320.f, 320.f, sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y) * 180.f / Pi) );
+	text.setPosition(0.f, 150.f);
+	_Window->draw(text);
 };
 
 void DebugDrawAABB(AABB box, sf::RenderWindow* rw)

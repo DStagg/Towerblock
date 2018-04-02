@@ -39,6 +39,7 @@ private:
 	Enemy _Enemy;
 	Level _Level;
 
+	sf::Font _Font;
 };
 
 void DebugDrawAABB(AABB box, sf::RenderWindow* rw);
