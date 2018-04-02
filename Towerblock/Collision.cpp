@@ -5,9 +5,9 @@
 bool PointWithinAABB(PairFloat point, AABB box)
 {
 	if (point._X < box._X) return false;
-	if (point._X > box.Right) return false;
+	if (point._X > box.Right()) return false;
 	if (point._Y < box._Y) return false;
-	if (point._Y > box.Bottom) return false;
+	if (point._Y > box.Bottom()) return false;
 
 	return true;
 };
@@ -26,10 +26,10 @@ bool PointWithinLine(PairFloat point, Line line)
 
 bool CollideAABBtoAABB(AABB box1, AABB box2)
 {
-	if (box1.Right < box2._X) return false;
-	if (box1._X > box2.Right) return false;
-	if (box1.Bottom < box2._Y) return false;
-	if (box1._Y > box2.Bottom) return false;
+	if (box1.Right() < box2._X) return false;
+	if (box1._X > box2.Right()) return false;
+	if (box1.Bottom() < box2._Y) return false;
+	if (box1._Y > box2.Bottom()) return false;
 	return true;
 };
 
@@ -49,11 +49,11 @@ bool CollideAABBtoCircle(AABB box, Circle circ)
 	//	3-6: is the center of the circle within a circle of radius circ._R on each of the four corners of the AABB?
 	Circle c1(box._X, box._Y, circ._Radius);
 	if (PointWithinCircle(point, c1)) return true;
-	Circle c2(box.Right, box._Y, circ._Radius);
+	Circle c2(box.Right(), box._Y, circ._Radius);
 	if (PointWithinCircle(point, c2)) return true;
-	Circle c3(box._X, box.Bottom, circ._Radius);
+	Circle c3(box._X, box.Bottom(), circ._Radius);
 	if (PointWithinCircle(point, c3)) return true;
-	Circle c4(box.Right, box.Bottom, circ._Radius);
+	Circle c4(box.Right(), box.Bottom(), circ._Radius);
 	if (PointWithinCircle(point, c4)) return true;
 	
 	//	If all 6 return false, then there is no collision
