@@ -23,7 +23,7 @@ void MainScene::Begin()
 	dic[2] = PairInt(1, 0);
 	dic[3] = PairInt(1, 1);
 	CompositeBuilder builder(img,PairInt(32,32),dic);
-
+	//	TODO: proper bullet<->wall collisions
 	_B1._Position = PairFloat(250.f, 250.f);
 	_B2._Position = PairFloat(250.f, 250.f);
 	_B3._Position = PairFloat(250.f, 250.f);
@@ -140,9 +140,10 @@ void MainScene::Update(float dt)
 void MainScene::DrawScreen()
 {
 	_Window->setView(_CameraView);
+	/*
 	sf::Sprite temp = _CompositeTex.BuildSprite();
 	_Window->draw(temp);
-
+	
 	_Player.Draw(_Window);
 	_Enemy.Draw(_Window);
 
@@ -154,7 +155,7 @@ void MainScene::DrawScreen()
 	//	Debug Draw Player
 	DebugDrawAABB(_Player.GenAABB(), _Window);
 	DebugDrawAABB(_Enemy.GenAABB(), _Window);
-
+	*/
 	//	Health Bar
 	float barHeight = 50.f;
 	sf::RectangleShape backBar;

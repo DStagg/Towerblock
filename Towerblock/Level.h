@@ -6,6 +6,8 @@
 
 #include "Player.h"
 
+#include "Collision.h"
+
 struct CollisionResults
 {
 	CollisionResults(bool collided = false, int axis = 0, float over = 0.f);
