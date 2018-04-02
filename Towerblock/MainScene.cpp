@@ -34,6 +34,7 @@ void MainScene::Begin()
 	_Font.loadFromFile("Roboto-Regular.ttf");
 
 	Console::C()->Init(_Font, ConsoleTextSize, ConsoleLineLimit);
+
 };
 void MainScene::End()
 {

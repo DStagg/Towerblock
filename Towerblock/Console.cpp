@@ -23,7 +23,8 @@ void Console::Draw(sf::RenderWindow* rw)
 {
 	sf::RectangleShape background;
 	background.setPosition(0.f, 0.f);
-	background.setSize(sf::Vector2f((float)rw->getSize().x,(float)rw->getSize().y / 2.f));
+	//background.setSize(sf::Vector2f((float)rw->getSize().x,(float)rw->getSize().y / 2.f));
+	background.setSize(sf::Vector2f((float)rw->getSize().x, (float)(Console::C()->_TextSize * Console::C()->_LineLimit)));
 	background.setFillColor(ConsoleBackgroundColour);
 	rw->draw(background);
 
