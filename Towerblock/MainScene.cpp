@@ -44,6 +44,21 @@ void MainScene::Begin()
 
 	Console::C()->Init(_Font, ConsoleTextSize, ConsoleLineLimit);
 
+	_Circ1._X = 100.f;
+	_Circ1._Y = 100.f;
+	_Circ1._Radius = 50.f;
+	_Circ2._X = 175.f;
+	_Circ2._Y = 100.f;
+	_Circ2._Radius = 25.f;
+	_Box1._X = 200.f;
+	_Box1._Y = 100.f;
+	_Box1._Width = 100.f;
+	_Box1._Height = 50.f;
+	_Box2._X = 500.f;
+	_Box2._Y = 300.f;
+	_Box2._Width = 50.f;
+	_Box2._Height = 150.f;
+
 };
 void MainScene::End()
 {
@@ -75,6 +90,18 @@ void MainScene::Update(float dt)
 			{
 			case sf::Keyboard::F1:
 				_DrawLog = !_DrawLog;
+				break;
+			case sf::Keyboard::A:
+				_Circ1._X -= 1.f;
+				break;
+			case sf::Keyboard::D:
+				_Circ1._X += 1.f;
+				break;
+			case sf::Keyboard::W:
+				_Circ1._Y -= 1.f;
+				break;
+			case sf::Keyboard::S:
+				_Circ1._Y += 1.f;
 				break;
 			case sf::Keyboard::Left:
 				_CameraView.move(-32.f, 0.f);
@@ -136,6 +163,12 @@ void MainScene::Update(float dt)
 	float eSize = (_Enemy._Size._X + _Enemy._Size._Y) / 4.f;
 	if (CalcDistance(_Player._Position._X, _Player._Position._Y, _Enemy._Position._X, _Enemy._Position._Y) < pSize + eSize)
 		_Player.Knockback();//	TODO: add proper, sensibly located collision detection between enemy and player
+
+	//_Circ1._X = (float)sf::Mouse::getPosition(*_Window).x;
+	//_Circ1._Y = (float)sf::Mouse::getPosition(*_Window).y;
+
+	Console::C()->Clear();
+	Log("(" + FloatToString(_Circ1._X) + "," + FloatToString(_Circ1._Y) + ")");
 };
 void MainScene::DrawScreen()
 {
@@ -156,6 +189,15 @@ void MainScene::DrawScreen()
 	DebugDrawAABB(_Player.GenAABB(), _Window);
 	DebugDrawAABB(_Enemy.GenAABB(), _Window);
 	*/
+
+	DebugDrawAABB(_Box1, _Window);
+	DebugDrawAABB(_Box2, _Window);
+	if (CollideCircletoAABB(_Circ1, _Box1) || CollideCircletoAABB(_Circ1, _Box2) || CollideCircletoCircle(_Circ1, _Circ2))
+		DebugDrawCirc(_Circ1, _Window, sf::Color::Green);
+	else
+		DebugDrawCirc(_Circ1, _Window, sf::Color::Red);
+	DebugDrawCirc(_Circ2, _Window, sf::Color::Yellow);
+	
 	//	Health Bar
 	float barHeight = 50.f;
 	sf::RectangleShape backBar;
@@ -174,14 +216,26 @@ void MainScene::DrawScreen()
 		Console::C()->Draw(_Window);
 };
 
-void DebugDrawAABB(AABB box, sf::RenderWindow* rw)
+void DebugDrawAABB(AABB box, sf::RenderWindow* rw, sf::Color col)
 {
 	sf::RectangleShape rect;
 	rect.setSize(sf::Vector2f(box._Width, box._Height));
 	rect.setOutlineThickness(1.f);
-	rect.setOutlineColor(sf::Color::Green);
+	rect.setOutlineColor(col);
 	rect.setFillColor(sf::Color::Transparent);
 	rect.setPosition(box._X, box._Y);
 	rw->draw(rect);
 
+};
+
+void DebugDrawCirc(Circle circ, sf::RenderWindow* rw, sf::Color col)
+{
+	sf::CircleShape circle;
+	circle.setRadius(circ._Radius);
+	circle.setOutlineThickness(1.f);
+	circle.setOutlineColor(col);
+	circle.setFillColor(sf::Color::Transparent);
+	circle.setOrigin(circ._Radius, circ._Radius);
+	circle.setPosition(circ._X, circ._Y);
+	rw->draw(circle);
 };

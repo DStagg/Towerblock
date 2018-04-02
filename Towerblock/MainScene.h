@@ -48,9 +48,15 @@ private:
 	bool _DrawLog;
 
 	Bullet _B1, _B2, _B3, _B4;
+
+	Circle _Circ1;
+	Circle _Circ2;
+	AABB _Box1;
+	AABB _Box2;
 };
 
-void DebugDrawAABB(AABB box, sf::RenderWindow* rw);
+void DebugDrawAABB(AABB box, sf::RenderWindow* rw, sf::Color col = sf::Color::White);
+void DebugDrawCirc(Circle circ, sf::RenderWindow* rw, sf::Color col = sf::Color::White);
 
 //	TODO: 4.1 Player can fire bullets w/ cooldown
 //	TODO: 4.2 Bullets collide w/ enemy
