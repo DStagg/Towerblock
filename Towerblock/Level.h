@@ -8,21 +8,6 @@
 
 #include "Collision.h"
 
-struct CollisionResults
-{
-	CollisionResults(bool collided = false, int axis = 0, float over = 0.f);
-	
-	enum Axis
-	{
-		X = 0,
-		Y
-	};
-	
-	bool _Collided;	//	Did a collision occur?
-	int _MajorAxis;	//	Which axis (x or y) did the greatest degree of overlap occur on?
-	float _Overlap;	//	What is the greatest degree of overlap?
-};	//	TODO: revamp CollisionResults. May need to know minor axis overlap too (e.g. diagonal landing on floor, move up by y over)
-
 struct Tile
 {
 	Tile(int spr_id = 0, bool solid = false);
