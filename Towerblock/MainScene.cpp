@@ -51,9 +51,15 @@ void MainScene::Update(float dt)
 			SetRunning(false);
 		else if (Event.type == sf::Event::MouseButtonPressed)
 		{
-			std::cout << "Heading: " << CalcHeading(_Player._Position._X, _Player._Position._Y, (float)sf::Mouse::getPosition(*_Window).x, (float)sf::Mouse::getPosition(*_Window).y) << std::endl;
-			
-			std::cout << "Angle: " << CalcAngle(_Player._Position._X, _Player._Position._Y, (float)sf::Mouse::getPosition(*_Window).x, (float)sf::Mouse::getPosition(*_Window).y) << std::endl;
+			float heading = CalcHeading(_Player._Position._X, _Player._Position._Y, (float)sf::Mouse::getPosition(*_Window).x, (float)sf::Mouse::getPosition(*_Window).y);
+			std::cout << "Heading  : " << heading << std::endl;
+			std::cout << "- In rads: " << DegreeToRad(heading) << std::endl;
+			std::cout << "- Y Comp.: " << CalcYComp(heading) << std::endl;
+			std::cout << "- RYComp.: " << CalcYComp(DegreeToRad(heading)) << std::endl;
+			std::cout << "0: " << DegreeToRad(0.f) << " |90: " << DegreeToRad(90.f) << " |180: " << DegreeToRad(180.f) << " |270: " << DegreeToRad(270.f) << std::endl;
+			std::cout << "Cos: 0: " << CalcYComp(DegreeToRad(0.f)) << " |90: " << CalcYComp(DegreeToRad(90.f)) << " |180: " << CalcYComp(DegreeToRad(180.f)) << " |270: " << CalcYComp(DegreeToRad(270.f)) << std::endl;
+			std::cout << "Cos(0): " << cosf(0.f) << std::endl;
+			std::cout << "-----------" << std::endl;
 		}
 		else if (Event.type == sf::Event::KeyPressed && Event.key.code == sf::Keyboard::Escape)
 			SetRunning(false);
@@ -79,7 +85,8 @@ void MainScene::Update(float dt)
 				break;
 			}
 	}
-
+	//_Player._Facing = CalcHeading(_Player._Position._X, _Player._Position._Y, (float)sf::Mouse::getPosition(*_Window).x, (float)sf::Mouse::getPosition(*_Window).y);
+	_Player._Facing = CalcHeading(_Player._Position._X, _Player._Position._Y, _Enemy._Position._X, _Enemy._Position._Y);
 	_Player.Update(dt);
 	_Enemy.Update(dt);
 	CollisionResults pRes = _Level.WallCollision(&_Player);
@@ -110,6 +117,8 @@ void MainScene::DrawScreen()
 	//	Debug Draw Player
 	DebugDrawAABB(_Player.GenAABB(), _Window);
 	DebugDrawAABB(_Enemy.GenAABB(), _Window);
+
+	
 
 };
 

@@ -27,15 +27,34 @@ void Player::Update(float dt)
 
 	_Position._X += _Velocity._X * dt;
 	_Position._Y += _Velocity._Y * dt;
+
+//	_Facing = CalcHeading(_Position._X, _Position._Y, (float)sf::Mouse::getPosition().x, (float)sf::Mouse::getPosition().y);
+
 };
 
 void Player::Draw(sf::RenderWindow* rw)
 {
+	//	Draw main body
 	sf::CircleShape circ;
 	circ.setFillColor(sf::Color::Blue);
 	circ.setRadius(((float)_Size._X + (float)_Size._Y) / 4.f);
-	circ.setPosition(_Position._X, _Position._Y);
+	circ.setOrigin(circ.getRadius(), circ.getRadius());
+	circ.setPosition(_Position._X + circ.getRadius(), _Position._Y + circ.getRadius());
 	rw->draw(circ);
+
+	sf::RectangleShape rect;
+	rect.setSize(sf::Vector2f(100.f, 5.f));
+	rect.setFillColor(sf::Color::White);
+	rect.setPosition(_Position._X, _Position._Y);
+	rect.setRotation(_Facing-90.f);
+	rw->draw(rect);
+
+	sf::RectangleShape square;
+	square.setSize(sf::Vector2f(16.f, 16.f));
+	square.setFillColor(sf::Color::Magenta);
+	square.setPosition(_Position._X + (100.f * CalcXComp(_Facing)), _Position._Y + (100.f * CalcYComp(_Facing)));
+	rw->draw(square);
+
 };
 
 AABB Player::GenAABB()

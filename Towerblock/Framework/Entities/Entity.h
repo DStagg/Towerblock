@@ -22,6 +22,8 @@ public:
 	PairFloat	_Velocity;
 	PairFloat	_Size;
 
+	float _Facing;
+
 };
 
 

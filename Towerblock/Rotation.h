@@ -19,4 +19,13 @@ float CalcSFMLAngle(float startx, float starty, float endx, float endy);
 //	Up is 0, Right is 90, Down is 180, Left is 270
 //	Just returns CalcHeading()
 
+float CalcXComp(float heading);
+//	Calculates the x-axis component of a given heading (i.e. sin(heading))
+
+float CalcYComp(float heading);
+//	Calculates the y-axis component of a given heading (i.e. cos(heading))
+
+float CalcDistance(float x1, float y1, float x2, float y2);
+//	Calculates the distance between two points
+
 #endif
