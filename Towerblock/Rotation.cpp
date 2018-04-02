@@ -35,17 +35,16 @@ float CalcHeading(float dx, float dy)
 float CalcSFMLAngle(float startx, float starty, float endx, float endy)
 {
 	return RadToDegree(CalcAngle(startx, starty, endx, endy));
-	//return CalcHeading(startx, starty, endx, endy);
 };
 
 float CalcXComp(float heading)
 {
-	return sinf(DegreeToRad(heading));
+	return sinf(heading);
 };
 
 float CalcYComp(float heading)
 {
-	return cosf(DegreeToRad(heading));
+	return cosf(heading-Pi);
 };
 
 float CalcDistance(float x1, float y1, float x2, float y2)

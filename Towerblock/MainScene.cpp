@@ -135,11 +135,9 @@ void MainScene::DrawScreen()
 	_Window->draw(square);
 	
 	sf::RectangleShape rect;
-	rect.setSize(sf::Vector2f(CalcDistance(320.f, 320.f, sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y), 4.f));
+	rect.setSize(sf::Vector2f(16.f, 16.f));
 	rect.setFillColor(sf::Color::Magenta);
-	rect.setPosition(320.f, 320.f);
-	//rect.setOrigin(0.f, 2.f);
-	rect.setRotation(CalcSFMLAngle(320.f, 320.f, sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y));
+	rect.setPosition(320.f + (100.f * CalcXComp(CalcHeading(320.f, 320.f, sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y))), 320.f + (100.f * CalcYComp(CalcHeading(320.f, 320.f, sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y))));	
 	_Window->draw(rect);
 
 	sf::Text text;
@@ -159,6 +157,10 @@ void MainScene::DrawScreen()
 
 	text.setString("Heading: " + FloatToString(CalcHeading(320.f, 320.f, sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y)) + " | " + FloatToString(CalcHeading(320.f, 320.f, sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y) * 180.f / Pi) );
 	text.setPosition(0.f, 150.f);
+	_Window->draw(text);
+
+	text.setString("Components: (" + FloatToString(CalcXComp(CalcHeading(320.f, 320.f, sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y))) + "," + FloatToString(CalcYComp(CalcHeading(320.f, 320.f, sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y))) + ")");
+	text.setPosition(0.f, 200.f);
 	_Window->draw(text);
 };
 

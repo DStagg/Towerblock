@@ -36,6 +36,7 @@ float CalcXComp(float heading);
 
 float CalcYComp(float heading);
 //	Calculates the y-axis component of a given heading (i.e. cos(heading))
+//	Offset by Pi/2 (90deg) to work.
 
 float CalcDistance(float x1, float y1, float x2, float y2);
 //	Calculates the distance between two points
