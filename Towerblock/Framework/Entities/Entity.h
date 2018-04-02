@@ -16,15 +16,15 @@ public:
 	virtual void Draw(sf::RenderWindow* rw) = 0;
 	virtual AABB GenAABB() = 0;
 
-	bool _Alive;
+	bool _Alive = true;
 
-	PairFloat	_Position;
-	PairFloat	_Velocity;
-	PairFloat	_Size;
+	PairFloat	_Position = PairFloat(0.f,0.f);
+	PairFloat	_Velocity = PairFloat(0.f, 0.f);
+	PairFloat	_Size = PairFloat(0.f, 0.f);
 
-	float _Facing;
+	float _Facing = 0.f;
 
+	int _HP = 100;
 };
-
 
 #endif

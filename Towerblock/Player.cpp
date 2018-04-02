@@ -28,7 +28,8 @@ void Player::Update(float dt)
 	_Position._X += _Velocity._X * dt;
 	_Position._Y += _Velocity._Y * dt;
 
-//	_Facing = CalcHeading(_Position._X, _Position._Y, (float)sf::Mouse::getPosition().x, (float)sf::Mouse::getPosition().y);
+	if (_KnockbackTimer > 0.f)
+		_KnockbackTimer -= dt;
 
 };
 
@@ -53,4 +54,12 @@ void Player::Draw(sf::RenderWindow* rw)
 AABB Player::GenAABB()
 {
 	return AABB(_Position._X, _Position._Y, _Size._X, _Size._Y);
+};
+
+void Player::Knockback()
+{
+	if (_KnockbackTimer > 0.f)
+		return;
+	_KnockbackTimer = 1.f;
+	_HP -= 10.f;
 }

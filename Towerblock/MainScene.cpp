@@ -105,6 +105,11 @@ void MainScene::Update(float dt)
 		_Enemy._Velocity._X = -_Enemy._Velocity._X;
 		_Enemy._Velocity._Y = -_Enemy._Velocity._Y;
 	}
+
+	float pSize = (_Player._Size._X + _Player._Size._Y) / 4.f;
+	float eSize = (_Enemy._Size._X + _Enemy._Size._Y) / 4.f;
+	if (CalcDistance(_Player._Position._X, _Player._Position._Y, _Enemy._Position._X, _Enemy._Position._Y) < pSize + eSize)
+		_Player.Knockback();//	TODO: add proper, sensibly located collision detection between enemy and player
 };
 void MainScene::DrawScreen()
 {
@@ -122,22 +127,17 @@ void MainScene::DrawScreen()
 	//	Health Bar
 	float barHeight = 50.f;
 	sf::RectangleShape backBar;
-	backBar.setSize(sf::Vector2f(_Window->getSize().x, barHeight));
+	backBar.setSize(sf::Vector2f((float)_Window->getSize().x, barHeight));
 	backBar.setPosition(0.f, _Window->getSize().y - barHeight);
 	backBar.setFillColor(sf::Color(155, 155, 155));
 	_Window->draw(backBar);
-	//	TODO: hook up real player health values
-	float currHealth = 75.f;
-	float maxHealth = 100.f;
+	
 	sf::RectangleShape frontBar;
 	frontBar.setPosition(0.f, _Window->getSize().y - barHeight);
-	frontBar.setSize(sf::Vector2f(_Window->getSize().x * (currHealth / maxHealth), barHeight));
+	frontBar.setSize(sf::Vector2f(_Window->getSize().x * ((float)_Player._HP / 100.f), barHeight));
 	frontBar.setFillColor(sf::Color::Red);
 	_Window->draw(frontBar);
-
-
-
-
+	
 	if (_DrawLog)
 		Console::C()->Draw(_Window);
 };

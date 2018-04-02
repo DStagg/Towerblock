@@ -15,9 +15,11 @@ public:
 	void Draw(sf::RenderWindow* rw);
 	AABB GenAABB();
 
+	void Knockback();
+
 private:
 
-
+	float _KnockbackTimer = 0.f;
 
 };
 
