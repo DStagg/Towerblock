@@ -106,8 +106,8 @@ void MainScene::Update(float dt)
 	_B4.Update(dt);
 
 
-	CollisionResults pRes = _Level.WallCollision(&_Player);
-	CollisionResults eRes = _Level.WallCollision(&_Enemy);
+	CollisionResults pRes = _Level.WallCollision(_Player.GetMask());
+	CollisionResults eRes = _Level.WallCollision(_Enemy.GetMask());
 	if (pRes._Collided)
 	{
 		_Player._Position._X -= _Player._Velocity._X * dt;
@@ -132,11 +132,8 @@ void MainScene::Update(float dt)
 	if (b3._Collided) _B3._Velocity = PairFloat(0.f, 0.f);
 	if (b4._Collided) _B4._Velocity = PairFloat(0.f, 0.f);
 
-	float pSize = (_Player._Size._X + _Player._Size._Y) / 4.f;
-	float eSize = (_Enemy._Size._X + _Enemy._Size._Y) / 4.f;
-	if (CollideCircletoCircle(Circle(_Player._Position._X, _Player._Position._Y, pSize), Circle(_Enemy._Position._X, _Enemy._Position._Y, eSize)))
-		_Player.Knockback();//	TODO: add proper, sensibly located collision detection between enemy and player
-	//	TODO: get entities to generate generic collision masks (so far: AABB or Circle) and have a generic collision test
+	if (_Player.GetMask().Collide(_Enemy.GetMask()))
+		_Player.Knockback();
 };
 void MainScene::DrawScreen()
 {
@@ -145,8 +142,8 @@ void MainScene::DrawScreen()
 	sf::Sprite temp = _CompositeTex.BuildSprite();
 	_Window->draw(temp);
 	
-	_Player.Draw(_Window);
-	_Enemy.Draw(_Window);
+	//_Player.Draw(_Window);
+	//_Enemy.Draw(_Window);
 
 	_B1.Draw(_Window);
 	_B2.Draw(_Window);
@@ -154,8 +151,8 @@ void MainScene::DrawScreen()
 	_B4.Draw(_Window);
 
 	//	Debug Draw Player
-	DebugDrawAABB(_Player.GenAABB(), _Window);
-	DebugDrawAABB(_Enemy.GenAABB(), _Window);
+	DebugDrawMask(_Player.GetMask(), _Window);
+	DebugDrawMask(_Enemy.GetMask(), _Window);
 		
 	//	Health Bar
 	float barHeight = 50.f;
@@ -173,6 +170,16 @@ void MainScene::DrawScreen()
 	
 	if (_DrawLog)
 		Console::C()->Draw(_Window);
+};
+
+void DebugDrawMask(AABBMask mask, sf::RenderWindow* rw, sf::Color col)
+{
+	return DebugDrawAABB(mask._Mask, rw, col);
+};
+
+void DebugDrawMask(CircleMask mask, sf::RenderWindow* rw, sf::Color col)
+{
+	return DebugDrawCirc(mask._Mask, rw, col);
 };
 
 void DebugDrawAABB(AABB box, sf::RenderWindow* rw, sf::Color col)

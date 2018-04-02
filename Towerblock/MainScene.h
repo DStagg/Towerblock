@@ -51,6 +51,8 @@ private:
 
 };
 
+void DebugDrawMask(AABBMask mask, sf::RenderWindow* rw, sf::Color col = sf::Color::White);
+void DebugDrawMask(CircleMask mask, sf::RenderWindow* rw, sf::Color col = sf::Color::White);
 void DebugDrawAABB(AABB box, sf::RenderWindow* rw, sf::Color col = sf::Color::White);
 void DebugDrawCirc(Circle circ, sf::RenderWindow* rw, sf::Color col = sf::Color::White);
 

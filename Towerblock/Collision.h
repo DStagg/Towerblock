@@ -8,6 +8,40 @@
 
 #include "Rotation.h"
 
+class AABBMask;
+class CircleMask;
+
+class CollisionMask
+{
+public:
+
+	virtual bool Collide(CollisionMask& mask) = 0;
+	virtual bool CollideWith(AABBMask& mask) = 0;
+	virtual bool CollideWith(CircleMask& mask) = 0;
+};
+
+class AABBMask : public CollisionMask
+{
+public:
+
+	bool Collide(CollisionMask& mask);
+	bool CollideWith(AABBMask& mask);
+	bool CollideWith(CircleMask& mask);
+	
+	AABB _Mask;
+};
+
+class CircleMask : public CollisionMask
+{
+public:
+
+	bool Collide(CollisionMask& mask);
+	bool CollideWith(AABBMask& mask);
+	bool CollideWith(CircleMask& mask);
+
+	Circle _Mask;
+};
+
 struct CollisionResults
 {
 	CollisionResults(bool collided = false, int axis = 0, float over = 0.f);

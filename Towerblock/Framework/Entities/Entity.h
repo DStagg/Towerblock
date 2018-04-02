@@ -5,6 +5,8 @@
 #include "../Data/Pair.h"
 #include "SFML\Graphics.hpp"
 
+#include "../../Collision.h"
+
 class Entity
 {
 public:
@@ -25,6 +27,7 @@ public:
 	float _Facing = 0.f;
 
 	int _HP = 100;
+
 };
 
 #endif

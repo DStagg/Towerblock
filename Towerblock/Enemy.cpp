@@ -14,6 +14,8 @@ void Enemy::Update(float dt)
 {
 	_Position._X += _Velocity._X * dt;
 	_Position._Y += _Velocity._Y * dt;
+
+	_Mask._Mask = Circle(_Position._X, _Position._Y, 16.f);
 };
 
 void Enemy::Draw(sf::RenderWindow* rw)
@@ -28,4 +30,9 @@ void Enemy::Draw(sf::RenderWindow* rw)
 AABB Enemy::GenAABB()
 {
 	return AABB(_Position._X, _Position._Y, _Size._X, _Size._Y);
+};
+
+CircleMask& Enemy::GetMask()
+{
+	return _Mask;
 };

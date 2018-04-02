@@ -1,5 +1,44 @@
 #include "Collision.h"
 
+//	Double Dispatch
+
+bool AABBMask::Collide(CollisionMask& mask)
+{
+	return mask.CollideWith(*this);
+};
+bool AABBMask::CollideWith(AABBMask& mask)
+{
+	return CollideAABBtoAABB(_Mask, mask._Mask);
+};
+bool AABBMask::CollideWith(CircleMask& mask)
+{
+	return CollideAABBtoCircle(_Mask, mask._Mask);
+};
+
+bool CircleMask::Collide(CollisionMask& mask)
+{
+	return mask.CollideWith(*this);
+};
+
+bool CircleMask::CollideWith(AABBMask& mask)
+{
+	return CollideCircletoAABB(_Mask, mask._Mask);
+};
+
+bool CircleMask::CollideWith(CircleMask& mask)
+{
+	return CollideCircletoCircle(_Mask, mask._Mask);
+};
+
+//	Collision Results
+
+CollisionResults::CollisionResults(bool collided, int axis, float over)
+{
+	_Collided = collided;
+	_MajorAxis = axis;
+	_Overlap = over;
+};
+
 //	Points
 
 bool PointWithinAABB(PairFloat point, AABB box)

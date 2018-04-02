@@ -1,12 +1,5 @@
 #include "Level.h"
 
-CollisionResults::CollisionResults(bool collided, int axis, float over)
-{
-	_Collided = collided;
-	_MajorAxis = axis;
-	_Overlap = over;
-};
-
 /////
 
 Tile::Tile(int str_id, bool s)
@@ -86,6 +79,46 @@ CollisionResults Level::WallCollision(Entity* ent)
 			if (IsSolid(x, y))
 			{
 				return CollisionResults(true);	//	TODO: need to fill in rest of CollisionResults (axis & overlap)
+			}
+		}
+
+	return CollisionResults();
+};
+
+CollisionResults Level::WallCollision(AABBMask mask)
+{
+	int lCol = CalcCol(mask._Mask._X);
+	int rCol = CalcCol(mask._Mask.Right());
+	int tRow = CalcCol(mask._Mask._Y);
+	int bRow = CalcRow(mask._Mask.Bottom());
+
+	for (int x = lCol; x <= rCol; x++)
+		for (int y = tRow; y <= bRow; y++)
+		{
+			if (IsSolid(x, y))
+			{
+				return CollisionResults(true);	//	TODO: need to fill in rest of CollisionResults (axis & overlap)
+			}
+		}
+
+	return CollisionResults();
+};
+
+CollisionResults Level::WallCollision(CircleMask mask)
+{
+	int lCol = CalcCol((mask._Mask._X - mask._Mask._Radius) + 1.f);
+	int rCol = CalcCol((mask._Mask._X + mask._Mask._Radius) - 1.f);
+	int tRow = CalcCol((mask._Mask._Y - mask._Mask._Radius) + 1.f);
+	int bRow = CalcRow((mask._Mask._Y + mask._Mask._Radius) - 1.f);
+
+	for (int x = lCol; x <= rCol; x++)
+		for (int y = tRow; y <= bRow; y++)
+		{
+			if (IsSolid(x, y))
+			{
+				AABB box((float)x * _TileWidth, (float)y * _TileHeight, (float)_TileWidth, (float)_TileHeight);
+				if (CollideCircletoAABB(mask._Mask, box))
+					return CollisionResults(true);	//	TODO: need to fill in rest of CollisionResults (axis & overlap)
 			}
 		}
 

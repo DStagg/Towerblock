@@ -31,6 +31,7 @@ void Player::Update(float dt)
 	if (_KnockbackTimer > 0.f)
 		_KnockbackTimer -= dt;
 
+	_Mask._Mask = Circle(_Position._X, _Position._Y, 16.f);
 };
 
 void Player::Draw(sf::RenderWindow* rw)
@@ -61,5 +62,10 @@ void Player::Knockback()
 	if (_KnockbackTimer > 0.f)
 		return;
 	_KnockbackTimer = 1.f;
-	_HP -= 10.f;
+	_HP -= 10;
 }
+
+CircleMask& Player::GetMask()
+{
+	return _Mask;
+};

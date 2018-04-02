@@ -14,9 +14,11 @@ public:
 	void Draw(sf::RenderWindow* rw);
 	AABB GenAABB();
 	
+	CircleMask& GetMask();
+
 private:
 
-
+	CircleMask _Mask;
 };
 
 #endif

@@ -17,10 +17,12 @@ public:
 
 	void Knockback();
 
+	CircleMask& GetMask();
+
 private:
 
 	float _KnockbackTimer = 0.f;
-
+	CircleMask _Mask;
 };
 
 #endif
