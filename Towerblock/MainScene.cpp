@@ -119,6 +119,25 @@ void MainScene::DrawScreen()
 	DebugDrawAABB(_Player.GenAABB(), _Window);
 	DebugDrawAABB(_Enemy.GenAABB(), _Window);
 
+	//	Health Bar
+	float barHeight = 50.f;
+	sf::RectangleShape backBar;
+	backBar.setSize(sf::Vector2f(_Window->getSize().x, barHeight));
+	backBar.setPosition(0.f, _Window->getSize().y - barHeight);
+	backBar.setFillColor(sf::Color(155, 155, 155));
+	_Window->draw(backBar);
+	//	TODO: hook up real player health values
+	float currHealth = 75.f;
+	float maxHealth = 100.f;
+	sf::RectangleShape frontBar;
+	frontBar.setPosition(0.f, _Window->getSize().y - barHeight);
+	frontBar.setSize(sf::Vector2f(_Window->getSize().x * (currHealth / maxHealth), barHeight));
+	frontBar.setFillColor(sf::Color::Red);
+	_Window->draw(frontBar);
+
+
+
+
 	if (_DrawLog)
 		Console::C()->Draw(_Window);
 };
