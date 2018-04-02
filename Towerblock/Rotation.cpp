@@ -34,7 +34,8 @@ float CalcHeading(float dx, float dy)
 
 float CalcSFMLAngle(float startx, float starty, float endx, float endy)
 {
-	return CalcHeading(startx, starty, endx, endy) - 90.f;
+	return RadToDegree(CalcAngle(startx, starty, endx, endy));
+	//return CalcHeading(startx, starty, endx, endy);
 };
 
 float CalcXComp(float heading)

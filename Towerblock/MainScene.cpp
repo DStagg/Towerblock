@@ -134,6 +134,14 @@ void MainScene::DrawScreen()
 	square.setFillColor(sf::Color::White);
 	_Window->draw(square);
 	
+	sf::RectangleShape rect;
+	rect.setSize(sf::Vector2f(CalcDistance(320.f, 320.f, sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y), 4.f));
+	rect.setFillColor(sf::Color::Magenta);
+	rect.setPosition(320.f, 320.f);
+	//rect.setOrigin(0.f, 2.f);
+	rect.setRotation(CalcSFMLAngle(320.f, 320.f, sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y));
+	_Window->draw(rect);
+
 	sf::Text text;
 	text.setFont(_Font);
 
