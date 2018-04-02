@@ -81,7 +81,8 @@ void MainScene::Update(float dt)
 			SetRunning(false);
 		else if (Event.type == sf::Event::MouseButtonPressed)
 		{
-
+			_Circ1._X = (float)sf::Mouse::getPosition(*_Window).x;
+			_Circ1._Y = (float)sf::Mouse::getPosition(*_Window).y;
 		}
 		else if (Event.type == sf::Event::KeyPressed && Event.key.code == sf::Keyboard::Escape)
 			SetRunning(false);

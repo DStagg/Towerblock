@@ -1,2 +1,2 @@
-(583,367)
+(100,100)
 Log dumped to: Testlog
