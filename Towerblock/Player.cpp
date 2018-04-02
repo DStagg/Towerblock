@@ -43,17 +43,10 @@ void Player::Draw(sf::RenderWindow* rw)
 	rw->draw(circ);
 
 	sf::RectangleShape rect;
-	rect.setSize(sf::Vector2f(100.f, 5.f));
+	rect.setSize(sf::Vector2f(5.f, 5.f));
 	rect.setFillColor(sf::Color::White);
-	rect.setPosition(_Position._X, _Position._Y);
-	rect.setRotation(_Facing-90.f);
+	rect.setPosition(_Position._X + circ.getRadius() + (32.f * CalcXComp(_Facing)), _Position._Y + circ.getRadius() + (32.f * CalcYComp(_Facing)));
 	rw->draw(rect);
-
-	sf::RectangleShape square;
-	square.setSize(sf::Vector2f(16.f, 16.f));
-	square.setFillColor(sf::Color::Magenta);
-	square.setPosition(_Position._X + (100.f * CalcXComp(_Facing)), _Position._Y + (100.f * CalcYComp(_Facing)));
-	rw->draw(square);
 
 };
 
