@@ -130,15 +130,17 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 	_Player._Facing = CalcHeading((float)_Player._Position.getX(), (float)_Player._Position.getY(), sf::Mouse::getPosition(*rw).x, sf::Mouse::getPosition(*rw).y);
 	_Player.Update(dt);
 
+	//	Bullet update loop
 	for (int i = 0; i < (int)_Bullets.size(); i++)
 	{
 		_Bullets[i].Update(dt);
 
 		for (int e = 0; e < (int)_Enemies.size(); e++)
-		{
 			if (_Bullets[i].GetMask().Collide(_Enemies[e].GetMask())._Collided)
+			{
 				_Bullets[i]._Alive = false;
-		}
+				_Enemies[e]._Alive = false;
+			}
 
 		if (WallCollision(_Bullets[i].GetMask())._Collided)
 			_Bullets[i]._Alive = false;
