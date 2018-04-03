@@ -119,6 +119,14 @@ void Level::Fire()
 	_Bullets.push_back(temp);
 };
 
+void Level::Spawn(int x, int y)
+{
+	Enemy temp;
+	temp._Position.set(x, y);
+	temp._Velocity.Set( Random(-70, 70), Random(-70, 70) );
+	_Enemies.push_back(temp);
+};
+
 void Level::Update(float dt, sf::RenderWindow* rw)
 {
 	if (_FireTimer > 0.f)

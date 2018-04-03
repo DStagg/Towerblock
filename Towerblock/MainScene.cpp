@@ -57,7 +57,13 @@ void MainScene::Update(float dt)
 			SetRunning(false);
 		else if (Event.type == sf::Event::MouseButtonPressed)
 		{
-			//_Player._Position.set(sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y);
+			if (Event.mouseButton.button == sf::Mouse::Button::Left)
+			{
+				//_Player._Position.set(sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y);
+			}
+			else if (Event.mouseButton.button == sf::Mouse::Button::Right)
+				_Level.Spawn(sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y);
+
 			//Log("aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ1234567890!'£$%^&*()");
 		}
 		else if (Event.type == sf::Event::KeyPressed && Event.key.code == sf::Keyboard::Escape)
