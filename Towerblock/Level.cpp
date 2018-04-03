@@ -66,10 +66,10 @@ int Level::CalcRow(float y)
 
 CollisionResults Level::WallCollision(AABBMask mask)
 {
-	int lCol = CalcCol(mask._Mask._X);
-	int rCol = CalcCol(mask._Mask.Right());
-	int tRow = CalcCol(mask._Mask._Y);
-	int bRow = CalcRow(mask._Mask.Bottom());
+	int lCol = CalcCol((float)mask._Mask._X);
+	int rCol = CalcCol((float)mask._Mask.Right());
+	int tRow = CalcCol((float)mask._Mask._Y);
+	int bRow = CalcRow((float)mask._Mask.Bottom());
 
 	for (int x = lCol; x <= rCol; x++)
 		for (int y = tRow; y <= bRow; y++)
@@ -95,7 +95,7 @@ CollisionResults Level::WallCollision(CircleMask mask)
 		{
 			if (IsSolid(x, y))
 			{
-				AABB box((float)x * _TileWidth, (float)y * _TileHeight, (float)_TileWidth, (float)_TileHeight);
+				AABB box(x * _TileWidth, y * _TileHeight, _TileWidth, _TileHeight);
 				if (CollideCircletoAABB(mask._Mask, box)._Collided)
 					return CollisionResults(true);	//	TODO: need to fill in rest of CollisionResults (axis & overlap)
 			}

@@ -14,7 +14,7 @@ void Enemy::Update(float dt)
 {
 	_Position += _Velocity * dt;
 
-	_Mask._Mask = Circle((float)_Position.getX(), (float)_Position.getY(), 16.f);
+	_Mask._Mask = Circle(_Position.getX(), _Position.getY(), 16);
 };
 
 void Enemy::Draw(sf::RenderWindow* rw)
