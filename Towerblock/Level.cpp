@@ -164,7 +164,21 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 	}
 
 	for (int i = 0; i < (int)_Enemies.size(); i++)
+	{
 		_Enemies[i].Update(dt);
+
+		if (WallCollision(_Enemies[i].GetMask())._Collided)
+			_Enemies[i]._Velocity *= -1;
+
+		if (!AABB(0, 0, rw->getSize().x, rw->getSize().y).Contains(_Enemies[i]._Position.getX(), _Enemies[i]._Position.getY()))
+			_Enemies[i]._Alive = false;
+
+		if (!_Enemies[i]._Alive)
+		{
+			_Enemies.erase(_Enemies.begin() + i);
+			i--;
+		}
+	}
 };
 
 void Level::Draw(sf::RenderWindow* rw)
