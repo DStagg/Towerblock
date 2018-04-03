@@ -1,11 +1,11 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "Console.h"
+#include "Framework\Debug\Console.h"
 #include "Framework\Utility\Utility.h"
 
 #include "Framework\Entities\Entity.h"
-#include "Rotation.h"
+#include "Framework\Utility\Rotation.h"
 
 class Player : public Entity
 {

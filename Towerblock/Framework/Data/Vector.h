@@ -1,7 +1,7 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
-#include "Framework\Data\Pair.h"
+#include "Pair.h"
 #include <math.h>
 
 class Vec : public PairFloat

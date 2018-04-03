@@ -6,15 +6,13 @@
 #include "Framework/Scene.h"
 
 #include "Framework\Data\Grid.h"
-#include "CompositeTex.h"
+#include "Framework\Data\CompositeTex.h"
+
+#include "Framework\IO\ImageManager.h"
 
 #include "Player.h"
 #include "Enemy.h"
 #include "Level.h"
-
-#include "Rotation.h"
-
-#include "Console.h"
 
 #include "Bullet.h"
 
@@ -37,6 +35,8 @@ private:
 	sf::RenderWindow* _Window;
 	sf::View _CameraView;
 
+	ImageManager _ImgMan;
+
 	sf::Font _Font;
 	CompositeTex _CompositeTex;
 
@@ -50,11 +50,9 @@ void DebugDrawMask(CircleMask mask, sf::RenderWindow* rw, sf::Color col = sf::Co
 void DebugDrawAABB(AABB box, sf::RenderWindow* rw, sf::Color col = sf::Color::White);
 void DebugDrawCirc(Circle circ, sf::RenderWindow* rw, sf::Color col = sf::Color::White);
 
-//	TODO: 4.1 Player can fire bullets w/ cooldown
 //	TODO: 4.2 Bullets collide w/ enemy
 //	TODO: 4.3 Bullets harm & kill enemy
 //	TODO: 4.4 Multiple enemies on screen
-//	TODO: 4.5 Move new framework files to correct director and update #include paths
 //	TODO: 5.1 Add alt. fire mode (shotgun)
 //	TODO: 5.2 Display gun cooldown on screen
 //	TODO: 5.3 Player knocked back on harm

@@ -15,6 +15,8 @@ void MainScene::Begin()
 
 	_DrawLog = false;
 
+	//_ImgMan.SetDirectory("Resources");
+
 	sf::Image img;
 	img.loadFromFile("Tilesheet.png");
 	std::map<int, PairInt> dic;

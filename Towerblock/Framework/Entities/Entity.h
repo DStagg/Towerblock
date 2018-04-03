@@ -4,9 +4,9 @@
 #include "../Data/AABB.h"
 #include "../Data/Pair.h"
 #include "SFML\Graphics.hpp"
-#include "../../Vector.h"
-#include "../../Point.h"
-#include "../../Collision.h"
+#include "../Data/Vector.h"
+#include "../Data/Point.h"
+#include "../Data/Collision.h"
 
 class Entity
 {

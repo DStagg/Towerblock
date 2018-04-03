@@ -119,13 +119,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
-    <ClCompile Include="Circle.cpp" />
-    <ClCompile Include="Collision.cpp" />
-    <ClCompile Include="CompositeTex.cpp" />
-    <ClCompile Include="Console.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Framework\Data\AABB.cpp" />
+    <ClCompile Include="Framework\Data\Circle.cpp" />
+    <ClCompile Include="Framework\Data\Collision.cpp" />
+    <ClCompile Include="Framework\Data\CompositeTex.cpp" />
     <ClCompile Include="Framework\Data\Grid.cpp" />
+    <ClCompile Include="Framework\Data\Pair.cpp" />
+    <ClCompile Include="Framework\Data\Point.cpp" />
+    <ClCompile Include="Framework\Data\Vector.cpp" />
+    <ClCompile Include="Framework\Debug\Console.cpp" />
     <ClCompile Include="Framework\Entities\Entity.cpp" />
     <ClCompile Include="Framework\IO\AudioService.cpp" />
     <ClCompile Include="Framework\IO\BinaryFile.cpp" />
@@ -134,29 +137,29 @@
     <ClCompile Include="Framework\IO\ImageManager.cpp" />
     <ClCompile Include="Framework\IO\MenuList.cpp" />
     <ClCompile Include="Framework\IO\Service.cpp" />
+    <ClCompile Include="Framework\IO\TextFile.cpp" />
     <ClCompile Include="Framework\Scene.cpp" />
     <ClCompile Include="Framework\Utility\Random.cpp" />
+    <ClCompile Include="Framework\Utility\Rotation.cpp" />
     <ClCompile Include="Framework\Utility\Utility.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainScene.cpp" />
-    <ClCompile Include="Pair.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Point.cpp" />
-    <ClCompile Include="Rotation.cpp" />
-    <ClCompile Include="TextFile.cpp" />
-    <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
-    <ClInclude Include="Circle.h" />
-    <ClInclude Include="Collision.h" />
-    <ClInclude Include="CompositeTex.h" />
-    <ClInclude Include="Console.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Framework\Data\AABB.h" />
+    <ClInclude Include="Framework\Data\Circle.h" />
+    <ClInclude Include="Framework\Data\Collision.h" />
+    <ClInclude Include="Framework\Data\CompositeTex.h" />
     <ClInclude Include="Framework\Data\Grid.h" />
+    <ClInclude Include="Framework\Data\Line.h" />
     <ClInclude Include="Framework\Data\Pair.h" />
+    <ClInclude Include="Framework\Data\Point.h" />
+    <ClInclude Include="Framework\Data\Vector.h" />
+    <ClInclude Include="Framework\Debug\Console.h" />
     <ClInclude Include="Framework\Entities\Entity.h" />
     <ClInclude Include="Framework\IO\AudioService.h" />
     <ClInclude Include="Framework\IO\BinaryFile.h" />
@@ -165,17 +168,14 @@
     <ClInclude Include="Framework\IO\ImageManager.h" />
     <ClInclude Include="Framework\IO\MenuList.h" />
     <ClInclude Include="Framework\IO\Service.h" />
+    <ClInclude Include="Framework\IO\TextFile.h" />
     <ClInclude Include="Framework\Scene.h" />
     <ClInclude Include="Framework\Utility\Random.h" />
+    <ClInclude Include="Framework\Utility\Rotation.h" />
     <ClInclude Include="Framework\Utility\Utility.h" />
     <ClInclude Include="Level.h" />
-    <ClInclude Include="Line.h" />
     <ClInclude Include="MainScene.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="Point.h" />
-    <ClInclude Include="Rotation.h" />
-    <ClInclude Include="TextFile.h" />
-    <ClInclude Include="Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

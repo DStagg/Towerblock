@@ -2,8 +2,8 @@
 #define COMPOSITE_TEX_H
 //	TODO: move to framework folders
 #include "SFML\Graphics.hpp"
-#include "Framework\Data\Grid.h"
-#include "Framework\Data\Pair.h"
+#include "Grid.h"
+#include "Pair.h"
 
 //	CompositeTex holds an internal texture representing the entire composite image (such as a tiled map)
 //	This can then generate a sprite representing a specific section

@@ -1,14 +1,14 @@
 #ifndef COLLISION_H
 #define COLLISION_H
 
-#include "Framework\Data\Pair.h"
-#include "Framework\Data\AABB.h"
+#include "Pair.h"
+#include "AABB.h"
 #include "Circle.h"
 #include "Line.h"
 #include "Vector.h"
-#include "Rotation.h"
+#include "..\Utility\Rotation.h"
 #include "Point.h"
-#include "Framework\Utility\Utility.h"
+#include "..\Utility\Utility.h"
 
 class AABBMask;
 class CircleMask;
