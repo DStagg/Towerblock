@@ -117,7 +117,7 @@ CollisionResults CollideCircletoCircle(Circle circ1, Circle circ2)
 	float dist = (circ1._Radius + circ2._Radius) - CalcDistance(circ1._X, circ1._Y, circ2._X, circ2._Y);
 	if (dist > 0.f)
 	{
-		PairFloat uvec = UnitVec(PairFloat(circ2._X - circ1._X, circ2._Y - circ1._Y));
+		Vec uvec = (Vec(circ2._X, circ2._Y) - Vec(circ1._X , circ1._Y)).UnitVec();
 		return CollisionResults(true, PairFloat(uvec._X * dist , uvec._Y * dist));
 	}
 	return CollisionResults();

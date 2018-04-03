@@ -6,6 +6,8 @@
 
 class Vec : public PairFloat
 {
+public:
+
 	Vec(float x = 0.f, float y = 0.f);
 	Vec(PairFloat p);
 

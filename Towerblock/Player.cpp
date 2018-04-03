@@ -25,8 +25,7 @@ void Player::Update(float dt)
 	else
 		_Velocity._X = 0.f;
 
-	_Position._X += _Velocity._X * dt;
-	_Position._Y += _Velocity._Y * dt;
+	_Position += _Velocity * dt;
 
 	if (_KnockbackTimer > 0.f)
 		_KnockbackTimer -= dt;

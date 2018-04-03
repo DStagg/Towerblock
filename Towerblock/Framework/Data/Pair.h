@@ -26,10 +26,4 @@ struct Pair
 typedef Pair<float> PairFloat;
 typedef Pair<int> PairInt;
 
-PairFloat UnitVec(PairFloat input)
-{
-	float factor = sqrtf((input._X * input._X) + (input._Y * input._Y));
-	return PairFloat(input._X / factor, input._Y / factor);
-};
-
 #endif

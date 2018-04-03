@@ -5,7 +5,7 @@
 #include "Framework\Data\AABB.h"
 #include "Circle.h"
 #include "Line.h"
-
+#include "Vector.h"
 #include "Rotation.h"
 
 class AABBMask;

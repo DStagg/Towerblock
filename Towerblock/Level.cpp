@@ -96,7 +96,7 @@ CollisionResults Level::WallCollision(CircleMask mask)
 			if (IsSolid(x, y))
 			{
 				AABB box((float)x * _TileWidth, (float)y * _TileHeight, (float)_TileWidth, (float)_TileHeight);
-				if (CollideCircletoAABB(mask._Mask, box))
+				if (CollideCircletoAABB(mask._Mask, box)._Collided)
 					return CollisionResults(true);	//	TODO: need to fill in rest of CollisionResults (axis & overlap)
 			}
 		}

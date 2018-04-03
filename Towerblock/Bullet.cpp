@@ -11,9 +11,8 @@ Bullet::~Bullet()
 
 void Bullet::Update(float dt)
 {
-	_Position._X += _Velocity._X * dt;
-	_Position._Y += _Velocity._Y * dt;
-
+	_Position += _Velocity * dt;
+	
 	_Mask._Mask = Circle(_Position._X, _Position._Y, 16.f);
 };
 

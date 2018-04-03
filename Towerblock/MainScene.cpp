@@ -132,7 +132,7 @@ void MainScene::Update(float dt)
 	if (b3._Collided) _B3._Velocity = PairFloat(0.f, 0.f);
 	if (b4._Collided) _B4._Velocity = PairFloat(0.f, 0.f);
 
-	if (_Player.GetMask().Collide(_Enemy.GetMask()))
+	if (_Player.GetMask().Collide(_Enemy.GetMask())._Collided)
 		_Player.Knockback();
 };
 void MainScene::DrawScreen()
