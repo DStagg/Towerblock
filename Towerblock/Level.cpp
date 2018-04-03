@@ -134,6 +134,15 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 	{
 		_Bullets[i].Update(dt);
 
+		for (int e = 0; e < (int)_Enemies.size(); e++)
+		{
+			if (_Bullets[i].GetMask().Collide(_Enemies[e].GetMask())._Collided)
+				_Bullets[i]._Alive = false;
+		}
+
+		if (WallCollision(_Bullets[i].GetMask())._Collided)
+			_Bullets[i]._Alive = false;
+
 		if (!AABB(0, 0, rw->getSize().x, rw->getSize().y).Contains(_Bullets[i]._Position.getX(), _Bullets[i]._Position.getY()))
 			_Bullets[i]._Alive = false;
 
