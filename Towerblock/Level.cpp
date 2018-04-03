@@ -166,7 +166,7 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 	for (int i = 0; i < (int)_Enemies.size(); i++)
 	{
 		_Enemies[i].Update(dt);
-
+		//	TODO: fix resolution of enemy<-> wall collision. Not enough to reverse velocity - need to move out of wall also.
 		if (WallCollision(_Enemies[i].GetMask())._Collided)
 			_Enemies[i]._Velocity *= -1;
 
