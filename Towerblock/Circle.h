@@ -1,15 +1,18 @@
 #ifndef CIRCLE_H
 #define CIRCLE_H
 
-struct Circle
+#include <math.h>
+
+class Circle
 {
-	Circle(float x = 0.f, float y = 0.f, float r = 0.f)
-	{
-		_X = x;
-		_Y = y;
-		_Radius = r;
-	}
-	float _X, _Y, _Radius;
+public:
+
+	Circle(int x = 0, int y = 0, int r = 0);
+
+	bool Contains(int x, int y);
+	bool Intersects(Circle c);
+	
+	int _X, _Y, _Radius;
 };
 
 #endif

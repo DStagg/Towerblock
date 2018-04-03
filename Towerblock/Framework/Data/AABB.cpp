@@ -2,13 +2,13 @@
 
 AABB::AABB()
 {
-	_X = 0.f;
-	_Y = 0.f;
-	_Width = 1.f;
-	_Height = 1.f;
+	_X = 0;
+	_Y = 0;
+	_Width = 1;
+	_Height = 1;
 }
 
-AABB::AABB(float x, float y, float w, float h)
+AABB::AABB(int x, int y, int w, int h)
 {
 	_X = x;
 	_Y = y;
@@ -21,17 +21,24 @@ AABB::~AABB()
 
 };
 
-float AABB::Bottom()
+int AABB::Top()
 {
-	return _Y + _Height - 1.f;
+	return _Y;
+};
+int AABB::Bottom()
+{
+	return _Y + _Height - 1;
+};
+int AABB::Left()
+{
+	return _X;
+};
+int AABB::Right()
+{
+	return _X + _Width - 1;
 };
 
-float AABB::Right()
-{
-	return _X + _Width - 1.f;
-};
-
-bool AABB::Contains(float x, float y)
+bool AABB::Contains(int x, int y)
 {
 	if ((x < _X) || (x > Right()))
 		return false;

@@ -6,15 +6,17 @@ class AABB
 public:
 
 	AABB();
-	AABB(float x, float y, float w, float h);	//	Defines an axis-aligned bounding box with top-left (x,y) and dimensions (w,h)
+	AABB(int x, int y, int w, int h);	//	Defines an axis-aligned bounding box with top-left (x,y) and dimensions (w,h)
 	~AABB();
 
-	float Right();
-	float Bottom();
+	int Left();
+	int Right();
+	int Top();
+	int Bottom();
 
-	float _X, _Y, _Width, _Height;
+	int _X, _Y, _Width, _Height;
 
-	bool Contains(float x, float y);
+	bool Contains(int x, int y);
 	bool Intersects(AABB box);
 };
 

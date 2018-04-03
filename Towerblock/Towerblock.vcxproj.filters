@@ -113,6 +113,9 @@
     <ClCompile Include="Point.cpp">
       <Filter>Framework\Data</Filter>
     </ClCompile>
+    <ClCompile Include="Circle.cpp">
+      <Filter>Source Files\Level</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainScene.h">

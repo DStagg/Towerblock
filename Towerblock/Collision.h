@@ -7,6 +7,8 @@
 #include "Line.h"
 #include "Vector.h"
 #include "Rotation.h"
+#include "Point.h"
+#include "Framework\Utility\Utility.h"
 
 class AABBMask;
 class CircleMask;
@@ -16,7 +18,7 @@ struct CollisionResults
 	CollisionResults(bool collided = false, PairFloat overlap = PairFloat(0.f, 0.f));
 
 	bool _Collided;		//	Did a collision occur?
-	PairFloat _Overlap;	//	What is the overlap on each axis?
+	Vec _Overlap;	//	What is the overlap on each axis?
 };	//	TODO: revamp CollisionResults. May need to know minor axis overlap too (e.g. diagonal landing on floor, move up by y over)
 
 class CollisionMask
@@ -32,6 +34,8 @@ class AABBMask : public CollisionMask
 {
 public:
 
+	AABBMask(AABB box = AABB());
+
 	CollisionResults Collide(CollisionMask& mask);
 	CollisionResults CollideWith(AABBMask& mask);
 	CollisionResults CollideWith(CircleMask& mask);
@@ -43,6 +47,8 @@ class CircleMask : public CollisionMask
 {
 public:
 
+	CircleMask(Circle circ = Circle());
+
 	CollisionResults Collide(CollisionMask& mask);
 	CollisionResults CollideWith(AABBMask& mask);
 	CollisionResults CollideWith(CircleMask& mask);
@@ -50,10 +56,9 @@ public:
 	Circle _Mask;
 };
 
-//	TODO: have the various collision functions actually return CollisionResults
-bool PointWithinAABB(PairFloat point, AABB box);
-bool PointWithinCircle(PairFloat point, Circle circ);
-bool PointWithinLine(PairFloat point, Line line);
+bool PointWithinAABB(Point point, AABB box);
+bool PointWithinCircle(Point point, Circle circ);
+bool PointWithinLine(Point point, Line line);
 
 CollisionResults CollideAABBtoAABB(AABB box1, AABB box2);
 CollisionResults CollideAABBtoCircle(AABB box, Circle circ);

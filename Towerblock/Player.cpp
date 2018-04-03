@@ -30,7 +30,7 @@ void Player::Update(float dt)
 	if (_KnockbackTimer > 0.f)
 		_KnockbackTimer -= dt;
 
-	_Mask._Mask = Circle((float)_Position.getX(), (float)_Position.getY(), 16.f);
+	_Mask._Mask = Circle(_Position.getX(), _Position.getY(), 16);
 };
 
 void Player::Draw(sf::RenderWindow* rw)
