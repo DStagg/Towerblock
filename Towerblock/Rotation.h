@@ -39,6 +39,6 @@ float CalcYComp(float heading);
 //	Offset by Pi/2 (90deg) to work.
 
 float CalcDistance(float x1, float y1, float x2, float y2);
-//	Calculates the distance between two points
+//	Calculates the distance between two points. Always positive.
 
 #endif

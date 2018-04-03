@@ -104,6 +104,9 @@
     <ClCompile Include="Collision.cpp">
       <Filter>Source Files\Level</Filter>
     </ClCompile>
+    <ClCompile Include="Vector.cpp">
+      <Filter>Framework\Data</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainScene.h">
@@ -183,6 +186,9 @@
     </ClInclude>
     <ClInclude Include="Line.h">
       <Filter>Source Files\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>Framework\Data</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

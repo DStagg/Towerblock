@@ -142,6 +142,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rotation.cpp" />
     <ClCompile Include="TextFile.cpp" />
+    <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
@@ -170,6 +171,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Rotation.h" />
     <ClInclude Include="TextFile.h" />
+    <ClInclude Include="Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

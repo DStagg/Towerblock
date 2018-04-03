@@ -2,41 +2,38 @@
 
 //	Double Dispatch
 
-bool AABBMask::Collide(CollisionMask& mask)
+CollisionResults AABBMask::Collide(CollisionMask& mask)
 {
 	return mask.CollideWith(*this);
 };
-bool AABBMask::CollideWith(AABBMask& mask)
+CollisionResults AABBMask::CollideWith(AABBMask& mask)
 {
 	return CollideAABBtoAABB(_Mask, mask._Mask);
 };
-bool AABBMask::CollideWith(CircleMask& mask)
+CollisionResults AABBMask::CollideWith(CircleMask& mask)
 {
 	return CollideAABBtoCircle(_Mask, mask._Mask);
 };
 
-bool CircleMask::Collide(CollisionMask& mask)
+CollisionResults CircleMask::Collide(CollisionMask& mask)
 {
 	return mask.CollideWith(*this);
 };
-
-bool CircleMask::CollideWith(AABBMask& mask)
+CollisionResults CircleMask::CollideWith(AABBMask& mask)
 {
 	return CollideCircletoAABB(_Mask, mask._Mask);
 };
-
-bool CircleMask::CollideWith(CircleMask& mask)
+CollisionResults CircleMask::CollideWith(CircleMask& mask)
 {
 	return CollideCircletoCircle(_Mask, mask._Mask);
 };
 
 //	Collision Results
 
-CollisionResults::CollisionResults(bool collided, int axis, float over)
+CollisionResults::CollisionResults(bool collided, PairFloat overlap)
 {
 	_Collided = collided;
-	_MajorAxis = axis;
-	_Overlap = over;
+	_Overlap = overlap;
 };
 
 //	Points
@@ -64,7 +61,7 @@ bool PointWithinLine(PairFloat point, Line line)
 
 //	AABB
 
-bool CollideAABBtoAABB(AABB box1, AABB box2)
+CollisionResults CollideAABBtoAABB(AABB box1, AABB box2)
 {
 	if (box1.Right() < box2._X) return false;
 	if (box1._X > box2.Right()) return false;
@@ -73,7 +70,7 @@ bool CollideAABBtoAABB(AABB box1, AABB box2)
 	return true;
 };
 
-bool CollideAABBtoCircle(AABB box, Circle circ)
+CollisionResults CollideAABBtoCircle(AABB box, Circle circ)
 {
 	//	Based off of: https://gamedev.stackexchange.com/questions/96337/collision-between-aabb-and-circle
 	
@@ -100,41 +97,56 @@ bool CollideAABBtoCircle(AABB box, Circle circ)
 	return false;
 };
 
-bool CollideAABBtoLine(AABB box, Line line)
+CollisionResults CollideAABBtoLine(AABB box, Line line)
 {
 	return false;	//	TODO: fill in AABB<->line collision
 }
 
 //	Circle
 
-bool CollideCircletoAABB(Circle circ, AABB box)
+CollisionResults CollideCircletoAABB(Circle circ, AABB box)
 {
-	return CollideAABBtoCircle(box, circ);
+	CollisionResults temp = CollideAABBtoCircle(box, circ);
+	temp._Overlap._X = -temp._Overlap._X;
+	temp._Overlap._Y = -temp._Overlap._Y;
+	return temp;
 };
 
-bool CollideCircletoCircle(Circle circ1, Circle circ2)
+CollisionResults CollideCircletoCircle(Circle circ1, Circle circ2)
 {
-	return CalcDistance(circ1._X, circ1._Y, circ2._X, circ2._Y) <= circ1._Radius + circ2._Radius;
+	float dist = (circ1._Radius + circ2._Radius) - CalcDistance(circ1._X, circ1._Y, circ2._X, circ2._Y);
+	if (dist > 0.f)
+	{
+		PairFloat uvec = UnitVec(PairFloat(circ2._X - circ1._X, circ2._Y - circ1._Y));
+		return CollisionResults(true, PairFloat(uvec._X * dist , uvec._Y * dist));
+	}
+	return CollisionResults();
 };
 
-bool CollideCircletoLine(Circle circ, Line line)
+CollisionResults CollideCircletoLine(Circle circ, Line line)
 {
-	return false;	//	TODO: fill in circle<->line collision
+	return CollisionResults();	//	TODO: fill in circle<->line collision
 };
 
 //	Line
 
-bool CollideLinetoAABB(Line line, AABB box)
+CollisionResults CollideLinetoAABB(Line line, AABB box)
 {
-	return CollideAABBtoLine(box, line);
+	CollisionResults temp = CollideAABBtoLine(box, line);
+	temp._Overlap._X = -temp._Overlap._X;
+	temp._Overlap._Y = -temp._Overlap._Y;
+	return temp;
 };
 
-bool CollideLinetoCircle(Line line, Circle circ)
+CollisionResults CollideLinetoCircle(Line line, Circle circ)
 {
-	return CollideCircletoLine(circ, line);
+	CollisionResults temp = CollideCircletoLine(circ, line);
+	temp._Overlap._X = -temp._Overlap._X;
+	temp._Overlap._Y = -temp._Overlap._Y;
+	return temp;
 };
 
-bool CollideLinetoLine(Line line1, Line line2)
+CollisionResults CollideLinetoLine(Line line1, Line line2)
 {
-	return false;	//	TODO: fill in line<->line collision
+	return CollisionResults();	//	TODO: fill in line<->line collision
 };
