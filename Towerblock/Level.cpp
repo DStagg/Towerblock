@@ -131,12 +131,18 @@ void Level::Update(float dt)
 
 	for (int i = 0; i < (int)_Bullets.size(); i++)
 		_Bullets[i].Update(dt);
+
+	for (int i = 0; i < (int)_Enemies.size(); i++)
+		_Enemies[i].Update(dt);
 };
 
 void Level::Draw(sf::RenderWindow* rw)
 {
-	_Player.Draw(rw);
+	for (int i = 0; i < (int)_Enemies.size(); i++)
+		_Enemies[i].Draw(rw);
 
 	for (int i = 0; i < (int)_Bullets.size(); i++)
 		_Bullets[i].Draw(rw);
+
+	_Player.Draw(rw);
 };
