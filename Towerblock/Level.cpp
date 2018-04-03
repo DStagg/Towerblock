@@ -197,3 +197,8 @@ void Level::Draw(sf::RenderWindow* rw)
 
 	_Player.Draw(rw);
 };
+
+Player& Level::GetPlayer()
+{
+	return _Player;
+};

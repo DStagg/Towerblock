@@ -42,6 +42,8 @@ public:
 	void Update(float dt, sf::RenderWindow* rw);
 	void Draw(sf::RenderWindow* rw);
 
+	Player& GetPlayer();
+
 private:
 
 	Grid _Tiles;

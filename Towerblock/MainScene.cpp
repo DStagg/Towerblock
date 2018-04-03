@@ -106,6 +106,7 @@ void MainScene::DrawScreen()
 
 	_Level.Draw(_Window);
 
+	_Window->setView(_Window->getDefaultView());
 	
 	//	Health Bar
 	float barHeight = 50.f;
@@ -115,12 +116,11 @@ void MainScene::DrawScreen()
 	backBar.setFillColor(sf::Color(155, 155, 155));
 	_Window->draw(backBar);
 	
-	//sf::RectangleShape frontBar;
-	//frontBar.setPosition(0.f, _Window->getSize().y - barHeight);
-	//frontBar.setSize(sf::Vector2f(_Window->getSize().x * ((float)_Player._HP / 100.f), barHeight));
-	//frontBar.setFillColor(sf::Color::Red);
-	//_Window->draw(frontBar);
-	//	TODO: re-enable player health bar
+	sf::RectangleShape frontBar;
+	frontBar.setPosition(0.f, _Window->getSize().y - barHeight);
+	frontBar.setSize(sf::Vector2f(_Window->getSize().x * ((float)_Level.GetPlayer()._HP / 100.f), barHeight));
+	frontBar.setFillColor(sf::Color::Red);
+	_Window->draw(frontBar);
 	
 	if (_DrawLog)
 		Console::C()->Draw(_Window);
