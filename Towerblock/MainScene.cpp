@@ -88,7 +88,7 @@ void MainScene::Update(float dt)
 			}
 	}
 
-	_Level.Update(dt);
+	_Level.Update(dt, _Window);
 
 };
 void MainScene::DrawScreen()

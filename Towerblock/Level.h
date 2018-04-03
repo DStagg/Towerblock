@@ -37,7 +37,7 @@ public:
 	CollisionResults WallCollision(CircleMask mask);
 
 	void Fire();
-	void Update(float dt);
+	void Update(float dt, sf::RenderWindow* rw);
 	void Draw(sf::RenderWindow* rw);
 
 private:
