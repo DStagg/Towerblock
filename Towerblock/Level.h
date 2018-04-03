@@ -9,6 +9,7 @@
 #include "Enemy.h"
 
 #include "Framework\Data\Collision.h"
+#include "Framework\Debug\DebugDraw.h"
 
 struct Tile
 {

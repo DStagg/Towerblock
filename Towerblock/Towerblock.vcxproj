@@ -129,6 +129,7 @@
     <ClCompile Include="Framework\Data\Point.cpp" />
     <ClCompile Include="Framework\Data\Vector.cpp" />
     <ClCompile Include="Framework\Debug\Console.cpp" />
+    <ClCompile Include="Framework\Debug\DebugDraw.cpp" />
     <ClCompile Include="Framework\Entities\Entity.cpp" />
     <ClCompile Include="Framework\IO\AudioService.cpp" />
     <ClCompile Include="Framework\IO\BinaryFile.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Framework\Data\Point.h" />
     <ClInclude Include="Framework\Data\Vector.h" />
     <ClInclude Include="Framework\Debug\Console.h" />
+    <ClInclude Include="Framework\Debug\DebugDraw.h" />
     <ClInclude Include="Framework\Entities\Entity.h" />
     <ClInclude Include="Framework\IO\AudioService.h" />
     <ClInclude Include="Framework\IO\BinaryFile.h" />

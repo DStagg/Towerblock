@@ -165,7 +165,10 @@ void Level::Draw(sf::RenderWindow* rw)
 		_Enemies[i].Draw(rw);
 
 	for (int i = 0; i < (int)_Bullets.size(); i++)
+	{
 		_Bullets[i].Draw(rw);
+		DebugDrawMask(_Bullets[i].GetMask(), rw);
+	}
 
 	_Player.Draw(rw);
 };
