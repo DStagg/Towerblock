@@ -67,6 +67,9 @@ bool ImageManager::LoadTextureFromFile(std::string tag, std::string filename)
 	sf::Image img;
 	sf::Texture tex;
 
+	if (GetDirectory() != "")
+		filename = GetDirectory() + "\\" + filename;
+
 	if (img.loadFromFile(filename))
 	{
 		img.createMaskFromColor(GetTransMask());
@@ -123,6 +126,15 @@ void ImageManager::SetSmooth(bool b)
 bool ImageManager::GetSmooth()
 {
 	return _Smooth;
+};
+
+void ImageManager::SetDirectory(std::string dir)
+{
+	_Subdirectory = dir;
+};
+std::string ImageManager::GetDirectory()
+{
+	return _Subdirectory;
 };
 
 ///

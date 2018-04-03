@@ -45,6 +45,9 @@ public:
 	void SetSmooth(bool b);
 	bool GetSmooth();
 
+	void SetDirectory(std::string directory);
+	std::string GetDirectory();
+
 private:
 
 	sf::Color _TransparencyMask;
@@ -53,6 +56,7 @@ private:
 	std::map<std::string, sf::Texture> _Textures;
 	std::map<std::string, Animation> _Animations;
 
+	std::string _Subdirectory = "";
 };
 
 sf::IntRect AnimIntRect(Animation anim);

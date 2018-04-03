@@ -15,10 +15,11 @@ void MainScene::Begin()
 
 	_DrawLog = false;
 
-	//_ImgMan.SetDirectory("Resources");
-
-	sf::Image img;
-	img.loadFromFile("Tilesheet.png");
+	_ImgMan.SetDirectory("Resources");
+	_ImgMan.LoadTextureFromFile("Tilesheet", "Tilesheet.png");
+	
+	sf::Image img = _ImgMan.GetTexturePntr("Tilesheet")->copyToImage();
+	//img.loadFromFile("Tilesheet.png");
 	std::map<int, PairInt> dic;
 	dic[0] = PairInt(0, 0);
 	dic[1] = PairInt(1, 0);
