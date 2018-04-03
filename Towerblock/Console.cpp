@@ -24,10 +24,14 @@ void Console::Draw(sf::RenderWindow* rw)
 	sf::RectangleShape background;
 	background.setPosition(0.f, 0.f);
 	//background.setSize(sf::Vector2f((float)rw->getSize().x,(float)rw->getSize().y / 2.f));
+
+	int linesToShow = Console::C()->CountLines();
+	if (linesToShow == 0) linesToShow = 1;
+
 	if (Console::C()->CountLines() >= Console::C()->_LineLimit)
-		background.setSize(sf::Vector2f((float)rw->getSize().x, (float)(Console::C()->_TextSize * Console::C()->_LineLimit)));
+		background.setSize(sf::Vector2f((float)rw->getSize().x, (float)(Console::C()->_TextSize * Console::C()->_LineLimit) + (float)(ConsoleMarginHeight * 0.5f * Console::C()->_LineLimit) + (float)(ConsoleMarginHeight * 2)));
 	else
-		background.setSize(sf::Vector2f((float)rw->getSize().x, (float)(Console::C()->_TextSize * Console::C()->CountLines())));
+		background.setSize(sf::Vector2f((float)rw->getSize().x, (float)(Console::C()->_TextSize * linesToShow) + (float)((linesToShow-1) * ConsoleMarginHeight * 0.5f) + (float)(ConsoleMarginHeight * 2)));
 	background.setFillColor(ConsoleBackgroundColour);
 	rw->draw(background);
 	//	TODO: add margin above/below first/last lines and buffer between lines
@@ -43,7 +47,7 @@ void Console::Draw(sf::RenderWindow* rw)
 		if (start_line + i >= Console::C()->CountLines())
 			break;
 		text.setString(Console::C()->_TextLog[start_line + i]);
-		text.setPosition(0.f, (float)(i * Console::C()->_TextSize));
+		text.setPosition(0.f, (float)(i * Console::C()->_TextSize)+(float)(i * ConsoleMarginHeight * 0.5f) + (float)ConsoleMarginHeight);
 		rw->draw(text);
 	}
 

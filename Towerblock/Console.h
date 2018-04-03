@@ -10,6 +10,7 @@
 #define ConsoleBackgroundColour sf::Color(0, 0, 0, 155)
 #define ConsoleTextSize 16
 #define ConsoleLineLimit 20
+#define ConsoleMarginHeight 10
 #define Log(X) Console::C()->AddLine(X)
 
 class Console

@@ -58,6 +58,7 @@ void MainScene::Update(float dt)
 		else if (Event.type == sf::Event::MouseButtonPressed)
 		{
 			_Player._Position.set(sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y);
+			Log("aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ1234567890!'£$%^&*()");
 		}
 		else if (Event.type == sf::Event::KeyPressed && Event.key.code == sf::Keyboard::Escape)
 			SetRunning(false);
@@ -138,11 +139,11 @@ void DebugDrawMask(CircleMask mask, sf::RenderWindow* rw, sf::Color col)
 void DebugDrawAABB(AABB box, sf::RenderWindow* rw, sf::Color col)
 {
 	sf::RectangleShape rect;
-	rect.setSize(sf::Vector2f(box._Width, box._Height));
+	rect.setSize(sf::Vector2f((float)box._Width, (float)box._Height));
 	rect.setOutlineThickness(1.f);
 	rect.setOutlineColor(col);
 	rect.setFillColor(sf::Color::Transparent);
-	rect.setPosition(box._X, box._Y);
+	rect.setPosition((float)box._X, (float)box._Y);
 	rw->draw(rect);
 
 };
@@ -150,11 +151,11 @@ void DebugDrawAABB(AABB box, sf::RenderWindow* rw, sf::Color col)
 void DebugDrawCirc(Circle circ, sf::RenderWindow* rw, sf::Color col)
 {
 	sf::CircleShape circle;
-	circle.setRadius(circ._Radius);
+	circle.setRadius((float)circ._Radius);
 	circle.setOutlineThickness(1.f);
 	circle.setOutlineColor(col);
 	circle.setFillColor(sf::Color::Transparent);
-	circle.setOrigin(circ._Radius, circ._Radius);
-	circle.setPosition(circ._X, circ._Y);
+	circle.setOrigin((float)circ._Radius, (float)circ._Radius);
+	circle.setPosition((float)circ._X, (float)circ._Y);
 	rw->draw(circle);
 };
