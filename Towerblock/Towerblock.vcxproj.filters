@@ -107,6 +107,12 @@
     <ClCompile Include="Vector.cpp">
       <Filter>Framework\Data</Filter>
     </ClCompile>
+    <ClCompile Include="Pair.cpp">
+      <Filter>Framework\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="Point.cpp">
+      <Filter>Framework\Data</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainScene.h">
@@ -188,6 +194,9 @@
       <Filter>Source Files\Level</Filter>
     </ClInclude>
     <ClInclude Include="Vector.h">
+      <Filter>Framework\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Point.h">
       <Filter>Framework\Data</Filter>
     </ClInclude>
   </ItemGroup>
