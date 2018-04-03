@@ -37,18 +37,15 @@ private:
 	sf::RenderWindow* _Window;
 	sf::View _CameraView;
 
-	CompositeTex _CompositeTex;
-
-	Player _Player;
-	Enemy _Enemy, _E2, _E3;
-	Level _Level;
-
 	sf::Font _Font;
+	CompositeTex _CompositeTex;
 
 	bool _DrawLog;
 
-	Bullet _B1, _B2, _B3, _B4;
+	Level _Level;
 
+	Player _Player;
+	
 };
 
 void DebugDrawMask(AABBMask mask, sf::RenderWindow* rw, sf::Color col = sf::Color::White);

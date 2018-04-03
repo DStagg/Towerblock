@@ -23,23 +23,9 @@ void MainScene::Begin()
 	dic[2] = PairInt(1, 0);
 	dic[3] = PairInt(1, 1);
 	CompositeBuilder builder(img,PairInt(32,32),dic);
-	//	TODO: proper bullet<->wall collisions
-	_B1._Position = Point(250.f, 250.f);
-	_B2._Position = Point(250.f, 250.f);
-	_B3._Position = Point(250.f, 250.f);
-	_B4._Position = Point(250.f, 250.f);
-	_B1._Velocity = PairFloat(100.f, 0.f);
-	_B2._Velocity = PairFloat(-100.f, 0.f);
-	_B3._Velocity = PairFloat(0.f, 100.f);
-	_B4._Velocity = PairFloat(0.f, -100.f);
 
 	_Player._Position = Point(100.f, 100.f);
-	_Enemy._Position = Point(200.f, 200.f);
-	_Enemy._Velocity = PairFloat(70.f, 70.f);
-	_E2._Position = Point(200.f, 200.f);
-	_E2._Velocity = PairFloat(-100.f, 0.f);
-	_E3._Position = Point(200.f, 200.f);
-	_E3._Velocity = PairFloat(0.f, -100.f);
+
 	_Level.GenerateBox(20, 10);
 
 	builder.BuildCompositeTex(_Level.GetGrid(), &_CompositeTex);
@@ -100,64 +86,15 @@ void MainScene::Update(float dt)
 			}
 	}
 
-	_Player._Facing = CalcHeading((float)_Player._Position.getX(), (float)_Player._Position.getY(), (float)_Enemy._Position.getX(), (float)_Enemy._Position.getY());
 	_Player.Update(dt);
-	_Enemy.Update(dt);
-	_E2.Update(dt);
-	_E3.Update(dt);
-	_B1.Update(dt);
-	_B2.Update(dt);
-	_B3.Update(dt);
-	_B4.Update(dt);
-
 
 	CollisionResults pRes = _Level.WallCollision(_Player.GetMask());
-	CollisionResults eRes = _Level.WallCollision(_Enemy.GetMask());
 	if (pRes._Collided)
 	{
 		_Player._Position -= _Player._Velocity * dt;
 		_Player._Velocity = PairFloat(0.f, 0.f);
 	}
-	if (eRes._Collided)
-	{
-		_Enemy._Position -= _Enemy._Velocity * dt;
-		_Enemy._Velocity *= -1;
-	}
-	if (_Level.WallCollision(_E2.GetMask())._Collided)
-	{
-		_E2._Position -= _E2._Velocity * dt;
-		_E2._Velocity *= -1;
-	}
-	if (_Level.WallCollision(_E3.GetMask())._Collided)
-	{
-		_E3._Position -= _E3._Velocity * dt;
-		_E3._Velocity *= -1;
-	}
 
-	CollisionResults b1 = _Level.WallCollision(_B1.GetMask());
-	CollisionResults b2 = _Level.WallCollision(_B2.GetMask());
-	CollisionResults b3 = _Level.WallCollision(_B3.GetMask());
-	CollisionResults b4 = _Level.WallCollision(_B4.GetMask());
-
-	if (b1._Collided) _B1._Velocity = PairFloat(0.f, 0.f);
-	if (b2._Collided) _B2._Velocity = PairFloat(0.f, 0.f);
-	if (b3._Collided) _B3._Velocity = PairFloat(0.f, 0.f);
-	if (b4._Collided) _B4._Velocity = PairFloat(0.f, 0.f);
-
-	CollisionResults res = _Player.GetMask().Collide(_Enemy.GetMask());
-	if (res._Collided)
-	{
-		_Player.Knockback(res._Overlap);
-	}
-	CollisionResults res2 = _Player.GetMask().Collide(_E2.GetMask());
-	if (res2._Collided)
-	{
-		_E2._Velocity.Set(0.f, 0.f);
-		_Player.Knockback(res2._Overlap);
-	}
-	CollisionResults res3 = _Player.GetMask().Collide(_E3.GetMask());
-	if (res3._Collided)
-		_Player.Knockback(res3._Overlap);
 };
 void MainScene::DrawScreen()
 {
@@ -168,13 +105,6 @@ void MainScene::DrawScreen()
 
 	//	Debug Draw Player
 	DebugDrawMask(_Player.GetMask(), _Window);
-	DebugDrawMask(_Enemy.GetMask(), _Window);
-	DebugDrawMask(_E2.GetMask(), _Window);
-	DebugDrawMask(_E3.GetMask(), _Window);
-	DebugDrawMask(_B1.GetMask(), _Window, sf::Color::Black);
-	DebugDrawMask(_B2.GetMask(), _Window, sf::Color::Black);
-	DebugDrawMask(_B3.GetMask(), _Window, sf::Color::Black);
-	DebugDrawMask(_B4.GetMask(), _Window, sf::Color::Black);
 		
 	//	Health Bar
 	float barHeight = 50.f;
