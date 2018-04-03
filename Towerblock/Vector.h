@@ -20,6 +20,14 @@ class Vec : public PairFloat
 	Vec operator/(const int& i);
 	Vec operator/(const float& f);
 	Vec operator/(const Vec& v);
+	void operator+=(const Vec& v);
+	void operator-=(const Vec& v);
+	void operator*=(const int& i);
+	void operator*=(const float& f);
+	void operator*=(const Vec& v);
+	void operator/=(const int& i);
+	void operator/=(const float& f);
+	void operator/=(const Vec& v);
 
 };
 

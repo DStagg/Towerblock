@@ -51,3 +51,43 @@ Vec Vec::operator/(const Vec& v)
 {
 	return Vec(_X / v._X, _Y / v._Y);
 };
+void Vec::operator+=(const Vec& v)
+{
+	_X += v._X;
+	_Y += v._Y;
+};
+void Vec::operator-=(const Vec& v)
+{
+	_X -= v._X;
+	_Y -= v._Y;
+};
+void Vec::operator*=(const int& i)
+{
+	_X *= (float)i;
+	_Y *= (float)i;
+};
+void Vec::operator*=(const float& f)
+{
+	_X *= f;
+	_Y *= f;
+};
+void Vec::operator*=(const Vec& v)
+{
+	_X *= v._X;
+	_Y *= v._Y;
+};
+void Vec::operator/=(const int& i)
+{
+	_X /= (float)i;
+	_Y /= (float)i;
+};
+void Vec::operator/=(const float& f)
+{
+	_X /= f;
+	_Y /= f;
+};
+void Vec::operator/=(const Vec& v)
+{
+	_X /= v._X;
+	_Y /= v._Y;
+};
