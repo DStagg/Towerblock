@@ -27,6 +27,7 @@ void MainScene::Begin()
 	_Player._Position = Point(100.f, 100.f);
 
 	_Level.GenerateBox(20, 10);
+	_Level.GetGrid().SetCell(10, 5, 1);
 
 	builder.BuildCompositeTex(_Level.GetGrid(), &_CompositeTex);
 

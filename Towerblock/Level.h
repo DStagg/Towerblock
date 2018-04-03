@@ -24,7 +24,7 @@ public:
 
 	void GenerateBox(int w, int h);
 
-	Grid GetGrid();
+	Grid& GetGrid();
 	std::map<int, Tile> GetTileTypes();
 
 	bool IsSolid(int x, int y);

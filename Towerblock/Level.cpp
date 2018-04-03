@@ -38,7 +38,7 @@ void Level::GenerateBox(int w, int h)
 	_TileTypes[1] = Tile(1, true);
 };
 
-Grid Level::GetGrid()
+Grid& Level::GetGrid()
 {
 	return _Tiles;
 };
