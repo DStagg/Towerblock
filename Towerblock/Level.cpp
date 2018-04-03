@@ -12,7 +12,7 @@ Tile::Tile(int str_id, bool s)
 
 Level::Level()
 {
-
+	_Player._Position.set(200, 200);
 };
 
 Level::~Level()
@@ -80,7 +80,7 @@ CollisionResults Level::WallCollision(AABBMask mask)
 			}
 		}
 
-	return CollisionResults();
+	return CollisionResults(false);
 };
 
 CollisionResults Level::WallCollision(CircleMask mask)
@@ -101,5 +101,42 @@ CollisionResults Level::WallCollision(CircleMask mask)
 			}
 		}
 
-	return CollisionResults();
+	return CollisionResults(false);
+};
+
+//	HACK: need to get wall collision working better e.g. by checkng each axis one at a time, etc.
+
+void Level::Fire()
+{
+	if (_FireTimer > 0.f)
+		return;
+	_FireTimer = 0.2f;
+
+	Bullet temp;
+	temp._Position.set(_Player._Position.getX(), _Player._Position.getY());
+	temp._Velocity = Vec(CalcXComp(_Player._Facing), CalcYComp(_Player._Facing)).UnitVec() * 100.f;
+	temp._Position += temp._Velocity.UnitVec() * 50;
+	_Bullets.push_back(temp);
+};
+
+void Level::Update(float dt)
+{
+	if (_FireTimer > 0.f)
+		_FireTimer -= dt;
+
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+		Fire();
+
+	_Player.Update(dt);
+
+	for (int i = 0; i < (int)_Bullets.size(); i++)
+		_Bullets[i].Update(dt);
+};
+
+void Level::Draw(sf::RenderWindow* rw)
+{
+	_Player.Draw(rw);
+
+	for (int i = 0; i < (int)_Bullets.size(); i++)
+		_Bullets[i].Draw(rw);
 };

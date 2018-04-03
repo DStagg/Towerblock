@@ -5,6 +5,8 @@
 #include <map>
 
 #include "Player.h"
+#include "Bullet.h"
+#include "Enemy.h"
 
 #include "Collision.h"
 
@@ -34,6 +36,10 @@ public:
 	CollisionResults WallCollision(AABBMask mask);
 	CollisionResults WallCollision(CircleMask mask);
 
+	void Fire();
+	void Update(float dt);
+	void Draw(sf::RenderWindow* rw);
+
 private:
 
 	Grid _Tiles;
@@ -41,6 +47,12 @@ private:
 
 	int _TileWidth = 32;
 	int _TileHeight = 32;
+
+	float _FireTimer = 0.f;
+
+	Player _Player;
+	std::vector<Enemy> _Enemies;
+	std::vector<Bullet> _Bullets;
 };
 
 #endif

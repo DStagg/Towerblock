@@ -24,8 +24,6 @@ void MainScene::Begin()
 	dic[3] = PairInt(1, 1);
 	CompositeBuilder builder(img,PairInt(32,32),dic);
 
-	_Player._Position = Point(100.f, 100.f);
-
 	_Level.GenerateBox(20, 10);
 	_Level.GetGrid().SetCell(10, 5, 1);
 
@@ -57,8 +55,8 @@ void MainScene::Update(float dt)
 			SetRunning(false);
 		else if (Event.type == sf::Event::MouseButtonPressed)
 		{
-			_Player._Position.set(sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y);
-			Log("aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ1234567890!'£$%^&*()");
+			//_Player._Position.set(sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y);
+			//Log("aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ1234567890!'£$%^&*()");
 		}
 		else if (Event.type == sf::Event::KeyPressed && Event.key.code == sf::Keyboard::Escape)
 			SetRunning(false);
@@ -88,14 +86,7 @@ void MainScene::Update(float dt)
 			}
 	}
 
-	_Player.Update(dt);
-
-	CollisionResults pRes = _Level.WallCollision(_Player.GetMask());
-	if (pRes._Collided)
-	{
-		_Player._Position -= _Player._Velocity * dt;
-		_Player._Velocity = PairFloat(0.f, 0.f);
-	}
+	_Level.Update(dt);
 
 };
 void MainScene::DrawScreen()
@@ -105,9 +96,9 @@ void MainScene::DrawScreen()
 	sf::Sprite temp = _CompositeTex.BuildSprite();
 	_Window->draw(temp);
 
-	//	Debug Draw Player
-	DebugDrawMask(_Player.GetMask(), _Window);
-		
+	_Level.Draw(_Window);
+
+	
 	//	Health Bar
 	float barHeight = 50.f;
 	sf::RectangleShape backBar;
@@ -116,11 +107,12 @@ void MainScene::DrawScreen()
 	backBar.setFillColor(sf::Color(155, 155, 155));
 	_Window->draw(backBar);
 	
-	sf::RectangleShape frontBar;
-	frontBar.setPosition(0.f, _Window->getSize().y - barHeight);
-	frontBar.setSize(sf::Vector2f(_Window->getSize().x * ((float)_Player._HP / 100.f), barHeight));
-	frontBar.setFillColor(sf::Color::Red);
-	_Window->draw(frontBar);
+	//sf::RectangleShape frontBar;
+	//frontBar.setPosition(0.f, _Window->getSize().y - barHeight);
+	//frontBar.setSize(sf::Vector2f(_Window->getSize().x * ((float)_Player._HP / 100.f), barHeight));
+	//frontBar.setFillColor(sf::Color::Red);
+	//_Window->draw(frontBar);
+	//	TODO: re-enable player health bar
 	
 	if (_DrawLog)
 		Console::C()->Draw(_Window);

@@ -43,9 +43,6 @@ private:
 	bool _DrawLog;
 
 	Level _Level;
-
-	Player _Player;
-	
 };
 
 void DebugDrawMask(AABBMask mask, sf::RenderWindow* rw, sf::Color col = sf::Color::White);
