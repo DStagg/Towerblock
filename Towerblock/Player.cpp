@@ -51,13 +51,17 @@ void Player::Draw(sf::RenderWindow* rw)
 
 };
 
-void Player::Knockback()
+void Player::Knockback(PairFloat over)
 {
+	_Position -= Vec(over._X, over._Y) * 2.f;
 	if (_KnockbackTimer > 0.f)
 		return;
 	_KnockbackTimer = 1.f;
 	_HP -= 10;
-}
+	Log("(" + FloatToString(_Position._X + (over._X * 1.1f)) + "," + FloatToString(_Position._Y + (over._Y * 1.1f)) + ") - (" + FloatToString(over._X) + "," + FloatToString(over._Y) + ") * 1.1f = (" + FloatToString(_Position._X) + "," + FloatToString(_Position._Y) + ")");
+	
+	
+};
 
 CircleMask& Player::GetMask()
 {

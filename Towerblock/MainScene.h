@@ -40,7 +40,7 @@ private:
 	CompositeTex _CompositeTex;
 
 	Player _Player;
-	Enemy _Enemy;
+	Enemy _Enemy, _E2, _E3;
 	Level _Level;
 
 	sf::Font _Font;
@@ -60,6 +60,7 @@ void DebugDrawCirc(Circle circ, sf::RenderWindow* rw, sf::Color col = sf::Color:
 //	TODO: 4.2 Bullets collide w/ enemy
 //	TODO: 4.3 Bullets harm & kill enemy
 //	TODO: 4.4 Multiple enemies on screen
+//	TODO: 4.5 Move new framework files to correct director and update #include paths
 //	TODO: 5.1 Add alt. fire mode (shotgun)
 //	TODO: 5.2 Display gun cooldown on screen
 //	TODO: 5.3 Player knocked back on harm

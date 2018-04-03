@@ -36,6 +36,10 @@ void MainScene::Begin()
 	_Player._Position = PairFloat(100.f, 100.f);
 	_Enemy._Position = PairFloat(200.f, 200.f);
 	_Enemy._Velocity = PairFloat(70.f, 70.f);
+	_E2._Position = PairFloat(200.f, 200.f);
+	_E2._Velocity = PairFloat(-100.f, 0.f);
+	_E3._Position = PairFloat(200.f, 200.f);
+	_E3._Velocity = PairFloat(0.f, -100.f);
 	_Level.GenerateBox(20, 10);
 
 	builder.BuildCompositeTex(_Level.GetGrid(), &_CompositeTex);
@@ -66,7 +70,7 @@ void MainScene::Update(float dt)
 			SetRunning(false);
 		else if (Event.type == sf::Event::MouseButtonPressed)
 		{
-
+			_Player._Position.Set(sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y);
 		}
 		else if (Event.type == sf::Event::KeyPressed && Event.key.code == sf::Keyboard::Escape)
 			SetRunning(false);
@@ -99,7 +103,8 @@ void MainScene::Update(float dt)
 	_Player._Facing = CalcHeading(_Player._Position._X, _Player._Position._Y, _Enemy._Position._X, _Enemy._Position._Y);
 	_Player.Update(dt);
 	_Enemy.Update(dt);
-
+	_E2.Update(dt);
+	_E3.Update(dt);
 	_B1.Update(dt);
 	_B2.Update(dt);
 	_B3.Update(dt);
@@ -116,10 +121,18 @@ void MainScene::Update(float dt)
 	}
 	if (eRes._Collided)
 	{
-		_Enemy._Position._X -= _Enemy._Velocity._X * dt;
-		_Enemy._Position._Y -= _Enemy._Velocity._Y * dt;
-		_Enemy._Velocity._X = -_Enemy._Velocity._X;
-		_Enemy._Velocity._Y = -_Enemy._Velocity._Y;
+		_Enemy._Position -= _Enemy._Velocity * dt;
+		_Enemy._Velocity *= -1;
+	}
+	if (_Level.WallCollision(_E2.GetMask())._Collided)
+	{
+		_E2._Position -= _E2._Velocity * dt;
+		_E2._Velocity *= -1;
+	}
+	if (_Level.WallCollision(_E3.GetMask())._Collided)
+	{
+		_E3._Position -= _E3._Velocity * dt;
+		_E3._Velocity *= -1;
 	}
 
 	CollisionResults b1 = _Level.WallCollision(_B1.GetMask());
@@ -132,8 +145,20 @@ void MainScene::Update(float dt)
 	if (b3._Collided) _B3._Velocity = PairFloat(0.f, 0.f);
 	if (b4._Collided) _B4._Velocity = PairFloat(0.f, 0.f);
 
-	if (_Player.GetMask().Collide(_Enemy.GetMask())._Collided)
-		_Player.Knockback();
+	CollisionResults res = _Player.GetMask().Collide(_Enemy.GetMask());
+	if (res._Collided)
+	{
+		_Player.Knockback(res._Overlap);
+	}
+	CollisionResults res2 = _Player.GetMask().Collide(_E2.GetMask());
+	if (res2._Collided)
+	{
+		_E2._Velocity.Set(0.f, 0.f);
+		_Player.Knockback(res2._Overlap);
+	}
+	CollisionResults res3 = _Player.GetMask().Collide(_E3.GetMask());
+	if (res3._Collided)
+		_Player.Knockback(res3._Overlap);
 };
 void MainScene::DrawScreen()
 {
@@ -145,6 +170,8 @@ void MainScene::DrawScreen()
 	//	Debug Draw Player
 	DebugDrawMask(_Player.GetMask(), _Window);
 	DebugDrawMask(_Enemy.GetMask(), _Window);
+	DebugDrawMask(_E2.GetMask(), _Window);
+	DebugDrawMask(_E3.GetMask(), _Window);
 	DebugDrawMask(_B1.GetMask(), _Window, sf::Color::Black);
 	DebugDrawMask(_B2.GetMask(), _Window, sf::Color::Black);
 	DebugDrawMask(_B3.GetMask(), _Window, sf::Color::Black);
