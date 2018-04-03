@@ -166,6 +166,14 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 	for (int i = 0; i < (int)_Enemies.size(); i++)
 	{
 		_Enemies[i].Update(dt);
+
+		CollisionResults res = _Enemies[i].GetMask().Collide(_Player.GetMask());
+		if (res._Collided)
+		{
+			_Player.Knockback(res._Overlap);
+			_Enemies[i]._Position -= _Enemies[i]._Velocity * dt;
+		}
+
 		//	TODO: fix resolution of enemy<-> wall collision. Not enough to reverse velocity - need to move out of wall also.
 		if (WallCollision(_Enemies[i].GetMask())._Collided)
 			_Enemies[i]._Velocity *= -1;
@@ -196,6 +204,7 @@ void Level::Draw(sf::RenderWindow* rw)
 	}
 
 	_Player.Draw(rw);
+	DebugDrawMask(_Player.GetMask(), rw);
 };
 
 Player& Level::GetPlayer()

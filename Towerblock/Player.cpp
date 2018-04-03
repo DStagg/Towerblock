@@ -38,9 +38,9 @@ void Player::Draw(sf::RenderWindow* rw)
 	//	Draw main body
 	sf::CircleShape circ;
 	circ.setFillColor(sf::Color::Blue);
-	circ.setRadius(((float)_Size._X + (float)_Size._Y) / 4.f);
-	circ.setOrigin(circ.getRadius(), circ.getRadius());
-	circ.setPosition(_Position.getX() + circ.getRadius(), _Position.getY() + circ.getRadius());
+	circ.setRadius(16.f);
+	circ.setOrigin(16.f, 16.f);
+	circ.setPosition(_Position.getX(), _Position.getY());
 	rw->draw(circ);
 
 	sf::RectangleShape rect;
