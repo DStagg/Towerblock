@@ -170,7 +170,10 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 void Level::Draw(sf::RenderWindow* rw)
 {
 	for (int i = 0; i < (int)_Enemies.size(); i++)
+	{
 		_Enemies[i].Draw(rw);
+		DebugDrawMask(_Enemies[i].GetMask(), rw);
+	}
 
 	for (int i = 0; i < (int)_Bullets.size(); i++)
 	{

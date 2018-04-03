@@ -23,6 +23,7 @@ void Enemy::Draw(sf::RenderWindow* rw)
 	circ.setFillColor(sf::Color::Green);
 	circ.setRadius(((float)_Size._X + (float)_Size._Y) / 4.f);
 	circ.setPosition((float)_Position.getX(), (float)_Position.getY());
+	circ.setOrigin(circ.getRadius(), circ.getRadius());
 	rw->draw(circ);
 };
 
