@@ -56,20 +56,10 @@ public:
 	Circle _Mask;
 };
 
-bool PointWithinAABB(Point point, AABB box);
-bool PointWithinCircle(Point point, Circle circ);
-bool PointWithinLine(Point point, Line line);
-
 CollisionResults CollideAABBtoAABB(AABB box1, AABB box2);
 CollisionResults CollideAABBtoCircle(AABB box, Circle circ);
-CollisionResults CollideAABBtoLine(AABB box, Line line);
 
 CollisionResults CollideCircletoAABB(Circle circ, AABB box);
 CollisionResults CollideCircletoCircle(Circle circ1, Circle circ2);
-CollisionResults CollideCircletoLine(Circle circ, Line line);
-
-CollisionResults CollideLinetoAABB(Line line, AABB box);
-CollisionResults CollideLinetoCircle(Line line, Circle circ);
-CollisionResults CollideLinetoLine(Line line1, Line line2);
 
 #endif

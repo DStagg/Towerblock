@@ -46,24 +46,6 @@ CollisionResults::CollisionResults(bool collided, PairFloat overlap)
 	_Overlap = overlap;
 };
 
-//	Points
-
-bool PointWithinAABB(Point point, AABB box)
-{
-	return box.Contains(point.getX(), point.getY());
-};
-
-bool PointWithinCircle(Point point, Circle circ)
-{
-	return circ.Contains(point.getX(), point.getY());
-};
-
-bool PointWithinLine(Point point, Line line)
-{
-	float marginOfError = 0.000001f;
-	return (CalcDistance(line._X1, line._Y1, (float)point.getX(), (float)point.getY()) + CalcDistance(line._X2, line._Y2, (float)point.getX(), (float)point.getY())) - CalcDistance(line._X1, line._Y1, line._X2, line._Y2) < marginOfError;
-};
-
 //	AABB
 
 CollisionResults CollideAABBtoAABB(AABB box1, AABB box2)
@@ -74,7 +56,7 @@ CollisionResults CollideAABBtoAABB(AABB box1, AABB box2)
 
 	AABB minkowski(box1.Left() - box2.Right(), box1.Top() - box2.Bottom(), box1._Width + box2._Width, box1._Height + box2._Height);
 	if (!minkowski.Contains(0, 0))
-		return false;
+		return CollisionResults(false);
 
 	int minDist = Abs(minkowski.Left());	//	Left
 	Vec minVec((float)minkowski.Left(), 0.f);
@@ -97,7 +79,7 @@ CollisionResults CollideAABBtoAABB(AABB box1, AABB box2)
 
 	return CollisionResults(true, minVec);
 };
-
+//	TODO: get min. sep. vec for AABB<->Circle collisions.
 CollisionResults CollideAABBtoCircle(AABB box, Circle circ)
 {
 	//	Based off of: https://gamedev.stackexchange.com/questions/96337/collision-between-aabb-and-circle
@@ -106,32 +88,30 @@ CollisionResults CollideAABBtoCircle(AABB box, Circle circ)
 	//	6 collisions to test (check if center of circle is within each):
 	Point point(circ._X, circ._Y);
 	//	1: is the center of the circle within a rectangle of width box._W + circ._R, laid accross the AABB?
-	AABB widebox(box._X - circ._Radius, box._Y, box._Width + (circ._Radius * 2.f), box._Height);
-	if (PointWithinAABB(point, widebox))
-		return true;
+	AABB widebox(box._X - circ._Radius, box._Y, box._Width + (circ._Radius * 2), box._Height);
+	if (widebox.Contains(point.getX(), point.getY()))
+		return CollisionResults(true);
 	//	2: is the center of the circle within a rectangle of height box._H + circ._R, laid accross the AABB?
-	AABB tallbox(box._X, box._Y - circ._Radius, box._Width, box._Height + (circ._Radius * 2.f));
-	if (PointWithinAABB(point, tallbox))
-		return true;
+	AABB tallbox(box._X, box._Y - circ._Radius, box._Width, box._Height + (circ._Radius * 2));
+	if (tallbox.Contains(point.getX(), point.getY()))
+		return CollisionResults(true);
 	//	3-6: is the center of the circle within a circle of radius circ._R on each of the four corners of the AABB?
 	Circle c1(box._X, box._Y, circ._Radius);		//	Top-Left
-	if (PointWithinCircle(point, c1))
-		return true;
+	if (c1.Contains(point.getX(), point.getY()))
+		return CollisionResults(true);
 	Circle c2(box.Right(), box._Y, circ._Radius);	//	Top-Right
-	if (PointWithinCircle(point, c2)) return true;
+	if (c2.Contains(point.getX(), point.getY()))
+		return CollisionResults(true);
 	Circle c3(box._X, box.Bottom(), circ._Radius);	//	Bottom-Left
-	if (PointWithinCircle(point, c3)) return true;
+	if (c3.Contains(point.getX(), point.getY()))
+		return CollisionResults(true);
 	Circle c4(box.Right(), box.Bottom(), circ._Radius);	//	Bottom-Right
-	if (PointWithinCircle(point, c4)) return true;
+	if (c4.Contains(point.getX(), point.getY()))
+		return CollisionResults(true);
 	
 	//	If all 6 return false, then there is no collision
 	return CollisionResults(false);
 };
-
-CollisionResults CollideAABBtoLine(AABB box, Line line)
-{
-	return false;	//	TODO: fill in AABB<->line collision
-}
 
 //	Circle
 
@@ -145,39 +125,11 @@ CollisionResults CollideCircletoAABB(Circle circ, AABB box)
 
 CollisionResults CollideCircletoCircle(Circle circ1, Circle circ2)
 {
-	float dist = (circ1._Radius + circ2._Radius) - CalcDistance(circ1._X, circ1._Y, circ2._X, circ2._Y);
+	float dist = (float)(circ1._Radius + circ2._Radius) - CalcDistance((float)circ1._X, (float)circ1._Y, (float)circ2._X, (float)circ2._Y);
 	if (dist > 0.f)
 	{
-		Vec uvec = (Vec(circ2._X, circ2._Y) - Vec(circ1._X , circ1._Y)).UnitVec();
+		Vec uvec = (Vec((float)circ2._X, (float)circ2._Y) - Vec((float)circ1._X , (float)circ1._Y)).UnitVec();
 		return CollisionResults(true, PairFloat(uvec._X * dist , uvec._Y * dist));
 	}
 	return CollisionResults();
-};
-
-CollisionResults CollideCircletoLine(Circle circ, Line line)
-{
-	return CollisionResults();	//	TODO: fill in circle<->line collision
-};
-
-//	Line
-
-CollisionResults CollideLinetoAABB(Line line, AABB box)
-{
-	CollisionResults temp = CollideAABBtoLine(box, line);
-	temp._Overlap._X = -temp._Overlap._X;
-	temp._Overlap._Y = -temp._Overlap._Y;
-	return temp;
-};
-
-CollisionResults CollideLinetoCircle(Line line, Circle circ)
-{
-	CollisionResults temp = CollideCircletoLine(circ, line);
-	temp._Overlap._X = -temp._Overlap._X;
-	temp._Overlap._Y = -temp._Overlap._Y;
-	return temp;
-};
-
-CollisionResults CollideLinetoLine(Line line1, Line line2)
-{
-	return CollisionResults();	//	TODO: fill in line<->line collision
 };
