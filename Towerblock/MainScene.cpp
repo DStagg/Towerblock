@@ -32,7 +32,7 @@ void MainScene::Begin()
 
 	builder.BuildCompositeTex(_Level.GetGrid(), &_CompositeTex);
 
-	_Font.loadFromFile("Roboto-Regular.ttf");
+	_Font.loadFromFile("Resources\\Roboto-Regular.ttf");
 
 	Console::C()->Init(_Font, ConsoleTextSize, ConsoleLineLimit);
 
