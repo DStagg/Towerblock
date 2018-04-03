@@ -1,55 +1,64 @@
 #include "Point.h"
+#include "Vector.h"
 
 //	Constructors/Deconstructor
 
 Point::Point(int x, int y)
 {
-	Set(x, y);
+	set(x, y);
 };
 Point::Point(float x, float y)
 {
-	Set(x, y);
+	set(x, y);
+};
+Point::Point(Vec v)
+{
+	set(v._X, v._Y);
 };
 Point::Point()
 {
-	Set(0, 0);
+	set(0, 0);
 };
 
 //	Get/Set
 
-int Point::GetX()
+int Point::getX()
 {
 	return (int)_Coords._X;
 };
-int Point::GetY()
+int Point::getY()
 {
-	return (int)_Coords._Y);
+	return (int)_Coords._Y;
 };
-void Point::SetX(int x)
+PairInt Point::get()
+{
+	return PairInt((int)_Coords._X, (int)_Coords._Y);
+};
+void Point::setX(int x)
 {
 	_Coords._X = (float)x;
 };
-void Point::SetX(float x)
+void Point::setX(float x)
 {
 	_Coords._X = x;
 };
-void Point::SetY(int y)
+void Point::setY(int y)
 {
 	_Coords._Y = (float)y;
 };
-void Point::SetY(float y)
+void Point::setY(float y)
 {
 	_Coords._Y = y;
 };
-void Point::Set(int x, int y)
+void Point::set(int x, int y)
 {
-	SetX(x);
-	SetY(y);
+	setX(x);
+	setY(y);
 };
-void Point::Set(float x, float y)
+void Point::set(float x, float y)
 {
-	SetX(x);
-	SetY(y);
+	setX(x);
+	setY(y);
 };
 
 //	Operators
@@ -90,9 +99,17 @@ void Point::operator+=(const Point& p)
 {
 	_Coords.Set(_Coords._X + p._Coords._X, _Coords._Y + p._Coords._Y);
 };
+void Point::operator+=(const Vec& v)
+{
+	_Coords.Set(_Coords._X + v._X, _Coords._Y + v._Y);
+};
 void Point::operator-=(const Point& p)
 {
 	_Coords.Set(_Coords._X - p._Coords._X, _Coords._Y - p._Coords._Y);
+};
+void Point::operator-=(const Vec& v)
+{
+	_Coords.Set(_Coords._X - v._X, _Coords._Y - v._Y);
 };
 void Point::operator*=(const int& i)
 {
@@ -119,7 +136,7 @@ void Point::operator/=(const Point& p)
 	_Coords.Set(_Coords._X / p._Coords._X, _Coords._Y / p._Coords._Y);
 };
 
-bool Point::operator==(const Point& p)
+bool Point::operator==(Point& p)
 {
-	return (GetX() == p.GetX()) && (GetY() == p.GetY());
+	return (getX() == p.getX()) && (getY() == p.getY());
 };

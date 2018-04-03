@@ -5,6 +5,7 @@
 #include "../Data/Pair.h"
 #include "SFML\Graphics.hpp"
 #include "../../Vector.h"
+#include "../../Point.h"
 #include "../../Collision.h"
 
 class Entity
@@ -19,9 +20,9 @@ public:
 
 	bool _Alive = true;
 
-	Vec	_Position = Vec(0.f, 0.f);
+	Point	_Position = Point(0, 0);
 	Vec	_Velocity = Vec(0.f, 0.f);
-	PairFloat	_Size = PairFloat(0.f, 0.f);
+	PairInt	_Size = PairInt(0, 0);
 
 	float _Facing = 0.f;
 

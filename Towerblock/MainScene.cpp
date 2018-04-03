@@ -24,21 +24,21 @@ void MainScene::Begin()
 	dic[3] = PairInt(1, 1);
 	CompositeBuilder builder(img,PairInt(32,32),dic);
 	//	TODO: proper bullet<->wall collisions
-	_B1._Position = PairFloat(250.f, 250.f);
-	_B2._Position = PairFloat(250.f, 250.f);
-	_B3._Position = PairFloat(250.f, 250.f);
-	_B4._Position = PairFloat(250.f, 250.f);
+	_B1._Position = Point(250.f, 250.f);
+	_B2._Position = Point(250.f, 250.f);
+	_B3._Position = Point(250.f, 250.f);
+	_B4._Position = Point(250.f, 250.f);
 	_B1._Velocity = PairFloat(100.f, 0.f);
 	_B2._Velocity = PairFloat(-100.f, 0.f);
 	_B3._Velocity = PairFloat(0.f, 100.f);
 	_B4._Velocity = PairFloat(0.f, -100.f);
 
-	_Player._Position = PairFloat(100.f, 100.f);
-	_Enemy._Position = PairFloat(200.f, 200.f);
+	_Player._Position = Point(100.f, 100.f);
+	_Enemy._Position = Point(200.f, 200.f);
 	_Enemy._Velocity = PairFloat(70.f, 70.f);
-	_E2._Position = PairFloat(200.f, 200.f);
+	_E2._Position = Point(200.f, 200.f);
 	_E2._Velocity = PairFloat(-100.f, 0.f);
-	_E3._Position = PairFloat(200.f, 200.f);
+	_E3._Position = Point(200.f, 200.f);
 	_E3._Velocity = PairFloat(0.f, -100.f);
 	_Level.GenerateBox(20, 10);
 
@@ -70,7 +70,7 @@ void MainScene::Update(float dt)
 			SetRunning(false);
 		else if (Event.type == sf::Event::MouseButtonPressed)
 		{
-			_Player._Position.Set(sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y);
+			_Player._Position.set(sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y);
 		}
 		else if (Event.type == sf::Event::KeyPressed && Event.key.code == sf::Keyboard::Escape)
 			SetRunning(false);
@@ -100,7 +100,7 @@ void MainScene::Update(float dt)
 			}
 	}
 
-	_Player._Facing = CalcHeading(_Player._Position._X, _Player._Position._Y, _Enemy._Position._X, _Enemy._Position._Y);
+	_Player._Facing = CalcHeading((float)_Player._Position.getX(), (float)_Player._Position.getY(), (float)_Enemy._Position.getX(), (float)_Enemy._Position.getY());
 	_Player.Update(dt);
 	_Enemy.Update(dt);
 	_E2.Update(dt);
@@ -115,8 +115,7 @@ void MainScene::Update(float dt)
 	CollisionResults eRes = _Level.WallCollision(_Enemy.GetMask());
 	if (pRes._Collided)
 	{
-		_Player._Position._X -= _Player._Velocity._X * dt;
-		_Player._Position._Y -= _Player._Velocity._Y * dt;
+		_Player._Position -= _Player._Velocity * dt;
 		_Player._Velocity = PairFloat(0.f, 0.f);
 	}
 	if (eRes._Collided)

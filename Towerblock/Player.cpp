@@ -2,7 +2,7 @@
 
 Player::Player()
 {
-	_Size = PairFloat(32.f, 32.f);
+	_Size = PairInt(32, 32);
 };
 
 Player::~Player()
@@ -30,7 +30,7 @@ void Player::Update(float dt)
 	if (_KnockbackTimer > 0.f)
 		_KnockbackTimer -= dt;
 
-	_Mask._Mask = Circle(_Position._X, _Position._Y, 16.f);
+	_Mask._Mask = Circle((float)_Position.getX(), (float)_Position.getY(), 16.f);
 };
 
 void Player::Draw(sf::RenderWindow* rw)
@@ -40,13 +40,13 @@ void Player::Draw(sf::RenderWindow* rw)
 	circ.setFillColor(sf::Color::Blue);
 	circ.setRadius(((float)_Size._X + (float)_Size._Y) / 4.f);
 	circ.setOrigin(circ.getRadius(), circ.getRadius());
-	circ.setPosition(_Position._X + circ.getRadius(), _Position._Y + circ.getRadius());
+	circ.setPosition(_Position.getX() + circ.getRadius(), _Position.getY() + circ.getRadius());
 	rw->draw(circ);
 
 	sf::RectangleShape rect;
 	rect.setSize(sf::Vector2f(5.f, 5.f));
 	rect.setFillColor(sf::Color::White);
-	rect.setPosition(_Position._X + circ.getRadius() + (32.f * CalcXComp(_Facing)), _Position._Y + circ.getRadius() + (32.f * CalcYComp(_Facing)));
+	rect.setPosition(_Position.getX() + circ.getRadius() + (32.f * CalcXComp(_Facing)), _Position.getY() + circ.getRadius() + (32.f * CalcYComp(_Facing)));
 	rw->draw(rect);
 
 };
@@ -58,7 +58,7 @@ void Player::Knockback(PairFloat over)
 		return;
 	_KnockbackTimer = 1.f;
 	_HP -= 10;
-	Log("(" + FloatToString(_Position._X + (over._X * 1.1f)) + "," + FloatToString(_Position._Y + (over._Y * 1.1f)) + ") - (" + FloatToString(over._X) + "," + FloatToString(over._Y) + ") * 1.1f = (" + FloatToString(_Position._X) + "," + FloatToString(_Position._Y) + ")");
+	Log("(" + FloatToString((float)_Position.getX() + (over._X * 1.1f)) + "," + FloatToString((float)_Position.getY() + (over._Y * 1.1f)) + ") - (" + FloatToString(over._X) + "," + FloatToString(over._Y) + ") * 1.1f = (" + FloatToString((float)_Position.getX()) + "," + FloatToString((float)_Position.getY()) + ")");
 	
 	
 };
