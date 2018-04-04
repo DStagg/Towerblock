@@ -5,8 +5,10 @@
 #include "Pair.h"
 #include "Vector.h"
 #include "AABB.h"
+#include "Circle.h"
 #include <vector>
 #include "../Utility/Utility.h"
+#include "../Utility/Rotation.h"
 
 struct CollisionResults
 {
@@ -21,10 +23,12 @@ float DotProduct(Vec v1, Vec v2);			//	Returns the dot product of two vectors (v
 std::vector<Vec> GenAABBNormals();			//	i.e. returns the x- and y-axis (1,0) and (0,1) as vectors
 std::vector<Point> GenVertices(AABB box);	//	Returns the vertices (corners) for an AABB
 PairFloat Project(std::vector<Point> vertices, Vec axis);	//	Returns the min & max for the projection of a shape onto an axis
+PairFloat Project(Circle circ, Vec axis);
 bool Overlaps(PairFloat p1, PairFloat p2);	//	Returns if the max projection of 1 shape is greater than the min of the other (or vice versa)
 float CalcOverlap(PairFloat p1, PairFloat p2);	//	Calculates the magnitude of the overlap
 
 CollisionResults SATCheckAABBtoAABB(AABB box1, AABB box2);
+CollisionResults SATCheckAABBtoCircle(AABB box, Circle circ);
 
 //	Change Player Mask to AABB temporarily.
 //	Then test it out - will never use it in practice (normal way is faster) but good to make sure we have the theory down

@@ -58,6 +58,14 @@ PairFloat Project(std::vector<Point> vertices, Vec axis)
 	return results;
 };
 
+PairFloat Project(Circle circ, Vec axis)
+{
+	float min = DotProduct(Vec((float)circ._X, (float)circ._Y) - (axis.UnitVec() * circ._Radius), axis);
+	float max = DotProduct(Vec((float)circ._X, (float)circ._Y) + (axis.UnitVec() * circ._Radius), axis);
+	
+	return PairFloat(min, max);
+};
+
 bool Overlaps(PairFloat p1, PairFloat p2)
 {
 	//	_X is min, _Y is max
@@ -78,6 +86,8 @@ float CalcOverlap(PairFloat p1, PairFloat p2)
 
 CollisionResults SATCheckAABBtoAABB(AABB box1, AABB box2)
 {
+	//	Based on: http://www.dyn4j.org/2010/01/sat/#sat-mtv
+
 	std::vector<Point> v1 = GenVertices(box1);
 	std::vector<Point> v2 = GenVertices(box2);
 
@@ -99,6 +109,57 @@ CollisionResults SATCheckAABBtoAABB(AABB box1, AABB box2)
 			minOver = CalcOverlap(p1, p2);
 			minAxis = axes[i];
 		}
+	}
+
+	return CollisionResults(true, minAxis.UnitVec() * minOver);
+};
+
+CollisionResults SATCheckAABBtoCircle(AABB box, Circle circ)
+{
+	//	Based on: http://www.dyn4j.org/2010/01/sat/#sat-mtv
+		
+	std::vector<Point> v1 = GenVertices(box);
+	Point closestVert = v1[0];
+
+	std::vector<Vec> axes = GenAABBNormals();
+
+	Vec minAxis = axes[0];
+	float minOver = 0.f;
+
+	for (int i = 0; i < (int)axes.size(); i++)
+	{
+		PairFloat p1 = Project(v1, axes[i]);
+		PairFloat p2 = Project(circ, axes[i]);
+
+		if (!Overlaps(p1, p2))
+			return CollisionResults(false);
+
+		if (CalcOverlap(p1, p2) < minOver)
+		{
+			minOver = CalcOverlap(p1, p2);
+			minAxis = axes[i];
+		}
+
+		if (CalcDistance((float)v1[i].getX(), (float)v1[i].getY(), (float)circ._X, (float)circ._Y) < CalcDistance((float)closestVert.getX(), (float)closestVert.getY(), (float)circ._X, (float)circ._Y))
+			closestVert = v1[i];
+	}
+
+	Vec closestAxe((float)(circ._X - closestVert.getX()), (float)(circ._Y - closestVert.getY()));
+
+	//	Final check against axis between circle center and closest AABB vertex
+	PairFloat p1 = Project(v1, closestAxe);
+	PairFloat p2 = Project(circ, closestAxe);
+
+	if (!Overlaps(p1, p2))
+		return CollisionResults(false);
+
+	if (!Overlaps(p1, p2))
+		return CollisionResults(false);
+
+	if (CalcOverlap(p1, p2) < minOver)
+	{
+		minOver = CalcOverlap(p1, p2);
+		minAxis = closestAxe;
 	}
 
 	return CollisionResults(true, minAxis.UnitVec() * minOver);
