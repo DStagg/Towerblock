@@ -40,7 +40,7 @@ void Player::Draw(sf::RenderWindow* rw)
 	circ.setFillColor(sf::Color::Blue);
 	circ.setRadius(16.f);
 	circ.setOrigin(16.f, 16.f);
-	circ.setPosition(_Position.getX(), _Position.getY());
+	circ.setPosition((float)_Position.getX(), (float)_Position.getY());
 	rw->draw(circ);
 
 	sf::RectangleShape rect;

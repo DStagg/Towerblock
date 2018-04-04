@@ -76,7 +76,10 @@ CollisionResults Level::WallCollision(AABBMask mask)
 		{
 			if (IsSolid(x, y))
 			{
-				return CollisionResults(true);	//	TODO: need to fill in rest of CollisionResults (axis & overlap)
+				AABBMask temp(AABB(x * _TileWidth, y * _TileHeight, _TileWidth, _TileHeight));
+				CollisionResults res = mask.Collide(temp);
+				if (!res._Collided)	Log("WallCollision(AABB) discrepancy: mask check not returning true.");
+				return res;
 			}
 		}
 
@@ -95,9 +98,10 @@ CollisionResults Level::WallCollision(CircleMask mask)
 		{
 			if (IsSolid(x, y))
 			{
-				AABB box(x * _TileWidth, y * _TileHeight, _TileWidth, _TileHeight);
-				if (CollideCircletoAABB(mask._Mask, box)._Collided)
-					return CollisionResults(true);	//	TODO: need to fill in rest of CollisionResults (axis & overlap)
+				AABBMask box(AABB(x * _TileWidth, y * _TileHeight, _TileWidth, _TileHeight));
+				CollisionResults res = mask.Collide(box);
+				if (res._Collided)
+					return res;
 			}
 		}
 
@@ -123,7 +127,7 @@ void Level::Spawn(int x, int y)
 {
 	Enemy temp;
 	temp._Position.set(x, y);
-	temp._Velocity.Set( Random(-70, 70), Random(-70, 70) );
+	temp._Velocity.Set( (float)Random(-70, 70), (float)Random(-70, 70) );
 	_Enemies.push_back(temp);
 };
 
@@ -135,8 +139,16 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 		Fire();
 
-	_Player._Facing = CalcHeading((float)_Player._Position.getX(), (float)_Player._Position.getY(), sf::Mouse::getPosition(*rw).x, sf::Mouse::getPosition(*rw).y);
+	_Player._Facing = CalcHeading((float)_Player._Position.getX(), (float)_Player._Position.getY(), (float)sf::Mouse::getPosition(*rw).x, (float)sf::Mouse::getPosition(*rw).y);
 	_Player.Update(dt);
+
+	CollisionResults pres = WallCollision(_Player.GetMask());
+	if (pres._Collided)
+	{
+		_Player._Velocity.Set(0.f, 0.f);
+		_Player._Position -= pres._Overlap;
+		Log("Collision");
+	}	//	TODO: fix player<->wall collisions by properly filling out the CollisionResults for WallCollision(CircleMask)
 
 	//	Bullet update loop
 	for (int i = 0; i < (int)_Bullets.size(); i++)

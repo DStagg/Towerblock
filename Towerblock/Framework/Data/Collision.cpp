@@ -84,33 +84,71 @@ CollisionResults CollideAABBtoCircle(AABB box, Circle circ)
 {
 	//	Based off of: https://gamedev.stackexchange.com/questions/96337/collision-between-aabb-and-circle
 	
-	//	Can do preliminary checks (is center of circ more than circ._R left of box._X, right of box._Right, etc.?
-	//	6 collisions to test (check if center of circle is within each):
+	CollisionResults results(false, PairFloat(0.f, 0.f));
+	
+	if (CalcDistance(box._X, box._Y, circ._X, circ._Y) > Max(box._Width, box._Height) + circ._Radius)
+		return results;	//	Early out - circle centre is further away than radius + largest of width/height
+
 	Point point(circ._X, circ._Y);
+
+	//	6 collisions to test (check if center of circle is within each):
+	
 	//	1: is the center of the circle within a rectangle of width box._W + circ._R, laid accross the AABB?
 	AABB widebox(box._X - circ._Radius, box._Y, box._Width + (circ._Radius * 2), box._Height);
 	if (widebox.Contains(point.getX(), point.getY()))
-		return CollisionResults(true);
+	{
+		results._Collided = true;
+		if (Abs(box.Left() - (circ._X + circ._Radius)) < Abs(box.Right() - (circ._X - circ._Radius)))
+			results._Overlap._X = (float)(-(box.Left() - (circ._X + circ._Radius)) + 1);
+		else
+			results._Overlap._X = (float)(-(box.Right() - (circ._X - circ._Radius)) - 1);
+		return results;
+	}
+
 	//	2: is the center of the circle within a rectangle of height box._H + circ._R, laid accross the AABB?
 	AABB tallbox(box._X, box._Y - circ._Radius, box._Width, box._Height + (circ._Radius * 2));
 	if (tallbox.Contains(point.getX(), point.getY()))
-		return CollisionResults(true);
+	{
+		results._Collided = true;
+		if (Abs(box.Top() - (circ._Y + circ._Radius)) < Abs(box.Bottom() - (circ._Y - circ._Radius)))
+			results._Overlap._Y = (float)(-(box.Top() - (circ._Y + circ._Radius)) + 1);
+		else
+			results._Overlap._Y = (float)(-(box.Bottom() - (circ._Y - circ._Radius)) - 1);
+		return results;
+	}
+
 	//	3-6: is the center of the circle within a circle of radius circ._R on each of the four corners of the AABB?
-	Circle c1(box._X, box._Y, circ._Radius);		//	Top-Left
+	//	Top-Left
+	Circle c1(box._X, box._Y, circ._Radius);		
 	if (c1.Contains(point.getX(), point.getY()))
-		return CollisionResults(true);
+	{
+		results._Collided = true;
+
+		float xsep = (float)(-(box.Left() - (circ._X + circ._Radius)) + 1);
+		float ysep = (float)(-(box.Top() - (circ._Y + circ._Radius)) + 1);
+
+		results._Overlap.Set(xsep, ysep);
+
+		return results;
+	}
+
+	//	Top-Right
 	Circle c2(box.Right(), box._Y, circ._Radius);	//	Top-Right
 	if (c2.Contains(point.getX(), point.getY()))
 		return CollisionResults(true);
+
+	//	Bottom-Left
 	Circle c3(box._X, box.Bottom(), circ._Radius);	//	Bottom-Left
 	if (c3.Contains(point.getX(), point.getY()))
 		return CollisionResults(true);
+
+	//	Bottom-Right
 	Circle c4(box.Right(), box.Bottom(), circ._Radius);	//	Bottom-Right
 	if (c4.Contains(point.getX(), point.getY()))
 		return CollisionResults(true);
 	
 	//	If all 6 return false, then there is no collision
-	return CollisionResults(false);
+	return results;
 };
 
 //	Circle

@@ -8,7 +8,7 @@
 float DegreeToRad(float d);
 
 float RadToDegree(float r);
-
+//	TODO: reconcile calculations in Rotation.h with switch to int-based coordinate system
 float CalcAngle(float startx, float starty, float endx, float endy);
 //	Returns the angle between two points relative to the x-axis in radians
 //	Right is 0, Down is Pi/2, Left is Pi, Up is -Pi/2
@@ -40,5 +40,6 @@ float CalcYComp(float heading);
 
 float CalcDistance(float x1, float y1, float x2, float y2);
 //	Calculates the distance between two points. Always positive.
+float CalcDistance(int x1, int y1, int x2, int y2);
 
 #endif
