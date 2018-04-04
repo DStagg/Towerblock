@@ -44,11 +44,11 @@ PairFloat Project(std::vector<Point> vertices, Vec axis)
 		return PairFloat(0.f,0.f);
 
 	//	_X is min, _Y is max, start both off as the projection of the first vertice
-	PairFloat results(DotProduct(Vec(vertices[0].getX(), vertices[0].getY()), axis), DotProduct(Vec(vertices[0].getX(), vertices[0].getY()), axis));
+	PairFloat results(DotProduct(Vec((float)vertices[0].getX(), (float)vertices[0].getY()), axis), DotProduct(Vec((float)vertices[0].getX(), (float)vertices[0].getY()), axis));
 
 	for (int i = 0; i < (int)vertices.size(); i++)
 	{
-		float p = DotProduct(Vec(vertices[i].getX(), vertices[i].getY()), axis);
+		float p = DotProduct(Vec((float)vertices[i].getX(), (float)vertices[i].getY()), axis);
 		if (p < results._X)
 			results._X = p;
 		else if (p > results._Y)
