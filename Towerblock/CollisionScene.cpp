@@ -86,23 +86,23 @@ void CollisionScene::Update(float dt)
 	PairInt mousePos(sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y);
 	if (_Choice == 0)
 	{
-		_Box1._X = mousePos._X;
-		_Box1._Y = mousePos._Y;
+		_Box1._X = mousePos._A;
+		_Box1._Y = mousePos._B;
 	}
 	else if (_Choice == 1)
 	{
-		_Box2._X = mousePos._X;
-		_Box2._Y = mousePos._Y;
+		_Box2._X = mousePos._A;
+		_Box2._Y = mousePos._B;
 	}
 	else if (_Choice == 2)
 	{
-		_Circ1._X = mousePos._X;
-		_Circ1._Y = mousePos._Y;
+		_Circ1._X = mousePos._A;
+		_Circ1._Y = mousePos._B;
 	}
 	else if (_Choice == 3)
 	{
-		_Circ2._X = mousePos._X;
-		_Circ2._Y = mousePos._Y;
+		_Circ2._X = mousePos._A;
+		_Circ2._Y = mousePos._B;
 	}
 
 };
@@ -110,6 +110,7 @@ void CollisionScene::DrawScreen()
 {
 	_Window->setView(_CameraView);
 
+	/*
 	CollisionResults res = SATCheckAABBtoAABB(_Box1, _Box2);
 	if (res._Collided)
 	{
@@ -117,8 +118,10 @@ void CollisionScene::DrawScreen()
 		Log("[" + FloatToString(res._Overlap._X) + "," + FloatToString(res._Overlap._Y) + "]");
 	}
 	else
+	*/
 		DebugDrawAABB(_Box1, _Window, sf::Color::Green);
 	DebugDrawAABB(_Box2, _Window, sf::Color::Yellow);
+	/*
 	CollisionResults res2 = SimpleAABBtoCircle(_Box1, _Circ1);
 	if (res2._Collided)
 	{
@@ -126,6 +129,7 @@ void CollisionScene::DrawScreen()
 		Log("[" + FloatToString(res2._Overlap._X) + "," + FloatToString(res2._Overlap._Y) + "]");
 	}
 	else
+	*/
 		DebugDrawCirc(_Circ1, _Window, sf::Color::White);
 	DebugDrawCirc(_Circ2, _Window, sf::Color::Red);
 

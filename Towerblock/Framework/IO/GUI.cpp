@@ -58,26 +58,26 @@ bool GUI::DoButton(int id, PairInt pos, PairInt size, std::string message)
 	sf::RectangleShape rect;
 	if ((GUI::GetState()._ActiveItem == id) && (GUI::GetState()._HotItem == id))
 	{
-		rect.setSize(sf::Vector2f((float)size._X, (float)size._Y));
-		rect.setPosition(sf::Vector2f((float)pos._X+2.f, (float)pos._Y+2.f));
+		rect.setSize(sf::Vector2f((float)size._A, (float)size._B));
+		rect.setPosition(sf::Vector2f((float)pos._A+2.f, (float)pos._B+2.f));
 		rect.setFillColor(sf::Color::Blue);
 	}
 	else if (GUI::GetState()._HotItem == id)
 	{
-		rect.setSize(sf::Vector2f((float)size._X, (float)size._Y));
-		rect.setPosition(sf::Vector2f((float)pos._X, (float)pos._Y));
+		rect.setSize(sf::Vector2f((float)size._A, (float)size._B));
+		rect.setPosition(sf::Vector2f((float)pos._A, (float)pos._B));
 		rect.setFillColor(sf::Color::Blue);
 	}
 	else
 	{
-		rect.setSize(sf::Vector2f((float)size._X, (float)size._Y));
-		rect.setPosition(sf::Vector2f((float)pos._X, (float)pos._Y));
+		rect.setSize(sf::Vector2f((float)size._A, (float)size._B));
+		rect.setPosition(sf::Vector2f((float)pos._A, (float)pos._B));
 		rect.setFillColor(sf::Color::Cyan);
 	};
 	GetTargetTexture().draw(rect);
 
 	sf::Text text(message, _Font);
-	text.setPosition((float)pos._X, (float)pos._Y);
+	text.setPosition((float)pos._A, (float)pos._B);
 	text.setScale(0.5f, 0.5f);
 	GetTargetTexture().draw(text);
 
@@ -91,8 +91,8 @@ bool GUI::DoButton(int id, PairInt pos, PairInt size, std::string message)
 void GUI::DoSlider(int id, PairInt pos, PairInt size, float& value, float max)
 {
 	//	Check for mouse interaction
-	PairInt testPos(pos._X, pos._Y - (size._X / 2));	//	Allows you to drag circle even from outside of the scroller
-	PairInt testSize(size._X, size._Y + size._X);		//	Delete these two lines and just test pos and size to revert
+	PairInt testPos(pos._A, pos._B - (size._A / 2));	//	Allows you to drag circle even from outside of the scroller
+	PairInt testSize(size._A, size._B + size._A);		//	Delete these two lines and just test pos and size to revert
 	if (MouseInRect(testPos, testSize))
 	{
 		GUI::GetState()._HotItem = id;
@@ -103,32 +103,32 @@ void GUI::DoSlider(int id, PairInt pos, PairInt size, float& value, float max)
 	//	Calculate mouse progression along bar
 	if (GUI::GetState()._ActiveItem == id)
 	{
-		int yOffset = GUI::GetState()._MouseY - pos._Y;
+		int yOffset = GUI::GetState()._MouseY - pos._B;
 		if (yOffset < 0) 
 			yOffset = 0;
-		if (yOffset > size._Y)
-			yOffset = size._Y;
-		value = ((float)yOffset * max) / (float)size._Y;
+		if (yOffset > size._B)
+			yOffset = size._B;
+		value = ((float)yOffset * max) / (float)size._B;
 	}
 
-	int yPos = (int)((size._Y * value) / max);
+	int yPos = (int)((size._B * value) / max);
 
 	sf::RectangleShape bar;
-	bar.setPosition((float)pos._X, (float)pos._Y);
-	bar.setSize(sf::Vector2f((float)size._X, 1.f));
+	bar.setPosition((float)pos._A, (float)pos._B);
+	bar.setSize(sf::Vector2f((float)size._A, 1.f));
 	bar.setFillColor(sf::Color::White);
 	GUI::GetTargetTexture().draw(bar);
 
-	bar.setPosition(sf::Vector2f((float)pos._X, (float)pos._Y + (float)size._Y));
+	bar.setPosition(sf::Vector2f((float)pos._A, (float)pos._B + (float)size._B));
 	GUI::GetTargetTexture().draw(bar);
 
-	bar.setPosition((float)(pos._X + (size._X / 2)), (float)(pos._Y));
-	bar.setSize(sf::Vector2f(1.f, (float)size._Y));
+	bar.setPosition((float)(pos._A + (size._A / 2)), (float)(pos._B));
+	bar.setSize(sf::Vector2f(1.f, (float)size._B));
 	GUI::GetTargetTexture().draw(bar);
 
 	sf::CircleShape point;
-	point.setRadius((float)size._X / 2.f);
-	point.setPosition((float)pos._X , (float)(pos._Y + yPos - (size._X / 2)));
+	point.setRadius((float)size._A / 2.f);
+	point.setPosition((float)pos._A , (float)(pos._B + yPos - (size._A / 2)));
 	point.setFillColor(sf::Color(0, 0, 0, 0));
 	point.setOutlineColor(sf::Color::White);
 	point.setOutlineThickness(1);
@@ -139,8 +139,8 @@ void GUI::DoSlider(int id, PairInt pos, PairInt size, float& value, float max)
 void GUI::DoFrame(int id, PairInt pos, PairInt size, sf::Color col)
 {
 	sf::RectangleShape Rect;
-	Rect.setPosition((float)pos._X, (float)pos._Y);
-	Rect.setSize(sf::Vector2f((float)size._X, (float)size._Y));
+	Rect.setPosition((float)pos._A, (float)pos._B);
+	Rect.setSize(sf::Vector2f((float)size._A, (float)size._B));
 	Rect.setFillColor(col);
 	GetTargetTexture().draw(Rect);
 };
@@ -170,5 +170,5 @@ GUIState& GUI::GetState()
 //	Helper Functions
 bool MouseInRect(PairInt pos, PairInt size)
 {
-	return((GUI::GetState()._MouseX >= pos._X) && (GUI::GetState()._MouseY >= pos._Y) && (GUI::GetState()._MouseX < pos._X + size._X) && (GUI::GetState()._MouseY < pos._Y + size._Y));
+	return((GUI::GetState()._MouseX >= pos._A) && (GUI::GetState()._MouseY >= pos._B) && (GUI::GetState()._MouseX < pos._A + size._A) && (GUI::GetState()._MouseY < pos._B + size._B));
 };

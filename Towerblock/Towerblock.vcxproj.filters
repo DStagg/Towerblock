@@ -41,9 +41,6 @@
     <ClCompile Include="Framework\Scene.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
-    <ClCompile Include="Framework\Data\AABB.cpp">
-      <Filter>Framework\Data</Filter>
-    </ClCompile>
     <ClCompile Include="Framework\Data\Grid.cpp">
       <Filter>Framework\Data</Filter>
     </ClCompile>
@@ -95,23 +92,11 @@
     <ClCompile Include="Framework\Debug\Console.cpp">
       <Filter>Framework\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="Framework\Data\Circle.cpp">
-      <Filter>Framework\Data</Filter>
-    </ClCompile>
     <ClCompile Include="Framework\Data\Collision.cpp">
       <Filter>Framework\Data</Filter>
     </ClCompile>
     <ClCompile Include="Framework\Data\CompositeTex.cpp">
       <Filter>Framework\Data</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Data\Point.cpp">
-      <Filter>Framework\Data</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Data\Vector.cpp">
-      <Filter>Framework\Data</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Utility\Rotation.cpp">
-      <Filter>Framework\Utility</Filter>
     </ClCompile>
     <ClCompile Include="Framework\Data\Pair.cpp">
       <Filter>Framework\Data</Filter>
@@ -125,6 +110,12 @@
     <ClCompile Include="CollisionScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Framework\Data\Shapes.cpp">
+      <Filter>Framework\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Data\Trig.cpp">
+      <Filter>Framework\Data</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainScene.h">
@@ -132,9 +123,6 @@
     </ClInclude>
     <ClInclude Include="Framework\Scene.h">
       <Filter>Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Data\AABB.h">
-      <Filter>Framework\Data</Filter>
     </ClInclude>
     <ClInclude Include="Framework\Data\Grid.h">
       <Filter>Framework\Data</Filter>
@@ -187,26 +175,11 @@
     <ClInclude Include="Framework\Debug\Console.h">
       <Filter>Framework\Debug</Filter>
     </ClInclude>
-    <ClInclude Include="Framework\Data\Circle.h">
-      <Filter>Framework\Data</Filter>
-    </ClInclude>
     <ClInclude Include="Framework\Data\CompositeTex.h">
-      <Filter>Framework\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Data\Line.h">
-      <Filter>Framework\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Data\Point.h">
-      <Filter>Framework\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Data\Vector.h">
       <Filter>Framework\Data</Filter>
     </ClInclude>
     <ClInclude Include="Framework\Data\Collision.h">
       <Filter>Framework\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Utility\Rotation.h">
-      <Filter>Framework\Utility</Filter>
     </ClInclude>
     <ClInclude Include="Framework\Data\Pair.h">
       <Filter>Framework\Data</Filter>
@@ -219,6 +192,15 @@
     </ClInclude>
     <ClInclude Include="CollisionScene.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Data\Maths.h">
+      <Filter>Framework\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Data\Shapes.h">
+      <Filter>Framework\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Data\Trig.h">
+      <Filter>Framework\Data</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

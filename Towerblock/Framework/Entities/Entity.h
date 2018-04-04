@@ -1,11 +1,9 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include "../Data/AABB.h"
+#include "../Data/Shapes.h"
 #include "../Data/Pair.h"
 #include "SFML\Graphics.hpp"
-#include "../Data/Vector.h"
-#include "../Data/Point.h"
 #include "../Data/Collision.h"
 
 class Entity

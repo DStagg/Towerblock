@@ -1,4 +1,39 @@
-#include "AABB.h"
+#include "Shapes.h"
+
+//	Circles
+
+Circle::Circle() : Circle(0, 0, 1)
+{
+
+};
+
+Circle::Circle(int x, int y, int r)
+{
+	_X = x;
+	_Y = y;
+	_Radius = r;
+};
+
+bool Circle::Contains(int x, int y)
+{
+	int dX = x - _X;
+	int dY = y - _Y;
+	return (int)sqrtf(((float)dX * (float)dX) + ((float)dY * (float)dY)) <= _Radius;
+}
+
+bool Circle::Contains(Point p)
+{
+	return Contains(p.GetX(), p.GetY());
+};
+
+bool Circle::Intersects(Circle c)
+{
+	int dX = c._X - _X;
+	int dY = c._Y - _Y;
+	return (int)sqrtf(((float)dX * (float)dX) + ((float)dY * (float)dY)) <= _Radius + c._Radius;
+};
+
+//	AABBs
 
 AABB::AABB()
 {
@@ -14,11 +49,6 @@ AABB::AABB(int x, int y, int w, int h)
 	_Y = y;
 	_Width = w;
 	_Height = h;
-};
-
-AABB::~AABB()
-{
-
 };
 
 int AABB::Top()
@@ -45,6 +75,11 @@ bool AABB::Contains(int x, int y)
 	if ((y < _Y) || (y > Bottom()))
 		return false;
 	return true;
+};
+
+bool AABB::Contains(Point p)
+{
+	return Contains(p.GetX(), p.GetY());
 };
 
 bool AABB::Intersects(AABB box)

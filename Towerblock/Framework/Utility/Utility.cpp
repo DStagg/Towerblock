@@ -34,33 +34,3 @@ float StringToFloat(std::string s)
 
 	return temp;
 };
-
-int Random(int min, int max, bool inczero)
-{
-	int value = rand() % (max - min + 1) + min;
-
-	if ((inczero == false) && (value == 0))
-		return Random(min, max, inczero);
-	else
-		return value;
-};
-
-int RandomSign()
-{
-	return Random(-1, 1, false);
-};
-
-float Strip(float in, float factor)
-{
-	return floor(in * factor) / factor;
-};
-
-float FRound(float f)
-{
-	float dump;
-	float temp = modf(f, &dump);
-	if (temp >= 0.5f)
-		return ceil(f);
-	else
-		return floor(f);
-};

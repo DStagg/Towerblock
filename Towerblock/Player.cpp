@@ -30,7 +30,7 @@ void Player::Update(float dt)
 	if (_KnockbackTimer > 0.f)
 		_KnockbackTimer -= dt;
 
-	_Mask._Mask = Circle(_Position.getX(), _Position.getY(), 16);
+	_Mask._Mask = Circle(_Position.GetX(), _Position.GetY(), 16);
 };
 
 void Player::Draw(sf::RenderWindow* rw)
@@ -40,25 +40,25 @@ void Player::Draw(sf::RenderWindow* rw)
 	circ.setFillColor(sf::Color::Blue);
 	circ.setRadius(16.f);
 	circ.setOrigin(16.f, 16.f);
-	circ.setPosition((float)_Position.getX(), (float)_Position.getY());
+	circ.setPosition((float)_Position.GetX(), (float)_Position.GetY());
 	rw->draw(circ);
 
 	sf::RectangleShape rect;
 	rect.setSize(sf::Vector2f(5.f, 5.f));
 	rect.setFillColor(sf::Color::White);
-	rect.setPosition(_Position.getX() + circ.getRadius() + (32.f * CalcXComp(_Facing)), _Position.getY() + circ.getRadius() + (32.f * CalcYComp(_Facing)));
+	rect.setPosition(_Position.GetX() + circ.getRadius() + (32.f * CalcXComp(_Facing)), _Position.GetY() + circ.getRadius() + (32.f * CalcYComp(_Facing)));
 	rw->draw(rect);
 
 };
 
-void Player::Knockback(PairFloat over)
+void Player::Knockback(Vec over)
 {
-	_Position -= Vec(over._X, over._Y) * 2.f;
+	_Position -= over * 2.f;
 	if (_KnockbackTimer > 0.f)
 		return;
 	_KnockbackTimer = 1.f;
 	_HP -= 10;
-	Log("(" + FloatToString((float)_Position.getX() + (over._X * 1.1f)) + "," + FloatToString((float)_Position.getY() + (over._Y * 1.1f)) + ") - (" + FloatToString(over._X) + "," + FloatToString(over._Y) + ") * 1.1f = (" + FloatToString((float)_Position.getX()) + "," + FloatToString((float)_Position.getY()) + ")");
+	Log("(" + FloatToString((float)_Position.GetX() + (over._X * 1.1f)) + "," + FloatToString((float)_Position.GetY() + (over._Y * 1.1f)) + ") - (" + FloatToString(over._X) + "," + FloatToString(over._Y) + ") * 1.1f = (" + FloatToString((float)_Position.GetX()) + "," + FloatToString((float)_Position.GetY()) + ")");
 	
 	
 };

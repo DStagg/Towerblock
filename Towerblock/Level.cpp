@@ -12,7 +12,7 @@ Tile::Tile(int str_id, bool s)
 
 Level::Level()
 {
-	_Player._Position.set(200, 200);
+	_Player._Position.Set(200, 200);
 };
 
 Level::~Level()
@@ -83,7 +83,7 @@ CollisionResults Level::WallCollision(AABBMask mask)
 			}
 		}
 
-	return CollisionResults(false);
+	return CollisionResults(false, Vec());
 };
 
 CollisionResults Level::WallCollision(CircleMask mask)
@@ -105,7 +105,7 @@ CollisionResults Level::WallCollision(CircleMask mask)
 			}
 		}
 
-	return CollisionResults(false);
+	return CollisionResults(false, Vec());
 };
 
 //	HACK: need to get wall collision working better e.g. by checkng each axis one at a time, etc.
@@ -117,7 +117,7 @@ void Level::Fire()
 	_FireTimer = 0.2f;
 
 	Bullet temp;
-	temp._Position.set(_Player._Position.getX(), _Player._Position.getY());
+	temp._Position.Set(_Player._Position.GetX(), _Player._Position.GetY());
 	temp._Velocity = Vec(CalcXComp(_Player._Facing), CalcYComp(_Player._Facing)).UnitVec() * 100.f;
 	temp._Position += temp._Velocity.UnitVec() * 50;
 	_Bullets.push_back(temp);
@@ -126,8 +126,8 @@ void Level::Fire()
 void Level::Spawn(int x, int y)
 {
 	Enemy temp;
-	temp._Position.set(x, y);
-	temp._Velocity.Set( (float)Random(-70, 70), (float)Random(-70, 70) );
+	temp._Position.Set(x, y);
+	temp._Velocity = Vec((float)Random::R()->Generate(-70, 70), (float)Random::R()->Generate(-70, 70));
 	_Enemies.push_back(temp);
 };
 
@@ -139,17 +139,17 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 		Fire();
 
-	_Player._Facing = CalcHeading((float)_Player._Position.getX(), (float)_Player._Position.getY(), (float)sf::Mouse::getPosition(*rw).x, (float)sf::Mouse::getPosition(*rw).y);
+	_Player._Facing = CalcHeading((float)_Player._Position.GetX(), (float)_Player._Position.GetY(), (float)sf::Mouse::getPosition(*rw).x, (float)sf::Mouse::getPosition(*rw).y);
 	_Player.Update(dt);
 
 	CollisionResults pres = WallCollision(_Player.GetMask());
 	if (pres._Collided)
 	{
-		_Player._Velocity.Set(0.f, 0.f);
+		_Player._Velocity = Vec(0.f, 0.f);
 		
 		_Player._Position += pres._Overlap;
 
-		Log("Collision: After [" + FloatToString(pres._Overlap._X) + "," + FloatToString(pres._Overlap._Y) + "] Player now at (" + IntToString(_Player._Position.getX()) + "," + IntToString(_Player._Position.getY()) + ")");
+		Log("Collision: After [" + FloatToString(pres._Overlap._X) + "," + FloatToString(pres._Overlap._Y) + "] Player now at (" + IntToString(_Player._Position.GetX()) + "," + IntToString(_Player._Position.GetY()) + ")");
 	}	//	TODO: fix player<->wall collisions by properly filling out the CollisionResults for WallCollision(CircleMask)
 
 	//	Bullet update loop
@@ -167,7 +167,7 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 		if (WallCollision(_Bullets[i].GetMask())._Collided)
 			_Bullets[i]._Alive = false;
 
-		if (!AABB(0, 0, rw->getSize().x, rw->getSize().y).Contains(_Bullets[i]._Position.getX(), _Bullets[i]._Position.getY()))
+		if (!AABB(0, 0, rw->getSize().x, rw->getSize().y).Contains(_Bullets[i]._Position.GetX(), _Bullets[i]._Position.GetY()))
 			_Bullets[i]._Alive = false;
 
 		if (!_Bullets[i]._Alive)
@@ -192,7 +192,7 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 		if (WallCollision(_Enemies[i].GetMask())._Collided)
 			_Enemies[i]._Velocity *= -1;
 
-		if (!AABB(0, 0, rw->getSize().x, rw->getSize().y).Contains(_Enemies[i]._Position.getX(), _Enemies[i]._Position.getY()))
+		if (!AABB(0, 0, rw->getSize().x, rw->getSize().y).Contains(_Enemies[i]._Position.GetX(), _Enemies[i]._Position.GetY()))
 			_Enemies[i]._Alive = false;
 
 		if (!_Enemies[i]._Alive)

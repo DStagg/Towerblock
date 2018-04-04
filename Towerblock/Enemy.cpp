@@ -14,15 +14,15 @@ void Enemy::Update(float dt)
 {
 	_Position += _Velocity * dt;
 
-	_Mask._Mask = Circle(_Position.getX(), _Position.getY(), 16);
+	_Mask._Mask = Circle(_Position.GetX(), _Position.GetY(), 16);
 };
 
 void Enemy::Draw(sf::RenderWindow* rw)
 {
 	sf::CircleShape circ;
 	circ.setFillColor(sf::Color::Green);
-	circ.setRadius(((float)_Size._X + (float)_Size._Y) / 4.f);
-	circ.setPosition((float)_Position.getX(), (float)_Position.getY());
+	circ.setRadius(((float)_Size._B + (float)_Size._B) / 4.f);
+	circ.setPosition((float)_Position.GetX(), (float)_Position.GetY());
 	circ.setOrigin(circ.getRadius(), circ.getRadius());
 	rw->draw(circ);
 };

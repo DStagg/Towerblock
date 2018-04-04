@@ -5,7 +5,6 @@
 #include "Framework\Utility\Utility.h"
 
 #include "Framework\Entities\Entity.h"
-#include "Framework\Utility\Rotation.h"
 
 class Player : public Entity
 {
@@ -17,7 +16,7 @@ public:
 	void Update(float dt);
 	void Draw(sf::RenderWindow* rw);
 
-	void Knockback(PairFloat over = PairFloat(0.f, 0.f));
+	void Knockback(Vec over = Vec(0.f, 0.f));
 
 	CircleMask& GetMask();
 

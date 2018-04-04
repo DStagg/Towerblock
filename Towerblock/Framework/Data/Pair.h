@@ -8,19 +8,19 @@ struct Pair
 	{
 
 	};
-	Pair(T x, T y)
+	Pair(T a, T b)
 	{
-		Set(x, y);
+		Set(a, b);
 	};
 
-	void Set(T x, T y)
+	void Set(T a, T b)
 	{
-		_X = x;
-		_Y = y;
+		_A = a;
+		_B = b;
 	};
 
-	T _X;
-	T _Y;
+	T _A;
+	T _B;
 };
 
 typedef Pair<float> PairFloat;

@@ -11,6 +11,8 @@
 #include "Framework\Data\Collision.h"
 #include "Framework\Debug\DebugDraw.h"
 
+#include "Framework\Utility\Random.h"
+
 struct Tile
 {
 	Tile(int spr_id = 0, bool solid = false);
