@@ -94,7 +94,7 @@ CollisionResults SATCheckAABBtoAABB(AABB box1, AABB box2)
 	std::vector<Vec> axes = GenAABBNormals();
 
 	Vec minAxis = axes[0];
-	float minOver = 0.f;
+	float minOver = 1000000.f;
 
 	for (int i = 0; i < (int)axes.size(); i++)
 	{
@@ -104,7 +104,7 @@ CollisionResults SATCheckAABBtoAABB(AABB box1, AABB box2)
 		if (!Overlaps(p1, p2))
 			return CollisionResults(false);
 
-		if (CalcOverlap(p1, p2) < minOver)
+		if (Abs(CalcOverlap(p1, p2)) < minOver)
 		{
 			minOver = CalcOverlap(p1, p2);
 			minAxis = axes[i];
@@ -112,6 +112,19 @@ CollisionResults SATCheckAABBtoAABB(AABB box1, AABB box2)
 	}
 
 	return CollisionResults(true, minAxis.UnitVec() * minOver);
+};
+
+CollisionResults SimpleAABBtoCircle(AABB box, Circle circ)
+{
+	int NearestX = Max(box.Left(), Min(circ._X, box.Right()));
+	int NearestY = Max(box.Top(), Min(circ._Y, box.Bottom()));
+
+	float Distance = CalcDistance(NearestX, NearestY, circ._X, circ._Y);
+
+	if (Distance > circ._Radius)
+		return CollisionResults(false);
+	PairFloat sepVec(NearestX - circ._X, NearestY - circ._Y);
+	return CollisionResults(true, sepVec);
 };
 
 CollisionResults SATCheckAABBtoCircle(AABB box, Circle circ)
@@ -124,7 +137,7 @@ CollisionResults SATCheckAABBtoCircle(AABB box, Circle circ)
 	std::vector<Vec> axes = GenAABBNormals();
 
 	Vec minAxis = axes[0];
-	float minOver = 0.f;
+	float minOver = 1000000.f;
 
 	for (int i = 0; i < (int)axes.size(); i++)
 	{
@@ -134,7 +147,7 @@ CollisionResults SATCheckAABBtoCircle(AABB box, Circle circ)
 		if (!Overlaps(p1, p2))
 			return CollisionResults(false);
 
-		if (CalcOverlap(p1, p2) < minOver)
+		if (Abs(CalcOverlap(p1, p2)) < minOver)
 		{
 			minOver = CalcOverlap(p1, p2);
 			minAxis = axes[i];
@@ -149,9 +162,6 @@ CollisionResults SATCheckAABBtoCircle(AABB box, Circle circ)
 	//	Final check against axis between circle center and closest AABB vertex
 	PairFloat p1 = Project(v1, closestAxe);
 	PairFloat p2 = Project(circ, closestAxe);
-
-	if (!Overlaps(p1, p2))
-		return CollisionResults(false);
 
 	if (!Overlaps(p1, p2))
 		return CollisionResults(false);

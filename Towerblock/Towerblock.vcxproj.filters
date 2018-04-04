@@ -122,6 +122,9 @@
     <ClCompile Include="Framework\Data\SAT.cpp">
       <Filter>Framework\Data</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainScene.h">
@@ -213,6 +216,9 @@
     </ClInclude>
     <ClInclude Include="Framework\Data\SAT.h">
       <Filter>Framework\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionScene.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

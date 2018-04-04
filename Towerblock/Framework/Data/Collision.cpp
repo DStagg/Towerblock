@@ -74,6 +74,7 @@ CollisionResults CollideAABBtoAABB(AABB box1, AABB box2)
 //	TODO: get min. sep. vec for AABB<->Circle collisions.
 CollisionResults CollideAABBtoCircle(AABB box, Circle circ)
 {
+	/*
 	//	Based off of: https://gamedev.stackexchange.com/questions/96337/collision-between-aabb-and-circle
 	
 	CollisionResults results(false, PairFloat(0.f, 0.f));
@@ -168,6 +169,9 @@ CollisionResults CollideAABBtoCircle(AABB box, Circle circ)
 	
 	//	If all 6 return false, then there is no collision
 	return results;
+	*/
+
+	return SATCheckAABBtoCircle(box, circ);
 };
 
 //	Circle

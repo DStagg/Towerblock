@@ -9,6 +9,7 @@
 #include <vector>
 #include "../Utility/Utility.h"
 #include "../Utility/Rotation.h"
+#include "../Debug/Console.h"
 
 struct CollisionResults
 {
@@ -27,6 +28,7 @@ PairFloat Project(Circle circ, Vec axis);
 bool Overlaps(PairFloat p1, PairFloat p2);	//	Returns if the max projection of 1 shape is greater than the min of the other (or vice versa)
 float CalcOverlap(PairFloat p1, PairFloat p2);	//	Calculates the magnitude of the overlap
 
+CollisionResults SimpleAABBtoCircle(AABB box, Circle circ);
 CollisionResults SATCheckAABBtoAABB(AABB box1, AABB box2);
 CollisionResults SATCheckAABBtoCircle(AABB box, Circle circ);
 
