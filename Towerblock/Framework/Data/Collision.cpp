@@ -135,17 +135,44 @@ CollisionResults CollideAABBtoCircle(AABB box, Circle circ)
 	//	Top-Right
 	Circle c2(box.Right(), box._Y, circ._Radius);	//	Top-Right
 	if (c2.Contains(point.getX(), point.getY()))
-		return CollisionResults(true);
+	{
+		results._Collided = true;
+
+		float xsep = (float)(-(box.Right() - (circ._X - circ._Radius)) - 1);
+		float ysep = (float)(-(box.Top() - (circ._Y + circ._Radius)) + 1);
+
+		results._Overlap.Set(xsep, ysep);
+
+		return results;
+	}
 
 	//	Bottom-Left
 	Circle c3(box._X, box.Bottom(), circ._Radius);	//	Bottom-Left
 	if (c3.Contains(point.getX(), point.getY()))
-		return CollisionResults(true);
+	{
+		results._Collided = true;
+
+		float xsep = (float)(-(box.Left() - (circ._X + circ._Radius)) + 1);
+		float ysep = (float)(-(box.Bottom() - (circ._Y - circ._Radius)) - 1);
+
+		results._Overlap.Set(xsep, ysep);
+
+		return results;
+	}
 
 	//	Bottom-Right
 	Circle c4(box.Right(), box.Bottom(), circ._Radius);	//	Bottom-Right
 	if (c4.Contains(point.getX(), point.getY()))
-		return CollisionResults(true);
+	{
+		results._Collided = true;
+
+		float xsep = (float)(-(box.Right() - (circ._X - circ._Radius)) - 1);
+		float ysep = (float)(-(box.Bottom() - (circ._Y - circ._Radius)) - 1);
+
+		results._Overlap.Set(xsep, ysep);
+
+		return results;
+	}
 	
 	//	If all 6 return false, then there is no collision
 	return results;
