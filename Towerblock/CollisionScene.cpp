@@ -123,6 +123,7 @@ void CollisionScene::DrawScreen()
 	if (res2._Collided)
 	{
 		DebugDrawCirc(_Circ1, _Window, sf::Color::Cyan);
+		Log("[" + FloatToString(res2._Overlap._X) + "," + FloatToString(res2._Overlap._Y) + "]");
 	}
 	else
 		DebugDrawCirc(_Circ1, _Window, sf::Color::White);

@@ -124,7 +124,11 @@ CollisionResults SimpleAABBtoCircle(AABB box, Circle circ)
 	if (Distance > circ._Radius)
 		return CollisionResults(false);
 	PairFloat sepVec(NearestX - circ._X, NearestY - circ._Y);
-	return CollisionResults(true, sepVec);
+	//	Need to make into  aunit vec and multiply by Distance - _Radius
+	Vec temp(sepVec._X, sepVec._Y);
+	temp = temp.UnitVec();
+	temp *= (Distance - circ._Radius);
+	return CollisionResults(true, PairFloat(temp._X, temp._Y));
 };
 
 CollisionResults SATCheckAABBtoCircle(AABB box, Circle circ)
