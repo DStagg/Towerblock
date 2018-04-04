@@ -71,10 +71,7 @@ CollisionResults AABBMask::CollideWith(CircleMask& mask)
 
 	Vec sepVec = Vec((float)nearest.GetX() - circ._X, (float)nearest.GetY() - circ._Y).UnitVec() * (Distance - circ._Radius);
 	//	Need to make into  aunit vec and multiply by Distance - _Radius
-	//Vec temp(sepVec._X, sepVec._Y);
-	//temp = temp.UnitVec();
-	//temp *= (Distance - circ._Radius);
-	//	TODO: delete the above commented-out lines once this is definitely working.
+
 	return CollisionResults(true, sepVec);
 };
 

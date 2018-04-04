@@ -110,26 +110,31 @@ void CollisionScene::DrawScreen()
 {
 	_Window->setView(_CameraView);
 
-	/*
-	CollisionResults res = SATCheckAABBtoAABB(_Box1, _Box2);
+	
+	CollisionResults res = AABBMask(_Box1).Collide(AABBMask(_Box2));
 	if (res._Collided)
 	{
 		DebugDrawAABB(_Box1, _Window, sf::Color::Blue);
 		Log("[" + FloatToString(res._Overlap._X) + "," + FloatToString(res._Overlap._Y) + "]");
 	}
 	else
-	*/
 		DebugDrawAABB(_Box1, _Window, sf::Color::Green);
 	DebugDrawAABB(_Box2, _Window, sf::Color::Yellow);
-	/*
-	CollisionResults res2 = SimpleAABBtoCircle(_Box1, _Circ1);
+	
+	CollisionResults res2 = AABBMask(_Box1).Collide(CircleMask(_Circ1));
 	if (res2._Collided)
 	{
 		DebugDrawCirc(_Circ1, _Window, sf::Color::Cyan);
 		Log("[" + FloatToString(res2._Overlap._X) + "," + FloatToString(res2._Overlap._Y) + "]");
+
+		sf::RectangleShape rect;
+		rect.setPosition(_Box1._X, _Box1._Y);
+		rect.setSize(sf::Vector2f(res2._Overlap.Length(), 2.f));
+		rect.setFillColor(sf::Color::Red);
+		rect.setRotation(CalcSFMLAngle(0.f, 0.f, res2._Overlap._X, res2._Overlap._Y));
+		_Window->draw(rect);
 	}
 	else
-	*/
 		DebugDrawCirc(_Circ1, _Window, sf::Color::White);
 	DebugDrawCirc(_Circ2, _Window, sf::Color::Red);
 
