@@ -146,8 +146,13 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 	if (pres._Collided)
 	{
 		_Player._Velocity.Set(0.f, 0.f);
-		_Player._Position -= pres._Overlap;
-		Log("Collision");
+		if ((pres._Overlap._X == 0.f) || (pres._Overlap._Y == 0.f))
+			_Player._Position -= pres._Overlap;
+		else if (Abs(pres._Overlap._X) > Abs(pres._Overlap._Y))
+			_Player._Position -= Vec(0, pres._Overlap._Y);
+		else
+			_Player._Position -= Vec(pres._Overlap._X, 0);
+		Log("Collision: After [" + FloatToString(pres._Overlap._X) + "," + FloatToString(pres._Overlap._Y) + "] Player now at (" + IntToString(_Player._Position.getX()) + "," + IntToString(_Player._Position.getY()) + ")");
 	}	//	TODO: fix player<->wall collisions by properly filling out the CollisionResults for WallCollision(CircleMask)
 
 	//	Bullet update loop

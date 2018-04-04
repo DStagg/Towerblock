@@ -38,14 +38,6 @@ CollisionResults CircleMask::CollideWith(CircleMask& mask)
 	return CollideCircletoCircle(_Mask, mask._Mask);
 };
 
-//	Collision Results
-
-CollisionResults::CollisionResults(bool collided, PairFloat overlap)
-{
-	_Collided = collided;
-	_Overlap = overlap;
-};
-
 //	AABB
 
 CollisionResults CollideAABBtoAABB(AABB box1, AABB box2)

@@ -24,6 +24,8 @@ public:
 	void set(int x, int y);
 	void set(float x, float y);
 
+	void round();
+
 	Point operator+(const Point& p);
 	Point operator-(const Point& p);
 	Point operator*(const int& i);

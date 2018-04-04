@@ -119,6 +119,9 @@
     <ClCompile Include="Framework\Debug\DebugDraw.cpp">
       <Filter>Framework\Debug</Filter>
     </ClCompile>
+    <ClCompile Include="Framework\Data\SAT.cpp">
+      <Filter>Framework\Data</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainScene.h">
@@ -207,6 +210,9 @@
     </ClInclude>
     <ClInclude Include="Framework\Debug\DebugDraw.h">
       <Filter>Framework\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Data\SAT.h">
+      <Filter>Framework\Data</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

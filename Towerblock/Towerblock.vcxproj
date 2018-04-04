@@ -127,6 +127,7 @@
     <ClCompile Include="Framework\Data\Grid.cpp" />
     <ClCompile Include="Framework\Data\Pair.cpp" />
     <ClCompile Include="Framework\Data\Point.cpp" />
+    <ClCompile Include="Framework\Data\SAT.cpp" />
     <ClCompile Include="Framework\Data\Vector.cpp" />
     <ClCompile Include="Framework\Debug\Console.cpp" />
     <ClCompile Include="Framework\Debug\DebugDraw.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="Framework\Data\Line.h" />
     <ClInclude Include="Framework\Data\Pair.h" />
     <ClInclude Include="Framework\Data\Point.h" />
+    <ClInclude Include="Framework\Data\SAT.h" />
     <ClInclude Include="Framework\Data\Vector.h" />
     <ClInclude Include="Framework\Debug\Console.h" />
     <ClInclude Include="Framework\Debug\DebugDraw.h" />

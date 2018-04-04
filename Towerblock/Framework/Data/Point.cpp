@@ -24,11 +24,11 @@ Point::Point()
 
 int Point::getX()
 {
-	return (int)_Coords._X;
+	return (int)floorf(_Coords._X);
 };
 int Point::getY()
 {
-	return (int)_Coords._Y;
+	return (int)floorf(_Coords._Y);
 };
 PairInt Point::get()
 {
@@ -59,6 +59,12 @@ void Point::set(float x, float y)
 {
 	setX(x);
 	setY(y);
+};
+
+void Point::round()
+{
+	_Coords._X = floorf(_Coords._X);
+	_Coords._Y = floorf(_Coords._Y);
 };
 
 //	Operators

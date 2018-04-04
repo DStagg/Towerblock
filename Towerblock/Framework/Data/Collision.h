@@ -9,17 +9,10 @@
 #include "..\Utility\Rotation.h"
 #include "Point.h"
 #include "..\Utility\Utility.h"
+#include "SAT.h"
 
 class AABBMask;
 class CircleMask;
-
-struct CollisionResults
-{
-	CollisionResults(bool collided = false, PairFloat overlap = PairFloat(0.f, 0.f));
-
-	bool _Collided;		//	Did a collision occur?
-	Vec _Overlap;	//	What is the overlap on each axis?
-};	//	TODO: revamp CollisionResults. May need to know minor axis overlap too (e.g. diagonal landing on floor, move up by y over)
 
 class CollisionMask
 {
