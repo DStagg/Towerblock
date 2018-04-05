@@ -9,9 +9,14 @@ Bullet::~Bullet()
 
 };
 
+void Bullet::Input()
+{
+
+};
+
 void Bullet::Update(float dt)
 {
-	_Position += _Velocity * dt;
+	Entity::Update(dt);
 	
 	_Mask._Mask = Circle(_Position.GetX(), _Position.GetY(), 8);
 };

@@ -10,7 +10,7 @@ Player::~Player()
 
 };
 
-void Player::Update(float dt)
+void Player::Input()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
 		_Velocity._Y = -100.f;
@@ -24,8 +24,11 @@ void Player::Update(float dt)
 		_Velocity._X = 100.f;
 	else
 		_Velocity._X = 0.f;
+};
 
-	_Position += _Velocity * dt;
+void Player::Update(float dt) 
+{
+	Entity::Update(dt);
 
 	if (_KnockbackTimer > 0.f)
 		_KnockbackTimer -= dt;

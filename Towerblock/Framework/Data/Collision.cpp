@@ -101,3 +101,4 @@ CollisionResults CircleMask::CollideWith(CircleMask& mask)
 	}
 	return CollisionResults();
 };
+//	TODO: fix Circle<->Circle seperation vector always being positive

@@ -10,9 +10,14 @@ Enemy::~Enemy()
 
 };
 
+void Enemy::Input()
+{
+
+};
+
 void Enemy::Update(float dt)
 {
-	_Position += _Velocity * dt;
+	Entity::Update(dt);
 
 	_Mask._Mask = Circle(_Position.GetX(), _Position.GetY(), 16);
 };

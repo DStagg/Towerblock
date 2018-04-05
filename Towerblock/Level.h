@@ -20,6 +20,14 @@ struct Tile
 	bool _Solid;
 };
 
+struct Impulse
+{
+	Impulse(Entity* e = 0, float time = 0.f, Vec accel = Vec());
+	Entity* _Target;
+	float _TimeLength, _TimeRemaining;
+	Vec _Accel;
+};
+
 class Level
 {
 public:
@@ -63,6 +71,8 @@ private:
 	Player _Player;
 	std::vector<Enemy> _Enemies;
 	std::vector<Bullet> _Bullets;
+
+	std::vector<Impulse> _Impulses;
 };
 
 #endif

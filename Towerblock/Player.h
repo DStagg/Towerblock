@@ -13,6 +13,7 @@ public:
 	Player();
 	~Player();
 
+	void Input();
 	void Update(float dt);
 	void Draw(sf::RenderWindow* rw);
 

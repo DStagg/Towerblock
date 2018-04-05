@@ -10,6 +10,7 @@ public:
 	Enemy();
 	~Enemy();
 
+	void Input();
 	void Update(float dt);
 	void Draw(sf::RenderWindow* rw);
 	

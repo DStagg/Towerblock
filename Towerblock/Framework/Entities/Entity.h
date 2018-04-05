@@ -13,7 +13,9 @@ public:
 	Entity();
 	~Entity();
 
-	virtual void Update(float dt) = 0;
+	virtual void Input() = 0;
+	virtual void UpdatePos(float dt);
+	virtual void Update(float dt);
 	virtual void Draw(sf::RenderWindow* rw) = 0;
 
 	bool _Alive = true;

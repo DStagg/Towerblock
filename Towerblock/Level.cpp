@@ -10,6 +10,16 @@ Tile::Tile(int str_id, bool s)
 
 /////
 
+Impulse::Impulse(Entity* e, float time, Vec accel)
+{
+	_Target = e;
+	_TimeRemaining = time;
+	_TimeLength = time;
+	_Accel = accel;
+};
+
+/////
+
 Level::Level()
 {
 	_Player._Position.Set(200, 200);
@@ -166,55 +176,48 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right))
 		FireShotgun();
 
+	//	Input
 	_Player._Facing = CalcHeading((float)_Player._Position.GetX(), (float)_Player._Position.GetY(), (float)sf::Mouse::getPosition(*rw).x, (float)sf::Mouse::getPosition(*rw).y);
-	_Player.Update(dt);
+	_Player.Input();
+	for (int i = 0; i < (int)_Enemies.size(); i++)
+		_Enemies[i].Input();
+	for (int i = 0; i < (int)_Bullets.size(); i++)
+		_Bullets[i].Input();
 
+	//	Impulses
+	for (int i = 0; i < (int)_Impulses.size(); i++)
+	{
+		_Impulses[i]._Target->_Velocity += _Impulses[i]._Accel * dt;
+		_Impulses[i]._TimeRemaining -= dt;
+		if (_Impulses[i]._TimeRemaining <= 0.f)
+		{
+			_Impulses.erase(_Impulses.begin() + i);
+			i--;
+		}
+	}
+
+	//	Update
+	_Player.Update(dt);
+	for (int i = 0; i < (int)_Enemies.size(); i++)
+		_Enemies[i].Update(dt);
+	for (int i = 0; i < (int)_Bullets.size(); i++)
+		_Bullets[i].Update(dt);
+
+	//	Collide
 	CollisionResults pres = WallCollision(_Player.GetMask());
 	if (pres._Collided)
 	{
 		_Player._Velocity = Vec(0.f, 0.f);
-		
 		_Player._Position += pres._Overlap;
 
 		Log("Collision: After [" + FloatToString(pres._Overlap._X) + "," + FloatToString(pres._Overlap._Y) + "] Player now at (" + IntToString(_Player._Position.GetX()) + "," + IntToString(_Player._Position.GetY()) + ")");
 	}
 
-	//	Bullet update loop
-	for (int i = 0; i < (int)_Bullets.size(); i++)
-	{
-		_Bullets[i].Update(dt);
-
-		for (int e = 0; e < (int)_Enemies.size(); e++)
-			if (_Bullets[i].GetMask().Collide(_Enemies[e].GetMask())._Collided)
-			{
-				_Bullets[i]._Alive = false;
-				_Enemies[e]._Alive = false;
-			}
-
-		if (WallCollision(_Bullets[i].GetMask())._Collided)
-			_Bullets[i]._Alive = false;
-
-		if (!AABB(0, 0, rw->getSize().x, rw->getSize().y).Contains(_Bullets[i]._Position.GetX(), _Bullets[i]._Position.GetY()))
-			_Bullets[i]._Alive = false;
-
-		if (!_Bullets[i]._Alive)
-		{
-			_Bullets.erase(_Bullets.begin() + i);
-			i--;
-		}
-	}
-
 	for (int i = 0; i < (int)_Enemies.size(); i++)
 	{
-		_Enemies[i].Update(dt);
+		if (!AABB(0, 0, rw->getSize().x, rw->getSize().y).Contains(_Enemies[i]._Position.GetX(), _Enemies[i]._Position.GetY()))
+			_Enemies[i]._Alive = false;
 
-		CollisionResults res = _Enemies[i].GetMask().Collide(_Player.GetMask());
-		if (res._Collided)
-		{
-			_Player.Knockback(res._Overlap);
-			_Enemies[i]._Position -= _Enemies[i]._Velocity * dt;
-		}
-		
 		CollisionResults wres = WallCollision(_Enemies[i].GetMask());
 		if (wres._Collided)
 		{
@@ -222,15 +225,50 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 			_Enemies[i]._Velocity *= -1;
 		}
 
-		if (!AABB(0, 0, rw->getSize().x, rw->getSize().y).Contains(_Enemies[i]._Position.GetX(), _Enemies[i]._Position.GetY()))
-			_Enemies[i]._Alive = false;
+		CollisionResults res = _Enemies[i].GetMask().Collide(_Player.GetMask());
+		if (res._Collided)
+		{
+			_Player.Knockback(res._Overlap);
+			_Impulses.push_back(Impulse(&_Player, 0.2f, res._Overlap.UnitVec() * 1000.f));
+			_Enemies[i]._Position -= res._Overlap;
+		}
+	}
+	
+	for (int i = 0; i < (int)_Bullets.size(); i++)
+	{
+		if (!AABB(0, 0, rw->getSize().x, rw->getSize().y).Contains(_Bullets[i]._Position.GetX(), _Bullets[i]._Position.GetY()))
+			_Bullets[i]._Alive = false;
 
+		if (WallCollision(_Bullets[i].GetMask())._Collided)
+			_Bullets[i]._Alive = false;
+
+		for (int e = 0; e < (int)_Enemies.size(); e++)
+			if (_Bullets[i].GetMask().Collide(_Enemies[e].GetMask())._Collided)
+			{
+				_Bullets[i]._Alive = false;
+				_Enemies[e]._Alive = false;
+			}
+	}
+
+	//	Resolve		
+	for (int i = 0; i < (int)_Enemies.size(); i++)
+	{
 		if (!_Enemies[i]._Alive)
 		{
 			_Enemies.erase(_Enemies.begin() + i);
 			i--;
 		}
 	}
+
+	for (int i = 0; i < (int)_Bullets.size(); i++)
+	{
+		if (!_Bullets[i]._Alive)
+		{
+			_Bullets.erase(_Bullets.begin() + i);
+			i--;
+		}
+	}
+
 };
 
 void Level::Draw(sf::RenderWindow* rw)
