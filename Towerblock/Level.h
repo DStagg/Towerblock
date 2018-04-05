@@ -35,7 +35,8 @@ public:
 	bool IsSolid(int x, int y);
 	int CalcCol(float x);
 	int CalcRow(float y);
-
+	//	TODO: Change WallCollision tests to take into account velocity and dt?
+	//	TODO: May also help to get wall collision working better by checkng each axis one at a time, etc.
 	CollisionResults WallCollision(AABBMask mask);
 	CollisionResults WallCollision(CircleMask mask);
 

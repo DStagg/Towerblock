@@ -105,6 +105,9 @@ void MainScene::DrawScreen()
 	_Window->draw(temp);
 
 	_Level.Draw(_Window);
+	if (_Level.GetPlayer()._Position.GetX() < 47)
+		Log("(" + IntToString(_Level.GetPlayer()._Position.GetX()) + "," + IntToString(_Level.GetPlayer()._Position.GetY()) + 
+			") => (" + FloatToString((float)_Level.GetPlayer()._Position.GetX()) + "," + FloatToString((float)_Level.GetPlayer()._Position.GetY()) + ")");
 
 	_Window->setView(_Window->getDefaultView());
 	

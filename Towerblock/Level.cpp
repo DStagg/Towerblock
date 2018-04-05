@@ -108,8 +108,6 @@ CollisionResults Level::WallCollision(CircleMask mask)
 	return CollisionResults(false, Vec());
 };
 
-//	HACK: need to get wall collision working better e.g. by checkng each axis one at a time, etc.
-
 void Level::Fire()
 {
 	if (_FireTimer > 0.f)
@@ -150,7 +148,7 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 		_Player._Position += pres._Overlap;
 
 		Log("Collision: After [" + FloatToString(pres._Overlap._X) + "," + FloatToString(pres._Overlap._Y) + "] Player now at (" + IntToString(_Player._Position.GetX()) + "," + IntToString(_Player._Position.GetY()) + ")");
-	}	//	TODO: fix player<->wall collisions by properly filling out the CollisionResults for WallCollision(CircleMask)
+	}
 
 	//	Bullet update loop
 	for (int i = 0; i < (int)_Bullets.size(); i++)
@@ -218,7 +216,7 @@ void Level::Draw(sf::RenderWindow* rw)
 	}
 
 	_Player.Draw(rw);
-	DebugDrawMask(_Player.GetMask(), rw);
+	//DebugDrawMask(_Player.GetMask(), rw);
 };
 
 Player& Level::GetPlayer()
