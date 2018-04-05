@@ -169,17 +169,12 @@ void Level::Spawn(int x, int y, int vx, int vy)
 {
 	Enemy temp;
 	temp._Position.Set(x, y);
-	temp._Velocity = Vec(vx, vy);
+	temp._Velocity = Vec((float)vx, (float)vy);
 	_Enemies.push_back(temp);
 };
 
 void Level::Update(float dt, sf::RenderWindow* rw)
 {
-	//	TO DO NEXT:
-	//		Re-enable impulses
-	//		See how enemy <-> player collisions run
-	//		Fix as appropriate
-
 	if (_FireTimer > 0.f)
 		_FireTimer -= dt;
 
@@ -212,34 +207,24 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 		}
 	}
 
-	//	Collide (inc. projected collision)
-	CollisionResults pres = WallCollision(_Player.GetMask());	//	Static collision test
+	//	Collide
+	CollisionResults pres = WallCollision(_Player.GetMask());
 	if (pres._Collided)
 	{
 		_Player._Velocity = Vec(0.f, 0.f);
 		_Player._Position += pres._Overlap;
 	}
-	else														//	Projected collision test
-	{
-		CircleMask proj = _Player.GetMask();
-		proj._Mask._X += _Player._Velocity._X * dt;
-		proj._Mask._Y += _Player._Velocity._Y * dt;
-		pres = WallCollision(proj);
 
-		if (pres._Collided)
-		{
-			_Player._Position += (_Player._Velocity * dt) - pres._Overlap;
-			_Player._Velocity = Vec(0.f, 0.f);
-		}
-	}
-
-
-	//	Collide
 	for (int i = 0; i < (int)_Enemies.size(); i++)
 	{
+		//	Kill the Enemy if it gets off the screen
 		if (!AABB(0, 0, rw->getSize().x, rw->getSize().y).Contains(_Enemies[i]._Position.GetX(), _Enemies[i]._Position.GetY()))
+		{
 			_Enemies[i]._Alive = false;
+			continue;					//	If the enemy is now dead for being off screen no point doing collisions checks.
+		}
 
+		//	Collide the Enemy against the Walls
 		CollisionResults wres = WallCollision(_Enemies[i].GetMask());
 		if (wres._Collided)
 		{
@@ -247,12 +232,28 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 			_Enemies[i]._Velocity *= -1;
 		}
 
+		//	Collide the Enemy against the Player
 		CollisionResults res = _Enemies[i].GetMask().Collide(_Player.GetMask());
 		if (res._Collided)
 		{
-			_Player.Knockback(res._Overlap);
-			_Impulses.push_back(Impulse(&_Player, 0.1f, res._Overlap.UnitVec() * -200.f));
-			_Enemies[i]._Position += res._Overlap;
+			//	Need to make sure we are not pushing the player inside of a wall
+			CircleMask projected = _Player.GetMask();
+			projected._Mask._X -= (int)res._Overlap._X;
+			projected._Mask._Y -= (int)res._Overlap._Y;
+			CollisionResults res2 = WallCollision(projected);
+
+			if (res2._Collided)	//	If knocking the player back would intersect a wall, just move them TO the wall and deal damage
+			{
+				_Player._Position.Set(projected._Mask._X + res2._Overlap._X, projected._Mask._Y + res2._Overlap._Y);
+				_Player.Knockback();
+			}
+			else	//	Otherwise, separate them from the enemy and apply a knockback force
+			{
+				_Player.Knockback(res._Overlap);
+				_Impulses.push_back(Impulse(&_Player, 0.1f, res._Overlap.UnitVec() * -200.f));
+				_Impulses.push_back(Impulse(&_Enemies[i], 0.1f, res._Overlap.UnitVec() * 200.f));
+			}
+			_Enemies[i]._Position += res._Overlap;	//	Either way, move the enemy back from the player so there is no overlap
 		}
 	}
 	
@@ -261,7 +262,7 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 		if (!AABB(0, 0, rw->getSize().x, rw->getSize().y).Contains(_Bullets[i]._Position.GetX(), _Bullets[i]._Position.GetY()))
 			_Bullets[i]._Alive = false;
 
-		if (WallCollision(_Bullets[i].GetMask())._Collided)
+		if (_Bullets[i]._Alive && WallCollision(_Bullets[i].GetMask())._Collided)	//	No point doing a wall check for dead ones
 			_Bullets[i]._Alive = false;
 
 		for (int e = 0; e < (int)_Enemies.size(); e++)
@@ -271,17 +272,17 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 				_Enemies[e]._Alive = false;
 			}
 	}
-
-
-	//	TODO: instead of Input->Impulse->Update->Collide->Resolve, use Input->Impulse->WallCollide(Projected)->Update->Collide(Dynamic)->Resolve
-	//	Update
+	
+	//	Update Position/etc.
 	_Player.Update(dt);
 	for (int i = 0; i < (int)_Enemies.size(); i++)
 		_Enemies[i].Update(dt);
 	for (int i = 0; i < (int)_Bullets.size(); i++)
 		_Bullets[i].Update(dt);
 
-	//	Resolve		
+	//	Resolve/Cull
+
+
 	for (int i = 0; i < (int)_Enemies.size(); i++)
 	{
 		if (!_Enemies[i]._Alive)

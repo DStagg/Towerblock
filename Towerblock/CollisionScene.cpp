@@ -128,7 +128,7 @@ void CollisionScene::DrawScreen()
 		Log("[" + FloatToString(res2._Overlap._X) + "," + FloatToString(res2._Overlap._Y) + "]");
 
 		sf::RectangleShape rect;
-		rect.setPosition(_Box1._X, _Box1._Y);
+		rect.setPosition((float)_Box1._X, (float)_Box1._Y);
 		rect.setSize(sf::Vector2f(res2._Overlap.Length(), 2.f));
 		rect.setFillColor(sf::Color::Red);
 		rect.setRotation(CalcSFMLAngle(0.f, 0.f, res2._Overlap._X, res2._Overlap._Y));

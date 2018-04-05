@@ -2,7 +2,6 @@
 #define COLLISION_H
 
 #include "Shapes.h"
-#include "../Debug/Console.h"	
 
 class AABBMask;
 class CircleMask;
