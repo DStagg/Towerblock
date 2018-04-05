@@ -16,6 +16,8 @@
 
 #include "Bullet.h"
 
+#include "WinScene.h"
+
 class MainScene : public Scene
 {
 public:

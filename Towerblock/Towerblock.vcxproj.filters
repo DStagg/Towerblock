@@ -116,6 +116,9 @@
     <ClCompile Include="Framework\Data\Trig.cpp">
       <Filter>Framework\Data</Filter>
     </ClCompile>
+    <ClCompile Include="WinScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainScene.h">
@@ -201,6 +204,9 @@
     </ClInclude>
     <ClInclude Include="Framework\Data\Trig.h">
       <Filter>Framework\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="WinScene.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

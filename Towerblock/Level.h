@@ -62,6 +62,8 @@ public:
 	float GetFlashTimer();
 	float GetFlashDuration();
 
+	int CountEnemies();
+
 private:
 
 	Grid _Tiles;

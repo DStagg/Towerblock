@@ -342,3 +342,8 @@ float Level::GetFlashDuration()
 {
 	return _FlashDuration;
 };
+
+int Level::CountEnemies()
+{
+	return (int)_Enemies.size();
+};

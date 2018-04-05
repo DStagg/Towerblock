@@ -28,6 +28,7 @@ void MainScene::Begin()
 
 	_Level.GenerateBox(20, 10);
 	_Level.GetGrid().SetCell(10, 5, 1);
+	_Level.Spawn(400, 400);
 
 	builder.BuildCompositeTex(_Level.GetGrid(), &_CompositeTex);
 
@@ -103,6 +104,10 @@ void MainScene::Update(float dt)
 
 	_Level.Update(dt, _Window);
 
+	if (_Level.CountEnemies() == 0)
+	{
+		GetManager()->PushScene(new WinScene(_Window));
+	}
 };
 void MainScene::DrawScreen()
 {
