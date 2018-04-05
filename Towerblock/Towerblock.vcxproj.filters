@@ -107,9 +107,6 @@
     <ClCompile Include="Framework\Data\SAT.cpp">
       <Filter>Framework\Data</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Framework\Data\Shapes.cpp">
       <Filter>Framework\Data</Filter>
     </ClCompile>
@@ -120,6 +117,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LoseScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -196,9 +196,6 @@
     <ClInclude Include="Framework\Data\SAT.h">
       <Filter>Framework\Data</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionScene.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Framework\Data\Maths.h">
       <Filter>Framework\Data</Filter>
     </ClInclude>
@@ -212,6 +209,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="LoseScene.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
