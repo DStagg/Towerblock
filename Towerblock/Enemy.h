@@ -18,7 +18,6 @@ public:
 
 private:
 
-	CircleMask _Mask;
 };
 
 #endif
