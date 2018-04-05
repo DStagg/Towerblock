@@ -78,16 +78,20 @@ void MainScene::Update(float dt)
 				_DrawLog = !_DrawLog;
 				break;
 			case sf::Keyboard::Left:
-				_CameraView.move(-32.f, 0.f);
+				//_CameraView.move(-32.f, 0.f);
+				_Level.Spawn(_Level.GetPlayer()._Position.GetX() + 150, _Level.GetPlayer()._Position.GetY(), -100, 0);
 				break;
 			case sf::Keyboard::Right:
-				_CameraView.move(32.f, 0.f);
+				//_CameraView.move(32.f, 0.f);
+				_Level.Spawn(_Level.GetPlayer()._Position.GetX() - 150, _Level.GetPlayer()._Position.GetY(), 100, 0);
 				break;
 			case sf::Keyboard::Down:
-				_CameraView.move(0.f, 32.f);
+				//_CameraView.move(0.f, 32.f);
+				_Level.Spawn(_Level.GetPlayer()._Position.GetX(), _Level.GetPlayer()._Position.GetY() + 150, 0, -100);
 				break;
 			case sf::Keyboard::Up:
-				_CameraView.move(0.f, -32.f);
+				//_CameraView.move(0.f, -32.f);
+				_Level.Spawn(_Level.GetPlayer()._Position.GetX(), _Level.GetPlayer()._Position.GetY() - 150, 0, 100);
 				break;
 			case sf::Keyboard::BackSpace:
 				_CameraView = _Window->getDefaultView();
@@ -108,9 +112,6 @@ void MainScene::DrawScreen()
 	_Window->draw(temp);
 
 	_Level.Draw(_Window);
-	if (_Level.GetPlayer()._Position.GetX() < 47)
-		Log("(" + IntToString(_Level.GetPlayer()._Position.GetX()) + "," + IntToString(_Level.GetPlayer()._Position.GetY()) + 
-			") => (" + FloatToString((float)_Level.GetPlayer()._Position.GetX()) + "," + FloatToString((float)_Level.GetPlayer()._Position.GetY()) + ")");
 
 	_Window->setView(_Window->getDefaultView());
 	

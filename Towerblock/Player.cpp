@@ -61,7 +61,7 @@ void Player::Knockback(Vec over)
 		return;
 	_KnockbackTimer = 1.f;
 	_HP -= 10;
-	Log("(" + FloatToString((float)_Position.GetX() + (over._X * 1.1f)) + "," + FloatToString((float)_Position.GetY() + (over._Y * 1.1f)) + ") - (" + FloatToString(over._X) + "," + FloatToString(over._Y) + ") * 1.1f = (" + FloatToString((float)_Position.GetX()) + "," + FloatToString((float)_Position.GetY()) + ")");
+	//Log("(" + FloatToString((float)_Position.GetX() + (over._X * 1.1f)) + "," + FloatToString((float)_Position.GetY() + (over._Y * 1.1f)) + ") - (" + FloatToString(over._X) + "," + FloatToString(over._Y) + ") * 1.1f = (" + FloatToString((float)_Position.GetX()) + "," + FloatToString((float)_Position.GetY()) + ")");
 	
 	
 };

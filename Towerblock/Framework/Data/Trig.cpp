@@ -47,7 +47,7 @@ Vec Vec::operator+(const Vec& v)
 };
 Vec Vec::operator-(const Vec& v)
 {
-	return Vec(_X - v._X, -v._Y);
+	return Vec(_X - v._X, _Y - v._Y);
 };
 Vec Vec::operator*(const int& i)
 {

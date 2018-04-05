@@ -1,11 +1,12 @@
 #ifndef CONSOLE_H
 #define CONSOLE_H
-//	TODO: move to framework folders
+
 #include <vector>
 #include "SFML\Graphics.hpp"
 #include "..\IO\BinarySave.h"
 #include <iostream>
 #include "..\IO\TextFile.h"
+#include "..\Utility\Utility.h"
 
 #define ConsoleBackgroundColour sf::Color(0, 0, 0, 155)
 #define ConsoleTextSize 16

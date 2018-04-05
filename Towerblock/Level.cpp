@@ -165,9 +165,23 @@ void Level::Spawn(int x, int y)
 	temp._Velocity = Vec((float)Random::R()->Generate(-70, 70), (float)Random::R()->Generate(-70, 70));
 	_Enemies.push_back(temp);
 };
+void Level::Spawn(int x, int y, int vx, int vy)
+{
+	Enemy temp;
+	temp._Position.Set(x, y);
+	temp._Velocity = Vec(vx, vy);
+	_Enemies.push_back(temp);
+};
 
 void Level::Update(float dt, sf::RenderWindow* rw)
 {
+	//	TO DO NEXT:
+	//		Fix the minimum seperation vec for circle<->circle always being positive
+	//		See how enemy <-> player collisions run
+	//		Re-enable impulses
+	//		See how enemy <-> player collisions run
+	//		Fix as appropriate
+
 	if (_FireTimer > 0.f)
 		_FireTimer -= dt;
 
@@ -187,7 +201,7 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 	//	Impulses
 	for (int i = 0; i < (int)_Impulses.size(); i++)
 	{
-		_Impulses[i]._Target->_Velocity += _Impulses[i]._Accel * dt;
+	//	_Impulses[i]._Target->_Velocity += _Impulses[i]._Accel * dt;
 		_Impulses[i]._TimeRemaining -= dt;
 		if (_Impulses[i]._TimeRemaining <= 0.f)
 		{
@@ -210,7 +224,7 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 		_Player._Velocity = Vec(0.f, 0.f);
 		_Player._Position += pres._Overlap;
 
-		Log("Collision: After [" + FloatToString(pres._Overlap._X) + "," + FloatToString(pres._Overlap._Y) + "] Player now at (" + IntToString(_Player._Position.GetX()) + "," + IntToString(_Player._Position.GetY()) + ")");
+//		Log("Collision: After [" + FloatToString(pres._Overlap._X) + "," + FloatToString(pres._Overlap._Y) + "] Player now at (" + IntToString(_Player._Position.GetX()) + "," + IntToString(_Player._Position.GetY()) + ")");
 	}
 
 	for (int i = 0; i < (int)_Enemies.size(); i++)
@@ -228,9 +242,10 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 		CollisionResults res = _Enemies[i].GetMask().Collide(_Player.GetMask());
 		if (res._Collided)
 		{
-			_Player.Knockback(res._Overlap);
-			_Impulses.push_back(Impulse(&_Player, 0.2f, res._Overlap.UnitVec() * 1000.f));
-			_Enemies[i]._Position -= res._Overlap;
+			//_Player.Knockback(res._Overlap * -1);
+			_Player._Position -= res._Overlap;
+			_Impulses.push_back(Impulse(&_Player, 0.2f, res._Overlap.UnitVec() * -100.f));
+			_Enemies[i]._Position += res._Overlap;
 		}
 	}
 	

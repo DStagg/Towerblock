@@ -2,6 +2,7 @@
 #define COLLISION_H
 
 #include "Shapes.h"
+#include "../Debug/Console.h"	
 
 class AABBMask;
 class CircleMask;
@@ -14,6 +15,7 @@ struct CollisionResults
 	bool _Collided;		//	Did a collision occur?
 	Vec _Overlap;		//	What is the overlap on each axis?
 };
+//	The entity that called Collide() should add _Overlap to separate. The entity that Collide() was called on should subtract it.
 
 class CollisionMask
 {

@@ -51,6 +51,7 @@ public:
 	void Fire();
 	void FireShotgun();
 	void Spawn(int x, int y);
+	void Spawn(int x, int y, int velx, int vely);
 	void Update(float dt, sf::RenderWindow* rw);
 	void Draw(sf::RenderWindow* rw);
 
