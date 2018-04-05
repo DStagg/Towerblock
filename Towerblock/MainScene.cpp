@@ -108,6 +108,10 @@ void MainScene::Update(float dt)
 	{
 		GetManager()->PushScene(new WinScene(_Window));
 	}
+	else if (_Level.GetPlayer()._HP <= 0)
+	{
+		GetManager()->PushScene(new LoseScene(_Window));
+	}
 };
 void MainScene::DrawScreen()
 {

@@ -119,6 +119,9 @@
     <ClCompile Include="WinScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LoseScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainScene.h">
@@ -206,6 +209,9 @@
       <Filter>Framework\Data</Filter>
     </ClInclude>
     <ClInclude Include="WinScene.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LoseScene.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

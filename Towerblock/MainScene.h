@@ -17,6 +17,7 @@
 #include "Bullet.h"
 
 #include "WinScene.h"
+#include "LoseScene.h"
 
 class MainScene : public Scene
 {
@@ -47,9 +48,6 @@ private:
 	Level _Level;
 };
 
-//	TODO: 6.1 Win Screen (kill all enemies)
-//	TODO: 6.2 Lose screen (lose all health)
-//	TODO: 6.3 Show player facing
 //	TODO: 6.4 Show enemy facing
 //	TODO: 7.1 Title screen
 //	TODO: 7.2 Track ammo per fire mode
