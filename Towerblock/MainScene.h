@@ -48,6 +48,7 @@ private:
 	Level _Level;
 };
 
+//	TODO: 6.4 Show enemy facing
 //	TODO: 7.1 Title screen
 //	TODO: 7.2 Track ammo per fire mode
 //	TODO: 7.3 Ammo pickups appear on screen
