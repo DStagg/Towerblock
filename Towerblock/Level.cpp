@@ -176,8 +176,6 @@ void Level::Spawn(int x, int y, int vx, int vy)
 void Level::Update(float dt, sf::RenderWindow* rw)
 {
 	//	TO DO NEXT:
-	//		Fix the minimum seperation vec for circle<->circle always being positive
-	//		See how enemy <-> player collisions run
 	//		Re-enable impulses
 	//		See how enemy <-> player collisions run
 	//		Fix as appropriate
@@ -198,10 +196,14 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 	for (int i = 0; i < (int)_Bullets.size(); i++)
 		_Bullets[i].Input();
 
+	//	HACK: get the 1st enemy to chase the player
+	if ((int)_Enemies.size() > 0)
+		_Enemies[0]._Velocity = Vec(_Enemies[0]._Position - _Player._Position).UnitVec() * -100.f;
+
 	//	Impulses
 	for (int i = 0; i < (int)_Impulses.size(); i++)
 	{
-	//	_Impulses[i]._Target->_Velocity += _Impulses[i]._Accel * dt;
+		_Impulses[i]._Target->_Velocity += _Impulses[i]._Accel;
 		_Impulses[i]._TimeRemaining -= dt;
 		if (_Impulses[i]._TimeRemaining <= 0.f)
 		{
@@ -210,6 +212,10 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 		}
 	}
 
+	//	Collide (inc. projected collision)
+	//CollisionResults pres = WallCollision(_Player.GetMask());
+
+	//	TODO: instead of Input->Impulse->Update->Collide->Resolve, use Input->Impulse->WallCollide(Projected)->Update->Collide(Dynamic)->Resolve
 	//	Update
 	_Player.Update(dt);
 	for (int i = 0; i < (int)_Enemies.size(); i++)
@@ -243,7 +249,7 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 		if (res._Collided)
 		{
 			_Player.Knockback(res._Overlap);
-			_Impulses.push_back(Impulse(&_Player, 0.2f, res._Overlap.UnitVec() * -100.f));
+			_Impulses.push_back(Impulse(&_Player, 0.1f, res._Overlap.UnitVec() * -200.f));
 			_Enemies[i]._Position += res._Overlap;
 		}
 	}
