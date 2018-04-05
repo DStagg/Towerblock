@@ -121,6 +121,33 @@ void Level::Fire()
 	_Bullets.push_back(temp);
 };
 
+void Level::FireShotgun()
+{
+	if (_FireTimer > 0.f)
+		return;
+	_FireTimer = 0.5f;
+
+	Bullet temp;
+	temp._Position.Set(_Player._Position.GetX(), _Player._Position.GetY());
+	temp._Velocity = Vec(CalcXComp(_Player._Facing), CalcYComp(_Player._Facing)).UnitVec() * 100.f;
+	temp._Position += temp._Velocity.UnitVec() * 50;
+	_Bullets.push_back(temp);
+
+	float spread = DegreeToRad(45.f);
+
+	temp._Velocity = Vec(CalcXComp(_Player._Facing - spread), CalcYComp(_Player._Facing - spread)).UnitVec() * 100.f;
+	_Bullets.push_back(temp);
+
+	temp._Velocity = Vec(CalcXComp(_Player._Facing + spread), CalcYComp(_Player._Facing + spread)).UnitVec() * 100.f;
+	_Bullets.push_back(temp);
+
+	temp._Velocity = Vec(CalcXComp(_Player._Facing - spread / 2.f), CalcYComp(_Player._Facing - spread / 2.f)).UnitVec() * 100.f;
+	_Bullets.push_back(temp);
+
+	temp._Velocity = Vec(CalcXComp(_Player._Facing + spread / 2.f), CalcYComp(_Player._Facing + spread / 2.f)).UnitVec() * 100.f;
+	_Bullets.push_back(temp);
+};
+
 void Level::Spawn(int x, int y)
 {
 	Enemy temp;
@@ -136,6 +163,8 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 		Fire();
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right))
+		FireShotgun();
 
 	_Player._Facing = CalcHeading((float)_Player._Position.GetX(), (float)_Player._Position.GetY(), (float)sf::Mouse::getPosition(*rw).x, (float)sf::Mouse::getPosition(*rw).y);
 	_Player.Update(dt);

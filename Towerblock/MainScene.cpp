@@ -61,7 +61,7 @@ void MainScene::Update(float dt)
 			{
 				//_Player._Position.set(sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y);
 			}
-			else if (Event.mouseButton.button == sf::Mouse::Button::Right)
+			else if (Event.mouseButton.button == sf::Mouse::Button::Middle)
 				_Level.Spawn(sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y);
 
 			//Log("aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ1234567890!'£$%^&*()");

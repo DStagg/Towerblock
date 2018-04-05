@@ -41,6 +41,7 @@ public:
 	CollisionResults WallCollision(CircleMask mask);
 
 	void Fire();
+	void FireShotgun();
 	void Spawn(int x, int y);
 	void Update(float dt, sf::RenderWindow* rw);
 	void Draw(sf::RenderWindow* rw);
