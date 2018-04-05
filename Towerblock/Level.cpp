@@ -123,7 +123,7 @@ void Level::Fire()
 	if (_FireTimer > 0.f)
 		return;
 	_FireTimer = 0.2f;
-
+	
 	Bullet temp;
 	temp._Position.Set(_Player._Position.GetX(), _Player._Position.GetY());
 	temp._Velocity = Vec(CalcXComp(_Player._Facing), CalcYComp(_Player._Facing)).UnitVec() * 100.f;
@@ -302,7 +302,6 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 			i--;
 		}
 	}
-
 };
 
 void Level::Draw(sf::RenderWindow* rw)
