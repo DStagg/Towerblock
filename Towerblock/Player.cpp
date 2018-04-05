@@ -46,11 +46,13 @@ void Player::Draw(sf::RenderWindow* rw)
 	circ.setPosition((float)_Position.GetX(), (float)_Position.GetY());
 	rw->draw(circ);
 
-	sf::RectangleShape rect;
-	rect.setSize(sf::Vector2f(5.f, 5.f));
-	rect.setFillColor(sf::Color::White);
-	rect.setPosition(_Position.GetX() + circ.getRadius() + (32.f * CalcXComp(_Facing)), _Position.GetY() + circ.getRadius() + (32.f * CalcYComp(_Facing)));
-	rw->draw(rect);
+	//	Indicate facing
+	sf::CircleShape circ2;
+	circ2.setRadius(2.5f);
+	circ2.setFillColor(sf::Color::White);
+	circ2.setOrigin(2.5f, 2.5f);
+	circ2.setPosition(_Position.GetX() + (32.f * CalcXComp(_Facing)), _Position.GetY() + (32.f * CalcYComp(_Facing)));
+	rw->draw(circ2);
 
 };
 
