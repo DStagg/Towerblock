@@ -214,10 +214,13 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 			_Player.Knockback(res._Overlap);
 			_Enemies[i]._Position -= _Enemies[i]._Velocity * dt;
 		}
-
-		//	TODO: fix resolution of enemy<-> wall collision. Not enough to reverse velocity - need to move out of wall also.
-		if (WallCollision(_Enemies[i].GetMask())._Collided)
+		
+		CollisionResults wres = WallCollision(_Enemies[i].GetMask());
+		if (wres._Collided)
+		{
+			_Enemies[i]._Position += wres._Overlap;
 			_Enemies[i]._Velocity *= -1;
+		}
 
 		if (!AABB(0, 0, rw->getSize().x, rw->getSize().y).Contains(_Enemies[i]._Position.GetX(), _Enemies[i]._Position.GetY()))
 			_Enemies[i]._Alive = false;
@@ -235,13 +238,13 @@ void Level::Draw(sf::RenderWindow* rw)
 	for (int i = 0; i < (int)_Enemies.size(); i++)
 	{
 		_Enemies[i].Draw(rw);
-		DebugDrawMask(_Enemies[i].GetMask(), rw);
+	//	DebugDrawMask(_Enemies[i].GetMask(), rw);
 	}
 
 	for (int i = 0; i < (int)_Bullets.size(); i++)
 	{
 		_Bullets[i].Draw(rw);
-		DebugDrawMask(_Bullets[i].GetMask(), rw);
+	//	DebugDrawMask(_Bullets[i].GetMask(), rw);
 	}
 
 	_Player.Draw(rw);
