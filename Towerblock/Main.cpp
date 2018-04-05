@@ -14,8 +14,8 @@ int main()
 	_Window.create(sf::VideoMode(640, 640), "SFML Window");
 
 	SceneManager SCM;
-	//SCM.PushScene(new TitleScene(&_Window));
-	SCM.PushScene(new MainScene(&_Window));
+	SCM.PushScene(new TitleScene(&_Window));
+	//SCM.PushScene(new MainScene(&_Window));
 
 	UpdateClock.restart();
 	while (SCM.GetActiveScenePntr() != 0)

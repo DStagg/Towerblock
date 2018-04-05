@@ -55,7 +55,7 @@ void MainScene::Update(float dt)
 	while (_Window->pollEvent(Event))
 	{
 		if (Event.type == sf::Event::Closed)
-			SetRunning(false);
+			GetManager()->Quit();
 		else if (Event.type == sf::Event::MouseButtonPressed)
 		{
 			if (Event.mouseButton.button == sf::Mouse::Button::Left)
@@ -71,7 +71,7 @@ void MainScene::Update(float dt)
 			//Log("aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ1234567890!'£$%^&*()");
 		}
 		else if (Event.type == sf::Event::KeyPressed && Event.key.code == sf::Keyboard::Escape)
-			SetRunning(false);
+			GetManager()->Quit();
 		else if (Event.type == sf::Event::KeyPressed)
 			switch (Event.key.code) 
 			{
