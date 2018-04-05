@@ -113,6 +113,16 @@ void MainScene::DrawScreen()
 
 	_Level.Draw(_Window);
 
+	//	Screen Flash
+	if (_Level.GetFlashTimer() > 0.f)
+	{
+		sf::RectangleShape flash;
+		flash.setSize(sf::Vector2f((float)_Window->getSize().x, (float)_Window->getSize().y));
+		flash.setPosition(0.f, 0.f);
+		flash.setFillColor(sf::Color(255, 255, 255, 255 * (1 - (_Level.GetFlashTimer() / _Level.GetFlashDuration()))));
+		_Window->draw(flash);
+	}
+
 	_Window->setView(_Window->getDefaultView());
 	
 	//	Health Bar

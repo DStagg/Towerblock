@@ -45,7 +45,6 @@ private:
 	Level _Level;
 };
 
-//	TODO: 5.4 Screen flashes on harm
 //	TODO: 6.1 Win Screen (kill all enemies)
 //	TODO: 6.2 Lose screen (lose all health)
 //	TODO: 6.3 Show player facing

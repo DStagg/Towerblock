@@ -177,6 +177,8 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 {
 	if (_FireTimer > 0.f)
 		_FireTimer -= dt;
+	if (_FlashTimer > 0.f)
+		_FlashTimer -= dt;
 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 		Fire();
@@ -245,11 +247,11 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 			if (res2._Collided)	//	If knocking the player back would intersect a wall, just move them TO the wall and deal damage
 			{
 				_Player._Position.Set(projected._Mask._X + res2._Overlap._X, projected._Mask._Y + res2._Overlap._Y);
-				_Player.Knockback();
+				if (_Player.Knockback()) _FlashTimer = _FlashDuration;
 			}
 			else	//	Otherwise, separate them from the enemy and apply a knockback force
 			{
-				_Player.Knockback(res._Overlap);
+				if (_Player.Knockback(res._Overlap)) _FlashTimer = _FlashDuration;
 				_Impulses.push_back(Impulse(&_Player, 0.1f, res._Overlap.UnitVec() * -200.f));
 				_Impulses.push_back(Impulse(&_Enemies[i], 0.1f, res._Overlap.UnitVec() * 200.f));
 			}
@@ -329,4 +331,14 @@ Player& Level::GetPlayer()
 float Level::GetFireTimer()
 {
 	return _FireTimer;
+};
+
+float Level::GetFlashTimer()
+{
+	return _FlashTimer;
+};
+
+float Level::GetFlashDuration()
+{
+	return _FlashDuration;
 };

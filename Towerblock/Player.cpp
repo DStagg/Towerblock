@@ -54,16 +54,15 @@ void Player::Draw(sf::RenderWindow* rw)
 
 };
 
-void Player::Knockback(Vec over)
+bool Player::Knockback(Vec over)
 {
 	_Position -= over;
 	if (_KnockbackTimer > 0.f)
-		return;
+		return false;
 	_KnockbackTimer = 1.f;
 	_HP -= 10;
 	//Log("(" + FloatToString((float)_Position.GetX() + (over._X * 1.1f)) + "," + FloatToString((float)_Position.GetY() + (over._Y * 1.1f)) + ") - (" + FloatToString(over._X) + "," + FloatToString(over._Y) + ") * 1.1f = (" + FloatToString((float)_Position.GetX()) + "," + FloatToString((float)_Position.GetY()) + ")");
-	
-	
+	return true;
 };
 
 CircleMask Player::GetMask()

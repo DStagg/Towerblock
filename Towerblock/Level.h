@@ -59,6 +59,9 @@ public:
 
 	float GetFireTimer();
 
+	float GetFlashTimer();
+	float GetFlashDuration();
+
 private:
 
 	Grid _Tiles;
@@ -68,6 +71,8 @@ private:
 	int _TileHeight = 32;
 
 	float _FireTimer = 0.f;
+	float _FlashTimer = 0.f;
+	float _FlashDuration = 0.1f;
 
 	Player _Player;
 	std::vector<Enemy> _Enemies;
