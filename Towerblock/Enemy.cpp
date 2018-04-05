@@ -19,7 +19,7 @@ void Enemy::Update(float dt)
 {
 	Entity::Update(dt);
 
-	_Mask._Mask = Circle(_Position.GetX(), _Position.GetY(), 16);
+	//_Mask._Mask = Circle(_Position.GetX(), _Position.GetY(), 16);
 };
 
 void Enemy::Draw(sf::RenderWindow* rw)
@@ -32,7 +32,7 @@ void Enemy::Draw(sf::RenderWindow* rw)
 	rw->draw(circ);
 };
 
-CircleMask& Enemy::GetMask()
+CircleMask Enemy::GetMask()
 {
-	return _Mask;
+	return CircleMask(Circle(_Position.GetX(), _Position.GetY(), 16));
 };

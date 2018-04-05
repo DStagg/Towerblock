@@ -33,7 +33,7 @@ void Player::Update(float dt)
 	if (_KnockbackTimer > 0.f)
 		_KnockbackTimer -= dt;
 
-	_Mask._Mask = Circle(_Position.GetX(), _Position.GetY(), 16);
+	//_Mask._Mask = Circle(_Position.GetX(), _Position.GetY(), 16);
 };
 
 void Player::Draw(sf::RenderWindow* rw)
@@ -66,7 +66,7 @@ void Player::Knockback(Vec over)
 	
 };
 
-CircleMask& Player::GetMask()
+CircleMask Player::GetMask()
 {
-	return _Mask;
+	return CircleMask(Circle(_Position.GetX(), _Position.GetY(), 16));
 };

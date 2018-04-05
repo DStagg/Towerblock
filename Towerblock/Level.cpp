@@ -213,26 +213,28 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 	}
 
 	//	Collide (inc. projected collision)
-	//CollisionResults pres = WallCollision(_Player.GetMask());
-
-	//	TODO: instead of Input->Impulse->Update->Collide->Resolve, use Input->Impulse->WallCollide(Projected)->Update->Collide(Dynamic)->Resolve
-	//	Update
-	_Player.Update(dt);
-	for (int i = 0; i < (int)_Enemies.size(); i++)
-		_Enemies[i].Update(dt);
-	for (int i = 0; i < (int)_Bullets.size(); i++)
-		_Bullets[i].Update(dt);
-
-	//	Collide
-	CollisionResults pres = WallCollision(_Player.GetMask());
+	CollisionResults pres = WallCollision(_Player.GetMask());	//	Static collision test
 	if (pres._Collided)
 	{
 		_Player._Velocity = Vec(0.f, 0.f);
 		_Player._Position += pres._Overlap;
+	}
+	else														//	Projected collision test
+	{
+		CircleMask proj = _Player.GetMask();
+		proj._Mask._X += _Player._Velocity._X * dt;
+		proj._Mask._Y += _Player._Velocity._Y * dt;
+		pres = WallCollision(proj);
 
-//		Log("Collision: After [" + FloatToString(pres._Overlap._X) + "," + FloatToString(pres._Overlap._Y) + "] Player now at (" + IntToString(_Player._Position.GetX()) + "," + IntToString(_Player._Position.GetY()) + ")");
+		if (pres._Collided)
+		{
+			_Player._Position += (_Player._Velocity * dt) - pres._Overlap;
+			_Player._Velocity = Vec(0.f, 0.f);
+		}
 	}
 
+
+	//	Collide
 	for (int i = 0; i < (int)_Enemies.size(); i++)
 	{
 		if (!AABB(0, 0, rw->getSize().x, rw->getSize().y).Contains(_Enemies[i]._Position.GetX(), _Enemies[i]._Position.GetY()))
@@ -269,6 +271,15 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 				_Enemies[e]._Alive = false;
 			}
 	}
+
+
+	//	TODO: instead of Input->Impulse->Update->Collide->Resolve, use Input->Impulse->WallCollide(Projected)->Update->Collide(Dynamic)->Resolve
+	//	Update
+	_Player.Update(dt);
+	for (int i = 0; i < (int)_Enemies.size(); i++)
+		_Enemies[i].Update(dt);
+	for (int i = 0; i < (int)_Bullets.size(); i++)
+		_Bullets[i].Update(dt);
 
 	//	Resolve		
 	for (int i = 0; i < (int)_Enemies.size(); i++)

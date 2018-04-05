@@ -19,7 +19,7 @@ public:
 
 	void Knockback(Vec over = Vec(0.f, 0.f));
 
-	CircleMask& GetMask();
+	CircleMask GetMask();
 
 private:
 
