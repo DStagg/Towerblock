@@ -48,6 +48,8 @@ public:
 
 	Player& GetPlayer();
 
+	float GetFireTimer();
+
 private:
 
 	Grid _Tiles;

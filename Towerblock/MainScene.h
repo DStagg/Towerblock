@@ -45,8 +45,6 @@ private:
 	Level _Level;
 };
 
-//	TODO: 5.1 Add alt. fire mode (shotgun)
-//	TODO: 5.2 Display gun cooldown on screen
 //	TODO: 5.3 Player knocked back on harm
 //	TODO: 5.4 Screen flashes on harm
 //	TODO: 6.1 Win Screen (kill all enemies)

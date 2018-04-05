@@ -252,3 +252,8 @@ Player& Level::GetPlayer()
 {
 	return _Player;
 };
+
+float Level::GetFireTimer()
+{
+	return _FireTimer;
+};

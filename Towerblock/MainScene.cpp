@@ -124,6 +124,14 @@ void MainScene::DrawScreen()
 	frontBar.setSize(sf::Vector2f(_Window->getSize().x * ((float)_Level.GetPlayer()._HP / 100.f), barHeight));
 	frontBar.setFillColor(sf::Color::Red);
 	_Window->draw(frontBar);
+
+	//	Fire Bar
+	float fireBarHeight = 10.f;
+	sf::RectangleShape fireBar;
+	fireBar.setSize(sf::Vector2f((float)_Window->getSize().x * (_Level.GetFireTimer() / 1.f), fireBarHeight));
+	fireBar.setPosition(0.f, _Window->getSize().y - (barHeight + fireBarHeight));
+	fireBar.setFillColor(sf::Color::White);
+	_Window->draw(fireBar);
 	
 	if (_DrawLog)
 		Console::C()->Draw(_Window);
