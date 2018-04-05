@@ -242,8 +242,7 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 		CollisionResults res = _Enemies[i].GetMask().Collide(_Player.GetMask());
 		if (res._Collided)
 		{
-			//_Player.Knockback(res._Overlap * -1);
-			_Player._Position -= res._Overlap;
+			_Player.Knockback(res._Overlap);
 			_Impulses.push_back(Impulse(&_Player, 0.2f, res._Overlap.UnitVec() * -100.f));
 			_Enemies[i]._Position += res._Overlap;
 		}

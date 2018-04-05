@@ -56,7 +56,7 @@ void Player::Draw(sf::RenderWindow* rw)
 
 void Player::Knockback(Vec over)
 {
-	_Position -= over * 2.f;
+	_Position -= over;
 	if (_KnockbackTimer > 0.f)
 		return;
 	_KnockbackTimer = 1.f;

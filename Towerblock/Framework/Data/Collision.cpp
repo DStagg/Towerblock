@@ -97,13 +97,7 @@ CollisionResults CircleMask::CollideWith(CircleMask& mask)
 	if (dist > 0.f)	//	i.e. if the distance between the centers is greater than the sum of the radii
 	{
 		Vec sepvec = (Vec((float)mask._Mask._X, (float)mask._Mask._Y) - Vec((float)_Mask._X, (float)_Mask._Y)).UnitVec() * dist;
-		Vec testVec1 = Vec(mask._Mask._X - _Mask._X, mask._Mask._Y - _Mask._Y);
-		Vec testVec2 = Vec(mask._Mask._X, mask._Mask._Y) - Vec(_Mask._X, _Mask._Y);
-		Log("1 [" + FloatToString(testVec1._X) + "," + FloatToString(testVec1._Y) + "]");
-		Log("2 [" + FloatToString(testVec2._X) + "," + FloatToString(testVec2._Y) + "]");
-		Log("sep [" + FloatToString(sepvec._X) + "," + FloatToString(sepvec._Y) + "]");
 		return CollisionResults(true, sepvec);
 	}
 	return CollisionResults();
 };
-//	TODO: fix Circle<->Circle seperation vector always being positive
