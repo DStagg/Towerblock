@@ -214,5 +214,8 @@
     <ClInclude Include="TitleScene.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Gun.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

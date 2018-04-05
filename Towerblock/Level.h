@@ -13,6 +13,8 @@
 
 #include "Framework\Utility\Random.h"
 
+#include "Gun.h"
+
 struct Tile
 {
 	Tile(int spr_id = 0, bool solid = false);
@@ -48,8 +50,6 @@ public:
 	CollisionResults WallCollision(AABBMask mask);
 	CollisionResults WallCollision(CircleMask mask);
 
-	void Fire();
-	void FireShotgun();
 	void Spawn(int x, int y);
 	void Spawn(int x, int y, int velx, int vely);
 	void Update(float dt, sf::RenderWindow* rw);
@@ -75,6 +75,9 @@ private:
 	float _FireTimer = 0.f;
 	float _FlashTimer = 0.f;
 	float _FlashDuration = 0.1f;
+
+	Gun* _GunA;
+	Gun* _GunB;
 
 	Player _Player;
 	std::vector<Enemy> _Enemies;

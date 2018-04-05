@@ -128,7 +128,7 @@ void MainScene::DrawScreen()
 		sf::RectangleShape flash;
 		flash.setSize(sf::Vector2f((float)_Window->getSize().x, (float)_Window->getSize().y));
 		flash.setPosition(0.f, 0.f);
-		flash.setFillColor(sf::Color(255, 255, 255, 255 * (1 - (_Level.GetFlashTimer() / _Level.GetFlashDuration()))));
+		flash.setFillColor(sf::Color(255, 255, 255, sf::Uint8(255 * (1 - (_Level.GetFlashTimer() / _Level.GetFlashDuration())))));
 		_Window->draw(flash);
 	}
 

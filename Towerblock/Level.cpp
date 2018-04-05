@@ -23,6 +23,9 @@ Impulse::Impulse(Entity* e, float time, Vec accel)
 Level::Level()
 {
 	_Player._Position.Set(200, 200);
+
+	_GunA = new Pistol();
+	_GunB = new Shotgun();
 };
 
 Level::~Level()
@@ -118,46 +121,6 @@ CollisionResults Level::WallCollision(CircleMask mask)
 	return CollisionResults(false, Vec());
 };
 
-void Level::Fire()
-{
-	if (_FireTimer > 0.f)
-		return;
-	_FireTimer = 0.2f;
-	
-	Bullet temp;
-	temp._Position.Set(_Player._Position.GetX(), _Player._Position.GetY());
-	temp._Velocity = Vec(CalcXComp(_Player._Facing), CalcYComp(_Player._Facing)).UnitVec() * 100.f;
-	temp._Position += temp._Velocity.UnitVec() * 50;
-	_Bullets.push_back(temp);
-};
-
-void Level::FireShotgun()
-{
-	if (_FireTimer > 0.f)
-		return;
-	_FireTimer = 0.5f;
-
-	Bullet temp;
-	temp._Position.Set(_Player._Position.GetX(), _Player._Position.GetY());
-	temp._Velocity = Vec(CalcXComp(_Player._Facing), CalcYComp(_Player._Facing)).UnitVec() * 100.f;
-	temp._Position += temp._Velocity.UnitVec() * 50;
-	_Bullets.push_back(temp);
-
-	float spread = DegreeToRad(45.f);
-
-	temp._Velocity = Vec(CalcXComp(_Player._Facing - spread), CalcYComp(_Player._Facing - spread)).UnitVec() * 100.f;
-	_Bullets.push_back(temp);
-
-	temp._Velocity = Vec(CalcXComp(_Player._Facing + spread), CalcYComp(_Player._Facing + spread)).UnitVec() * 100.f;
-	_Bullets.push_back(temp);
-
-	temp._Velocity = Vec(CalcXComp(_Player._Facing - spread / 2.f), CalcYComp(_Player._Facing - spread / 2.f)).UnitVec() * 100.f;
-	_Bullets.push_back(temp);
-
-	temp._Velocity = Vec(CalcXComp(_Player._Facing + spread / 2.f), CalcYComp(_Player._Facing + spread / 2.f)).UnitVec() * 100.f;
-	_Bullets.push_back(temp);
-};
-
 void Level::Spawn(int x, int y)
 {
 	Enemy temp;
@@ -180,10 +143,27 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 	if (_FlashTimer > 0.f)
 		_FlashTimer -= dt;
 
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-		Fire();
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right))
-		FireShotgun();
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && _FireTimer <= 0.f)
+	{
+		_FireTimer = _GunA->_Cooldown;
+
+		Vec firePos = _Player._Position + (Vec(CalcXComp(_Player._Facing), CalcYComp(_Player._Facing)).UnitVec() * 50.f);
+		std::vector<Bullet> newB = _GunA->Fire((int)firePos._X, (int)firePos._Y, _Player._Facing);
+
+		for (int i = 0; i < (int)newB.size(); i++)
+			_Bullets.push_back(newB[i]);
+	}
+
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && _FireTimer <= 0.f)
+	{
+		_FireTimer = _GunB->_Cooldown;
+
+		Vec firePos = _Player._Position + (Vec(CalcXComp(_Player._Facing), CalcYComp(_Player._Facing)).UnitVec() * 50.f);
+		std::vector<Bullet> newB = _GunB->Fire((int)firePos._X, (int)firePos._Y, _Player._Facing);
+
+		for (int i = 0; i < (int)newB.size(); i++)
+			_Bullets.push_back(newB[i]);
+	}
 
 	//	Input
 	_Player._Facing = CalcHeading((float)_Player._Position.GetX(), (float)_Player._Position.GetY(), (float)sf::Mouse::getPosition(*rw).x, (float)sf::Mouse::getPosition(*rw).y);
