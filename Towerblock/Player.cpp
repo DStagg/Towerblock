@@ -33,7 +33,6 @@ void Player::Update(float dt)
 	if (_KnockbackTimer > 0.f)
 		_KnockbackTimer -= dt;
 
-	//_Mask._Mask = Circle(_Position.GetX(), _Position.GetY(), 16);
 };
 
 void Player::Draw(sf::RenderWindow* rw)

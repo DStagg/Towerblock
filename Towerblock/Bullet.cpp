@@ -17,8 +17,6 @@ void Bullet::Input()
 void Bullet::Update(float dt)
 {
 	Entity::Update(dt);
-	
-	//_Mask._Mask = Circle(_Position.GetX(), _Position.GetY(), 8);
 };
 
 void Bullet::Draw(sf::RenderWindow* rw)
