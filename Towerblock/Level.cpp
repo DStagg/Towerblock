@@ -326,3 +326,11 @@ int Level::CountEnemies()
 {
 	return (int)_Enemies.size();
 };
+
+Gun* Level::GetGun(int i)
+{
+	if (i == 0)
+		return _GunA;
+	else
+		return _GunB;
+};

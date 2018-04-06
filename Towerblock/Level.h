@@ -63,6 +63,7 @@ public:
 	float GetFlashDuration();
 
 	int CountEnemies();
+	Gun* GetGun(int i);
 
 private:
 

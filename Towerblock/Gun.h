@@ -17,6 +17,7 @@ public:
 	float _Cooldown;
 	int _MaxAmmo;
 	int _CurrentAmmo;
+	std::string _Name;
 };
 
 class Pistol : public Gun
@@ -28,6 +29,7 @@ public:
 		_Cooldown = 0.2f;
 		_MaxAmmo = 20;
 		_CurrentAmmo = 20;
+		_Name = "Pistol";
 	};
 
 	std::vector<Bullet> Fire(int fpx, int fpy, float facing)
@@ -57,6 +59,7 @@ public:
 		_Cooldown = 0.5f;
 		_MaxAmmo = 5;
 		_CurrentAmmo = 5;
+		_Name = "Shotgun";
 	};
 
 	std::vector<Bullet> Fire(int fpx, int fpy, float facing)

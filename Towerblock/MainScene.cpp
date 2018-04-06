@@ -133,6 +133,18 @@ void MainScene::DrawScreen()
 	}
 
 	_Window->setView(_Window->getDefaultView());
+
+	//	Ammo Count
+	sf::Text amm;
+	amm.setFont(_Font);
+	amm.setFillColor(sf::Color::White);
+	amm.setPosition(5.f, 5.f);
+	amm.setString("LClick: " + _Level.GetGun(0)->_Name + " : " + IntToString(_Level.GetGun(0)->_CurrentAmmo) + "/" + IntToString(_Level.GetGun(0)->_MaxAmmo));
+	_Window->draw(amm);
+
+	amm.setPosition(5.f, amm.getGlobalBounds().top + amm.getGlobalBounds().height + 5.f);
+	amm.setString("RClick: " + _Level.GetGun(1)->_Name + " : " + IntToString(_Level.GetGun(1)->_CurrentAmmo) + "/" + IntToString(_Level.GetGun(1)->_MaxAmmo));
+	_Window->draw(amm);
 	
 	//	Health Bar
 	float barHeight = 50.f;
