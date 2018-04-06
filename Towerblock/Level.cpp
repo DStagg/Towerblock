@@ -203,6 +203,16 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 		_Player._Position += pres._Overlap;
 	}
 
+	for (int i = 0; i < (int)_Pickups.size(); i++)
+	{
+		if (_Pickups[i]._Alive && _Player.GetMask().Collide(_Pickups[i].GetMask())._Collided)
+		{
+			GetGun(0)->_CurrentAmmo = GetGun(0)->_MaxAmmo;
+			GetGun(1)->_CurrentAmmo = GetGun(1)->_MaxAmmo;
+			_Pickups[i]._Alive = false;
+		}
+	}
+
 	for (int i = 0; i < (int)_Enemies.size(); i++)
 	{
 		//	Kill the Enemy if it gets off the screen
