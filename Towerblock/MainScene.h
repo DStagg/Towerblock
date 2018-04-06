@@ -15,6 +15,7 @@
 #include "Level.h"
 
 #include "Bullet.h"
+#include "Pickup.h"
 
 #include "WinScene.h"
 #include "LoseScene.h"
