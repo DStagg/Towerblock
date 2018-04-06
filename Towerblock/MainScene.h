@@ -48,7 +48,6 @@ private:
 	Level _Level;
 };
 
-//	TODO: 7.2 Track ammo per fire mode
 //	TODO: 7.3 Ammo pickups appear on screen
 //	TODO: 7.4 Ammo can be collected
 //	TODO: 8.1 SFX for each fire mode

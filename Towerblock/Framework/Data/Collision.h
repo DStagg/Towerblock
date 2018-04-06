@@ -3,6 +3,11 @@
 
 #include "Shapes.h"
 
+//	NOTE: if adding line<->AABB or line<->circle collisions it should be very simple
+//		project the AABB/circle onto the vector and normal vector of the line
+//		for the normal projection, check if the AABB/circle overlaps against the thickness of the line
+//		for the vector projection, check if the AABB/circle overlaps against the length of the line (skip if infinite length)
+
 class AABBMask;
 class CircleMask;
 
