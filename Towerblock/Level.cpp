@@ -24,6 +24,12 @@ Level::Level()
 {
 	_Player._Position.Set(200, 200);
 
+	Pickup p;
+	p._Position.Set(150, 100);
+	_Pickups.push_back(p);
+	p._Position.Set(500, 500);
+	_Pickups.push_back(p);
+
 	_GunA = new Pistol();
 	_GunB = new Shotgun();
 };
@@ -261,10 +267,10 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 		_Enemies[i].Update(dt);
 	for (int i = 0; i < (int)_Bullets.size(); i++)
 		_Bullets[i].Update(dt);
+	for (int i = 0; i < (int)_Pickups.size(); i++)
+		_Pickups[i].Update(dt);
 
 	//	Resolve/Cull
-
-
 	for (int i = 0; i < (int)_Enemies.size(); i++)
 	{
 		if (!_Enemies[i]._Alive)
@@ -282,10 +288,23 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 			i--;
 		}
 	}
+
+	for (int i = 0; i < (int)_Pickups.size(); i++)
+	{
+		if (!_Pickups[i]._Alive)
+		{
+			_Pickups.erase(_Pickups.begin() + i);
+			i--;
+		}
+	}
 };
 
 void Level::Draw(sf::RenderWindow* rw)
 {
+	for (int i = 0; i < (int)_Pickups.size(); i++)
+	{
+		_Pickups[i].Draw(rw);
+	}
 	for (int i = 0; i < (int)_Enemies.size(); i++)
 	{
 		_Enemies[i].Draw(rw);

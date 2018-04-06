@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "Enemy.h"
+#include "Pickup.h"
 
 #include "Framework\Data\Collision.h"
 #include "Framework\Debug\DebugDraw.h"
@@ -83,6 +84,7 @@ private:
 	Player _Player;
 	std::vector<Enemy> _Enemies;
 	std::vector<Bullet> _Bullets;
+	std::vector<Pickup> _Pickups;
 
 	std::vector<Impulse> _Impulses;
 };
