@@ -23,24 +23,15 @@ void MainScene::Begin()
 
 	int tw = 32;
 	int th = 32;
-	int cell = 0;
-	for (int x = 0; x < img.getSize().x / tw; x++)
-	{
-		for (int y = 0; y < img.getSize().y / th; y++)
-		{
-			Log("Sprite Index " + IntToString(cell) + " has coordinates [" + IntToString(x) + "," + IntToString(y) + "]");
-			dic[cell] = PairInt(x, y);
-			cell++;
-		}
-	}
-	CompositeBuilder builder(img,PairInt(32,32),dic);
+	
+	CompositeBuilder builder(img,PairInt(32,32));
 
 	//_Level.GenerateBox(20, 10);
 	_Level.GenerateFancyBox(20, 10);
-	_Level.GetGrid().SetCell(10, 5, 1);
+	_Level.GetGrid().SetCell(10, 5, Tile(6, 0, true));
 	_Level.Spawn(400, 400);
 
-	builder.BuildCompositeTex(_Level.GetGrid(), &_CompositeTex);
+	builder.BuildCompositeTex(_Level.BuildSpriteCoordGrid(), &_CompositeTex);
 
 	_Font.loadFromFile("Resources\\Roboto-Regular.ttf");
 

@@ -18,8 +18,8 @@
 
 struct Tile
 {
-	Tile(int spr_id = 0, bool solid = false);
-	int _SpriteID;
+	Tile(int sprx = 0, int spry = 0, bool solid = false);
+	int _SpriteX, _SpriteY;
 	bool _Solid;
 };
 
@@ -41,8 +41,8 @@ public:
 	void GenerateBox(int w, int h);
 	void GenerateFancyBox(int w, int h);
 
-	Grid& GetGrid();
-	std::map<int, Tile> GetTileTypes();
+	Grid<Tile>& GetGrid();
+	Grid<PairInt> BuildSpriteCoordGrid();
 
 	bool IsSolid(int x, int y);
 	int CalcCol(float x);
@@ -69,8 +69,7 @@ public:
 
 private:
 
-	Grid _Tiles;
-	std::map<int, Tile> _TileTypes;
+	Grid<Tile> _Tiles;
 
 	int _TileWidth = 32;
 	int _TileHeight = 32;

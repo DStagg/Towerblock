@@ -31,25 +31,22 @@ sf::Texture* CompositeTex::GetTexPntr()
 /////////////////
 
 //	CompositeBuilder
-CompositeBuilder::CompositeBuilder(sf::Image tilesheet, PairInt tile_size, std::map<int, PairInt> dic)
+CompositeBuilder::CompositeBuilder(sf::Image tilesheet, PairInt tile_size)
 {
 	_TileSheet = tilesheet;
 	_TileSize = tile_size;
-	_Dictionary = dic;
 };
 CompositeBuilder::~CompositeBuilder()
 {
 
 };
 
-void CompositeBuilder::BuildCompositeTex(Grid grid, CompositeTex* comp)
+void CompositeBuilder::BuildCompositeTex(Grid<PairInt> grid, CompositeTex* comp)
 {
 	//	Sanity check for all of the data (3 x generic, 2 x specific)
 	if ((_TileSheet.getSize().x == 0) && (_TileSheet.getSize().y == 0))
 		return;
 	if ((_TileSize._A <= 0) || (_TileSize._B <= 0))
-		return;
-	if ((int)_Dictionary.size() == 0)
 		return;
 	if (comp == 0)
 		return;
@@ -69,8 +66,8 @@ void CompositeBuilder::BuildCompositeTex(Grid grid, CompositeTex* comp)
 		{
 			//	Pull the cell value from grid, translate it into tilesheet coordinates using _Dictionary, copy from _TileSheet		
 			tempimg.copy(_TileSheet, x * _TileSize._A, y * _TileSize._B, sf::IntRect(
-				_Dictionary[grid.GetCell(x,y)]._A * _TileSize._A,
-				_Dictionary[grid.GetCell(x,y)]._B * _TileSize._B,
+				grid.GetCell(x,y)._A * _TileSize._A,
+				grid.GetCell(x,y)._B * _TileSize._B,
 				_TileSize._A , 
 				_TileSize._B)
 			);

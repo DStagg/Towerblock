@@ -2,9 +2,10 @@
 
 /////
 
-Tile::Tile(int str_id, bool s)
+Tile::Tile(int strx, int stry, bool s)
 {
-	_SpriteID = str_id;
+	_SpriteX = strx;
+	_SpriteY = stry;
 	_Solid = s;
 };
 
@@ -48,13 +49,10 @@ void Level::GenerateBox(int w, int h)
 	for (int x = 0; x < w; x++)
 		for (int y = 0; y < h; y++)
 		{
-			if ((x == 0) || (x == w - 1)) _Tiles.SetCell(x, y, 1);
-			else if ((y == 0) || (y == h - 1)) _Tiles.SetCell(x, y, 1);
-			else _Tiles.SetCell(x, y, 0);
+			if ((x == 0) || (x == w - 1)) _Tiles.SetCell(x, y, Tile(0, 0, true));
+			else if ((y == 0) || (y == h - 1)) _Tiles.SetCell(x, y, Tile(0, 0, true));
+			else _Tiles.SetCell(x, y, Tile(0,1,false));
 		}
-
-	_TileTypes[0] = Tile(0, false);
-	_TileTypes[1] = Tile(1, true);
 };
 
 void Level::GenerateFancyBox(int w, int h)
@@ -67,45 +65,44 @@ void Level::GenerateFancyBox(int w, int h)
 	{
 		for (int y = 0; y < h; y++)
 		{
-			if (x == 0) _Tiles.SetCell(x, y, 4);			//	L
-			else if (x == w - 1) _Tiles.SetCell(x, y, 6);	//	R
-			else if (y == 0) _Tiles.SetCell(x, y, 2);		//	T
-			else if (y == h - 1) _Tiles.SetCell(x, y, 8);	//	B
-			else _Tiles.SetCell(x, y, 5);					//	Mid
+			if (x == 0) _Tiles.SetCell(x, y, Tile(2,1,true));			//	L
+			else if (x == w - 1) _Tiles.SetCell(x, y, Tile(3,1,true));	//	R
+			else if (y == 0) _Tiles.SetCell(x, y, Tile(4,0,true));		//	T
+			else if (y == h - 1) _Tiles.SetCell(x, y, Tile(5,0,true));	//	B
+			else _Tiles.SetCell(x, y, Tile(6,1,false));					//	Mid
 		}
 	}
-	_Tiles.SetCell(0, 0, 1);			//	TL
-	_Tiles.SetCell(w - 1, 0, 3);		//	TR
-	_Tiles.SetCell(0, h - 1, 7);		//	BL
-	_Tiles.SetCell(w - 1, h - 1, 9);	//	BR
+	_Tiles.SetCell(0, 0, Tile(2,0,true));			//	TL
+	_Tiles.SetCell(w - 1, 0, Tile(3,0,true));		//	TR
+	_Tiles.SetCell(0, h - 1, Tile(4,1,true));		//	BL
+	_Tiles.SetCell(w - 1, h - 1, Tile(5,1,true));	//	BR
 	
-	_TileTypes[0] = Tile(0, false);
-	_TileTypes[1] = Tile(4, true);	//	TL
-	_TileTypes[2] = Tile(8, true);	//	T
-	_TileTypes[3] = Tile(6, true);	//	TR
-	_TileTypes[4] = Tile(5, true);	//	L
-	_TileTypes[5] = Tile(13, true);	//	Mid
-	_TileTypes[6] = Tile(7, true);	//	R
-	_TileTypes[7] = Tile(9, true);	//	BL
-	_TileTypes[8] = Tile(10, true);	//	B
-	_TileTypes[9] = Tile(11, false);//	BR
-	
+
+	//	(2, 0) (4, 0) (3, 0)
+	//	(2, 1) (6, 1) (3, 1)
+	//	(4, 1) (5, 0) (5, 1)
+		
 };
 
-Grid& Level::GetGrid()
+Grid<Tile>& Level::GetGrid()
 {
 	return _Tiles;
 };
-
-std::map<int, Tile> Level::GetTileTypes()
+Grid<PairInt> Level::BuildSpriteCoordGrid()
 {
-	return _TileTypes;
+	Grid<PairInt> results(GetGrid().GetWidth(), GetGrid().GetHeight());
+
+	for (int x = 0; x < GetGrid().GetWidth(); x++)
+		for (int y = 0; y < GetGrid().GetHeight(); y++)
+			results.SetCell(x, y, PairInt(GetGrid().GetCell(x,y)._SpriteX, GetGrid().GetCell(x, y)._SpriteY));
+	
+	return results;
 };
 
 bool Level::IsSolid(int x, int y)
 {
 	if ((x < 0) || (y < 0) || (x >= _Tiles.GetWidth()) || (y >= _Tiles.GetHeight())) return false;
-	return _TileTypes[_Tiles.GetCell(x, y)]._Solid;
+	return _Tiles.GetCell(x, y)._Solid;
 };
 
 int Level::CalcCol(float x)
