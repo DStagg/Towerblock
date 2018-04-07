@@ -46,6 +46,8 @@ private:
 
 	bool _DrawLog;
 
+	bool _Paused = false;
+
 	Level _Level;
 };
 

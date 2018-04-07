@@ -44,7 +44,7 @@ CompositeBuilder::~CompositeBuilder()
 
 void CompositeBuilder::BuildCompositeTex(Grid grid, CompositeTex* comp)
 {
-	//	Sanity check for all of the date (3 x generic, 2 x specific)
+	//	Sanity check for all of the data (3 x generic, 2 x specific)
 	if ((_TileSheet.getSize().x == 0) && (_TileSheet.getSize().y == 0))
 		return;
 	if ((_TileSize._A <= 0) || (_TileSize._B <= 0))

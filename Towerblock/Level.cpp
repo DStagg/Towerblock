@@ -57,6 +57,41 @@ void Level::GenerateBox(int w, int h)
 	_TileTypes[1] = Tile(1, true);
 };
 
+void Level::GenerateFancyBox(int w, int h)
+{
+	if (w < 3) w = 3;
+	if (h < 3) h = 3;
+
+	_Tiles.Resize(w, h);
+	for (int x = 0; x < w; x++)
+	{
+		for (int y = 0; y < h; y++)
+		{
+			if (x == 0) _Tiles.SetCell(x, y, 4);			//	L
+			else if (x == w - 1) _Tiles.SetCell(x, y, 6);	//	R
+			else if (y == 0) _Tiles.SetCell(x, y, 2);		//	T
+			else if (y == h - 1) _Tiles.SetCell(x, y, 8);	//	B
+			else _Tiles.SetCell(x, y, 5);					//	Mid
+		}
+	}
+	_Tiles.SetCell(0, 0, 1);			//	TL
+	_Tiles.SetCell(w - 1, 0, 3);		//	TR
+	_Tiles.SetCell(0, h - 1, 7);		//	BL
+	_Tiles.SetCell(w - 1, h - 1, 9);	//	BR
+	
+	_TileTypes[0] = Tile(0, false);
+	_TileTypes[1] = Tile(4, true);	//	TL
+	_TileTypes[2] = Tile(8, true);	//	T
+	_TileTypes[3] = Tile(6, true);	//	TR
+	_TileTypes[4] = Tile(5, true);	//	L
+	_TileTypes[5] = Tile(13, true);	//	Mid
+	_TileTypes[6] = Tile(7, true);	//	R
+	_TileTypes[7] = Tile(9, true);	//	BL
+	_TileTypes[8] = Tile(10, true);	//	B
+	_TileTypes[9] = Tile(11, false);//	BR
+	
+};
+
 Grid& Level::GetGrid()
 {
 	return _Tiles;

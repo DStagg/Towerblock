@@ -39,6 +39,7 @@ public:
 	~Level();
 
 	void GenerateBox(int w, int h);
+	void GenerateFancyBox(int w, int h);
 
 	Grid& GetGrid();
 	std::map<int, Tile> GetTileTypes();

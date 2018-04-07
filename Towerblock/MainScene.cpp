@@ -17,16 +17,26 @@ void MainScene::Begin()
 
 	_ImgMan.SetDirectory("Resources");
 	_ImgMan.LoadTextureFromFile("Tilesheet", "Tilesheet.png");
-	
+
 	sf::Image img = _ImgMan.GetTexturePntr("Tilesheet")->copyToImage();
 	std::map<int, PairInt> dic;
-	dic[0] = PairInt(0, 0);
-	dic[1] = PairInt(1, 0);
-	dic[2] = PairInt(1, 0);
-	dic[3] = PairInt(1, 1);
+
+	int tw = 32;
+	int th = 32;
+	int cell = 0;
+	for (int x = 0; x < img.getSize().x / tw; x++)
+	{
+		for (int y = 0; y < img.getSize().y / th; y++)
+		{
+			Log("Sprite Index " + IntToString(cell) + " has coordinates [" + IntToString(x) + "," + IntToString(y) + "]");
+			dic[cell] = PairInt(x, y);
+			cell++;
+		}
+	}
 	CompositeBuilder builder(img,PairInt(32,32),dic);
 
-	_Level.GenerateBox(20, 10);
+	//_Level.GenerateBox(20, 10);
+	_Level.GenerateFancyBox(20, 10);
 	_Level.GetGrid().SetCell(10, 5, 1);
 	_Level.Spawn(400, 400);
 
@@ -78,6 +88,9 @@ void MainScene::Update(float dt)
 			case sf::Keyboard::F1:
 				_DrawLog = !_DrawLog;
 				break;
+			case sf::Keyboard::P:
+				_Paused = !_Paused;
+				break;
 			case sf::Keyboard::Left:
 				//_CameraView.move(-32.f, 0.f);
 				_Level.Spawn(_Level.GetPlayer()._Position.GetX() + 150, _Level.GetPlayer()._Position.GetY(), -100, 0);
@@ -102,7 +115,8 @@ void MainScene::Update(float dt)
 			}
 	}
 
-	_Level.Update(dt, _Window);
+	if (!_Paused)
+		_Level.Update(dt, _Window);
 
 	if (_Level.CountEnemies() == 0)
 	{
