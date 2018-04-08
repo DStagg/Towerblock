@@ -117,6 +117,11 @@ void MainScene::Update(float dt)
 	{
 		GetManager()->PushScene(new LoseScene(_Window));
 	}
+	//	TODO: grab world mouse coordinates rather than screen (even if screen is relative to the window)
+	//	Asymptotic Averaging
+	//	Ratio can be anything  - just make sure it equals 1.f. Lower followFactor = faster zoom.
+	float followFactor = 0.99f;
+	_CameraView.setCenter((_CameraView.getCenter().x * followFactor) + (_Level.GetPlayer()._Position.GetX() * (1.f - followFactor)), (_CameraView.getCenter().y * followFactor) + (_Level.GetPlayer()._Position.GetY() * (1.f - followFactor)) );
 };
 void MainScene::DrawScreen()
 {
