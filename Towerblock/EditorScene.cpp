@@ -332,6 +332,17 @@ void EditorScene::DrawScreen()
 	}
 	////////////////////
 
+	if ((_Mode == EditMode::EnemyMoveMode) && (_EnemyDrag != -1))
+	{
+		sf::RectangleShape linedir;
+		linedir.setSize(sf::Vector2f(CalcDistance(_Level.GetEnemy(_EnemyDrag)._Position.GetX(), _Level.GetEnemy(_EnemyDrag)._Position.GetY(), sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y), 1.f));
+		linedir.setPosition(_Level.GetEnemy(_EnemyDrag)._Position.GetX(), _Level.GetEnemy(_EnemyDrag)._Position.GetY());
+		linedir.setFillColor(sf::Color::White);
+		linedir.setRotation(CalcSFMLAngle(_Level.GetEnemy(_EnemyDrag)._Position.GetX(), _Level.GetEnemy(_EnemyDrag)._Position.GetY(), sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y));
+
+		_Window->draw(linedir);
+	}
+
 	//	GUI
 	_Window->setView(_Window->getDefaultView());
 

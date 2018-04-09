@@ -92,7 +92,7 @@ protected:
 
 float DegreeToRad(float d);
 float RadToDegree(float r);
-
+//	TODO: fill out remaining CalcAngle() overloads
 float CalcAngle(float startx, float starty, float endx, float endy);
 float CalcAngle(int startx, int starty, int endx, int endy);
 float CalcAngle(float dx, float dy);
@@ -100,7 +100,7 @@ float CalcAngle(int dx, int dy);
 //	Returns the angle between a vector and the x-axis in radians
 //	Right is 0, Down is Pi/2, Left is Pi, Up is -Pi/2
 //	Top half of semicircle is -Pi to 0, Bottom half is Pi to 0 (both left to right)
-
+//	TODO: fill out remaining CalcHeading overloads
 float CalcHeading(float startx, float starty, float endx, float endy);
 float CalcHeading(int startx, int starty, int endx, int endy);
 float CalcHeading(float dx, float dy);
