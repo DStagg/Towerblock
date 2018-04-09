@@ -48,7 +48,7 @@ void EditorScene::Update(float dt)
 			GetManager()->Quit();
 		else if (Event.type == sf::Event::MouseButtonPressed)
 		{
-<<<<<<< HEAD
+
 			//int mx = sf::Mouse::getPosition(*_Window).x + _CameraView.getCenter().x - (_CameraView.getSize().x / 2.f);
 			//int my = sf::Mouse::getPosition(*_Window).y + _CameraView.getCenter().y - (_CameraView.getSize().y / 2.f);
 			PairInt mpos = KBMInput::GetMousePosWorld(_Window);
@@ -60,10 +60,9 @@ void EditorScene::Update(float dt)
 				IntToString(sf::Mouse::getPosition(*_Window).y + _CameraView.getCenter().y - (_CameraView.getSize().y / 2.f)) + ") => (" + 
 				IntToString(mx) + "," + 
 				IntToString(my) + ")");
-=======
+
 			int mx = sf::Mouse::getPosition(*_Window).x + _CameraView.getViewport().left;
 			int my = sf::Mouse::getPosition(*_Window).y + _CameraView.getViewport().top;
->>>>>>> parent of f67bab3... Editor Scene: added camera panning and corrected mouse coordinates to take panning into account.
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
 			{
