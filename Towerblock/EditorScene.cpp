@@ -71,8 +71,13 @@ void EditorScene::Update(float dt)
 
 						RefreshTiles();
 					}
+				}
+				else if (_Mode == EditMode::TileSolidMode)
+				{
+					int col = _Level.CalcCol(mx);
+					int row = _Level.CalcCol(my);
 
-
+					_Level.GetGrid().SetCell(col, row, Tile(_Level.GetGrid().GetCell(col, row)._SpriteX, _Level.GetGrid().GetCell(col, row)._SpriteY,!_Level.GetGrid().GetCell(col, row)._Solid));
 				}
 			}
 		}
@@ -159,6 +164,25 @@ void EditorScene::DrawScreen()
 	playerCirc.setPosition(_Level.GetPlayerStart()._A, _Level.GetPlayerStart()._B);
 	_Window->draw(playerCirc);
 	////////////////////////////////////////////
+
+	if (_Mode == EditMode::TileSolidMode)
+	{
+		//	HACK: optimise by only drawing on-screen area
+		for (int x = 0; x < _Level.GetGrid().GetWidth(); x++)
+			for (int y = 0; y < _Level.GetGrid().GetHeight(); y++)
+			{
+				if (_Level.GetGrid().GetCell(x, y)._Solid)
+				{
+					sf::RectangleShape rect;
+					rect.setPosition(x * 32, y * 32);
+					rect.setSize(sf::Vector2f(32.f, 32.f));
+					rect.setFillColor(sf::Color(255, 0, 0, 155));
+					rect.setOutlineColor(sf::Color::Blue);
+					rect.setOutlineThickness(1.f);
+					_Window->draw(rect);
+				}
+			}
+	}
 
 	//	GUI
 	_Window->setView(_Window->getDefaultView());
