@@ -508,7 +508,7 @@ PairInt Level::GetPlayerStart()
 };
 
 Enemy& Level::GetEnemy(int i)
-{
+{	//	HACK: cannot be returning a reference to a local-scoped variable.
 	if (CountEnemies() == 0) return Enemy();
 	if (i >= CountEnemies()) i = CountEnemies() - 1;
 	if (i < 0) i = 0;
@@ -519,4 +519,13 @@ Enemy& Level::GetEnemy(int i)
 void Level::AddEnemy(Enemy e)
 {
 	_Enemies.push_back(e);
+};
+
+void Level::DelEnemy(int i)
+{
+	if (CountEnemies() == 0) return;
+	if (i < 0) return;
+	if (i >= CountEnemies()) return;
+
+	_Enemies.erase(_Enemies.begin() + i);
 };

@@ -74,9 +74,10 @@ public:
 
 	void SetPlayerStart(int x, int y);
 	PairInt GetPlayerStart();
-
+	
 	Enemy& GetEnemy(int i);
 	void AddEnemy(Enemy e);
+	void DelEnemy(int i);
 
 private:
 

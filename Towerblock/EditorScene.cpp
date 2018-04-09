@@ -82,7 +82,7 @@ void EditorScene::Update(float dt)
 				else if (_Mode == EditMode::AddEnemyMode)
 				{
 					bool collided = false;
-					for (int i = 0; i < (int)_Level.CountEnemies(); i++)
+					for (int i = 0; i < _Level.CountEnemies(); i++)
 					{
 						if (collided) break;
 						if (_Level.GetEnemy(i).GetMask().Collide(CircleMask(Circle(mx, my, 16)))._Collided)
@@ -99,6 +99,21 @@ void EditorScene::Update(float dt)
 						newE._Velocity = Vec(0, 0);
 						_Level.AddEnemy(newE);
 					}
+				}
+			}
+			else if (Event.mouseButton.button == sf::Mouse::Right)
+			{
+				if (_Mode == EditMode::AddEnemyMode)
+				{
+					for (int i = 0; i < _Level.CountEnemies(); i++)
+					{
+						if (_Level.GetEnemy(i).GetMask()._Mask.Contains(mx, my))
+						{
+							_Level.DelEnemy(i);
+							break;
+						}
+					}
+
 				}
 			}
 		}
@@ -213,7 +228,7 @@ void EditorScene::DrawScreen()
 		circ.setRadius(16.f);
 		circ.setOrigin(16.f, 16.f);
 		circ.setFillColor(sf::Color::Transparent);
-		circ.setOutlineColor(sf::Color::Green);
+		circ.setOutlineColor(sf::Color::Red);
 		circ.setOutlineThickness(1.f);
 		circ.setPosition(_Level.GetEnemy(i)._Position.GetX(), _Level.GetEnemy(i)._Position.GetY());
 		_Window->draw(circ);
