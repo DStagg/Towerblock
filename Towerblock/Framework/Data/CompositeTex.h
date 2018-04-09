@@ -35,6 +35,7 @@ class CompositeBuilder
 {
 public:
 
+	CompositeBuilder();
 	CompositeBuilder(sf::Image tilesheet, PairInt tile_size);
 	~CompositeBuilder();
 

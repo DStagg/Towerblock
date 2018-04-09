@@ -37,6 +37,8 @@ public:
 
 private:
 
+	void RefreshTiles();
+
 	sf::RenderWindow* _Window;
 	sf::View _CameraView;
 
@@ -44,6 +46,7 @@ private:
 
 	sf::Font _Font;
 	CompositeTex _CompositeTex;
+	CompositeBuilder _CompositeBuilder;
 
 	int _Mode = 0;
 

@@ -31,6 +31,10 @@ sf::Texture* CompositeTex::GetTexPntr()
 /////////////////
 
 //	CompositeBuilder
+CompositeBuilder::CompositeBuilder()
+{
+
+};
 CompositeBuilder::CompositeBuilder(sf::Image tilesheet, PairInt tile_size)
 {
 	_TileSheet = tilesheet;
