@@ -49,6 +49,8 @@ private:
 	CompositeBuilder _CompositeBuilder;
 
 	int _Mode = 0;
+	int _TileX = 0;
+	int _TileY = 0;
 
 	Level _Level;
 };

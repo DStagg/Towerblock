@@ -22,6 +22,8 @@ void EditorScene::Begin()
 	_Font.loadFromFile("Resources\\Roboto-Regular.ttf");
 
 	_Level.Load("Level.sav");
+
+	RefreshTiles();
 };
 void EditorScene::End()
 {
@@ -51,6 +53,24 @@ void EditorScene::Update(float dt)
 			{
 				if (_Mode == EditMode::PlayerStartMode)
 					_Level.SetPlayerStart(mx, my);
+				else if (_Mode == EditMode::TileSpriteMode)
+				{
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))		//	Select Tile
+					{
+						int maxx = (_ImgMan.GetTexturePntr("Tilesheet")->getSize().x / 32) - 1;
+						int maxy = (_ImgMan.GetTexturePntr("Tilesheet")->getSize().y / 32) - 1;
+						_TileX = Min( maxx, Max(0, (mx - (mx % 32)) / 32));
+						_TileY = Min( maxy, Max(0, (my - (my % 32)) / 32));
+					}
+					else														//	Paint Tile
+					{
+
+
+
+					}
+
+
+				}
 			}
 		}
 		else if (Event.type == sf::Event::KeyPressed)
@@ -162,7 +182,7 @@ void EditorScene::DrawScreen()
 	sf::Text rightText;
 	if (_Mode == EditMode::PlayerStartMode) rightText.setString("[" + IntToString(_Level.GetPlayerStart()._A) + "," + IntToString(_Level.GetPlayerStart()._B) + "]");
 	else if (_Mode == EditMode::GridSizeMode) rightText.setString("[" + IntToString(_Level.GetGrid().GetWidth()) + "," + IntToString(_Level.GetGrid().GetHeight()) + "]");
-	else if (_Mode == EditMode::TileSpriteMode) rightText.setString("");
+	else if (_Mode == EditMode::TileSpriteMode) rightText.setString("Hold Ctrl to show tilesheet.");
 	else if (_Mode == EditMode::TileSolidMode) rightText.setString("");
 	else if (_Mode == EditMode::AddEnemyMode) rightText.setString("");
 	else if (_Mode == EditMode::EnemyMoveMode) rightText.setString("");
@@ -171,6 +191,31 @@ void EditorScene::DrawScreen()
 	rightText.setFillColor(sf::Color::White);
 	rightText.setPosition(_Window->getSize().x - (5.f + rightText.getLocalBounds().width), _Window->getSize().y - (15.f + modeText.getLocalBounds().height));
 	_Window->draw(rightText);
+
+	if (_Mode == EditMode::TileSpriteMode)
+	{
+		sf::Sprite tileSelection;
+		tileSelection.setPosition((_Window->getSize().x - 32.f) / 2.f, _Window->getSize().y - 37.f);
+		tileSelection.setTexture(*_ImgMan.GetTexturePntr("Tilesheet"));
+		tileSelection.setTextureRect(sf::IntRect(_TileX * 32, _TileY * 32, 32, 32));
+		_Window->draw(tileSelection);
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
+		{
+			sf::Sprite tileSheet;
+			tileSheet.setTexture(*_ImgMan.GetTexturePntr("Tilesheet"));
+			tileSheet.setPosition(0.f, 0.f);
+			_Window->draw(tileSheet);
+
+			sf::RectangleShape tileRect;
+			tileRect.setPosition(_TileX * 32, _TileY * 32);
+			tileRect.setSize(sf::Vector2f(32.f, 32.f));
+			tileRect.setFillColor(sf::Color::Transparent);
+			tileRect.setOutlineColor(sf::Color::Red);
+			tileRect.setOutlineThickness(1.f);
+			_Window->draw(tileRect);
+		}
+	}
 };
 
 void EditorScene::RefreshTiles()
