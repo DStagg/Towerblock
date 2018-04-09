@@ -507,8 +507,17 @@ PairInt Level::GetPlayerStart()
 	return _PlayerStartPos;
 };
 
-Enemy& Level::GetEnemy(int i)
-{	//	HACK: cannot be returning a reference to a local-scoped variable.
+Enemy* Level::GetEnemyPntr(int i)
+{
+	if (CountEnemies() == 0) return 0;
+	if (i >= CountEnemies()) i = CountEnemies() - 1;
+	if (i < 0) i = 0;
+
+	return &_Enemies[i];
+};
+
+Enemy Level::GetEnemy(int i)
+{	
 	if (CountEnemies() == 0) return Enemy();
 	if (i >= CountEnemies()) i = CountEnemies() - 1;
 	if (i < 0) i = 0;
@@ -528,4 +537,41 @@ void Level::DelEnemy(int i)
 	if (i >= CountEnemies()) return;
 
 	_Enemies.erase(_Enemies.begin() + i);
+};
+
+int Level::CountPickups()
+{
+	return (int)_Pickups.size();
+};
+
+Pickup* Level::GetPickupPntr(int i)
+{
+	if (CountPickups() == 0) return 0;
+	if (i < 0) i = 0;
+	if (i >= CountPickups()) i = CountPickups() - 1;
+
+	return &_Pickups[i];
+};
+
+Pickup Level::GetPickup(int i)
+{
+	if (CountPickups() == 0) return Pickup();
+	if (i < 0) i = 0;
+	if (i >= CountPickups()) i = CountPickups() - 1;
+
+	return _Pickups[i];
+};
+
+void Level::AddPickup(Pickup p)
+{
+	_Pickups.push_back(p);
+};
+
+void Level::DelPickup(int i)
+{
+	if (CountPickups() == 0) return;
+	if (i < 0) return;
+	if (i >= CountPickups()) return;
+
+	_Pickups.erase(_Pickups.begin() + i);
 };

@@ -75,9 +75,16 @@ public:
 	void SetPlayerStart(int x, int y);
 	PairInt GetPlayerStart();
 	
-	Enemy& GetEnemy(int i);
+	Enemy* GetEnemyPntr(int i);
+	Enemy GetEnemy(int i);
 	void AddEnemy(Enemy e);
 	void DelEnemy(int i);
+
+	int CountPickups();
+	Pickup* GetPickupPntr(int i);
+	Pickup GetPickup(int i);
+	void AddPickup(Pickup p);
+	void DelPickup(int i);
 
 private:
 

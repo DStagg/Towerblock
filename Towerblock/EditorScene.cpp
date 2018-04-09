@@ -100,6 +100,26 @@ void EditorScene::Update(float dt)
 						_Level.AddEnemy(newE);
 					}
 				}
+				else if (_Mode == EditMode::AddPickupMode)
+				{
+					bool collided = false;
+					for (int i = 0; i < _Level.CountPickups(); i++)
+					{
+						if (collided) break;
+						if (_Level.GetPickup(i).GetMask().Collide(CircleMask(Circle(mx, my, 8)))._Collided)
+						{
+							collided = true;
+							break;
+						}
+					}
+
+					if (!collided)
+					{
+						Pickup newP;
+						newP._Position.Set(mx, my);
+						_Level.AddPickup(newP);
+					}
+				}
 			}
 			else if (Event.mouseButton.button == sf::Mouse::Right)
 			{
@@ -113,7 +133,17 @@ void EditorScene::Update(float dt)
 							break;
 						}
 					}
-
+				}
+				else if (_Mode == EditMode::AddPickupMode)
+				{
+					for (int i = 0; i < _Level.CountPickups(); i++)
+					{
+						if (_Level.GetPickup(i).GetMask()._Mask.Contains(mx, my))
+						{
+							_Level.DelPickup(i);
+							break;
+						}
+					}
 				}
 			}
 		}
@@ -233,6 +263,21 @@ void EditorScene::DrawScreen()
 		circ.setPosition(_Level.GetEnemy(i)._Position.GetX(), _Level.GetEnemy(i)._Position.GetY());
 		_Window->draw(circ);
 	}
+	////////////////////
+
+	//	Draw the pickups
+	for (int i = 0; i < _Level.CountPickups(); i++)
+	{
+		sf::CircleShape circ;
+		circ.setRadius(8.f);
+		circ.setOrigin(8.f, 8.f);
+		circ.setFillColor(sf::Color::Transparent);
+		circ.setOutlineColor(sf::Color::Yellow);
+		circ.setOutlineThickness(1.f);
+		circ.setPosition(_Level.GetPickup(i)._Position.GetX(), _Level.GetPickup(i)._Position.GetY());
+		_Window->draw(circ);
+	}
+	////////////////////
 
 	//	GUI
 	_Window->setView(_Window->getDefaultView());
@@ -263,7 +308,7 @@ void EditorScene::DrawScreen()
 	else if (_Mode == EditMode::TileSolidMode) rightText.setString("L-Click to toggle.");
 	else if (_Mode == EditMode::AddEnemyMode) rightText.setString(IntToString(_Level.CountEnemies()));
 	else if (_Mode == EditMode::EnemyMoveMode) rightText.setString("");
-	else if (_Mode == EditMode::AddPickupMode) rightText.setString("");
+	else if (_Mode == EditMode::AddPickupMode) rightText.setString(IntToString(_Level.CountPickups()));
 	rightText.setFont(_Font);
 	rightText.setFillColor(sf::Color::White);
 	rightText.setPosition(_Window->getSize().x - (5.f + rightText.getLocalBounds().width), _Window->getSize().y - (15.f + modeText.getLocalBounds().height));
