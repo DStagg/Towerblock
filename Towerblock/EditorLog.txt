@@ -1,7 +1,2 @@
-<<<<<<< HEAD
-Click: (296,365) => (296,365)
-Click: (94,223) => (94,223)
-Click: (-224,147) => (192,336)
-=======
->>>>>>> parent of f67bab3... Editor Scene: added camera panning and corrected mouse coordinates to take panning into account.
+Set enemy 3 velocity to (-90.4358,42.6775)
 Log dumped to: EditorLog.txt
