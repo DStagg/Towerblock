@@ -22,9 +22,7 @@ void MainScene::Begin()
 	
 	CompositeBuilder builder(img,PairInt(32,32));
 
-	_Level.GenerateFancyBox(20, 10);
-	_Level.GetGrid().SetCell(10, 5, Tile(6, 0, true));
-	_Level.Spawn(400, 400);
+	_Level.Load("Level.sav");
 
 	builder.BuildCompositeTex(_Level.BuildSpriteCoordGrid(), &_CompositeTex);
 

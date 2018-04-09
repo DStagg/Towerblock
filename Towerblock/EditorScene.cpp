@@ -51,6 +51,12 @@ void EditorScene::Update(float dt)
 			int mx = sf::Mouse::getPosition(*_Window).x + _CameraView.getViewport().left;
 			int my = sf::Mouse::getPosition(*_Window).y + _CameraView.getViewport().top;
 
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+			{
+				mx = mx - (mx % 16);
+				my = my - (my % 16);
+			}
+
 			if (Event.mouseButton.button == sf::Mouse::Button::Left)
 			{
 				if (_Mode == EditMode::PlayerStartMode)
