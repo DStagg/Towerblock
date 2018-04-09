@@ -1,2 +1,1 @@
-Set enemy 3 velocity to (-90.4358,42.6775)
 Log dumped to: EditorLog.txt

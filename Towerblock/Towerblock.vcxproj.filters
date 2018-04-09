@@ -125,9 +125,6 @@
     <ClCompile Include="EditorScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Framework\IO\KBMInput.cpp">
-      <Filter>Framework\IO</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainScene.h">
@@ -228,9 +225,6 @@
     </ClInclude>
     <ClInclude Include="EditorScene.h">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\IO\KBMInput.h">
-      <Filter>Framework\IO</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

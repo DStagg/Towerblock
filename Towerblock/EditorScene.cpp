@@ -195,7 +195,7 @@ void EditorScene::Update(float dt)
 			{
 				Vec dir = (Vec((float)mx, (float)my) - Vec(_Level.GetEnemy(_EnemyDrag)._Position)).UnitVec() * 100.f;
 				_Level.GetEnemyPntr(_EnemyDrag)->_Velocity = dir;
-				Log("Set enemy " + IntToString(_EnemyDrag) + " velocity to (" + FloatToString(_Level.GetEnemy(_EnemyDrag)._Velocity._X) + "," + FloatToString(_Level.GetEnemy(_EnemyDrag)._Velocity._Y) + ")");
+				
 				_EnemyDrag = -1;
 
 			}
