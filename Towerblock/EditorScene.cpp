@@ -79,6 +79,27 @@ void EditorScene::Update(float dt)
 
 					_Level.GetGrid().SetCell(col, row, Tile(_Level.GetGrid().GetCell(col, row)._SpriteX, _Level.GetGrid().GetCell(col, row)._SpriteY,!_Level.GetGrid().GetCell(col, row)._Solid));
 				}
+				else if (_Mode == EditMode::AddEnemyMode)
+				{
+					bool collided = false;
+					for (int i = 0; i < (int)_Level.CountEnemies(); i++)
+					{
+						if (collided) break;
+						if (_Level.GetEnemy(i).GetMask().Collide(CircleMask(Circle(mx, my, 16)))._Collided)
+						{
+							collided = true;
+							break;
+						}
+					}
+
+					if (!collided)
+					{
+						Enemy newE;
+						newE._Position.Set(mx, my);
+						newE._Velocity = Vec(0, 0);
+						_Level.AddEnemy(newE);
+					}
+				}
 			}
 		}
 		else if (Event.type == sf::Event::KeyPressed)
@@ -154,17 +175,7 @@ void EditorScene::DrawScreen()
 
 	_Window->draw(_CompositeTex.BuildSprite());
 
-	//	Draw the starting position of the player
-	sf::CircleShape playerCirc;
-	playerCirc.setFillColor(sf::Color::Transparent);
-	playerCirc.setOutlineColor(sf::Color::Blue);
-	playerCirc.setOutlineThickness(1.f);
-	playerCirc.setRadius(16.f);
-	playerCirc.setOrigin(16.f, 16.f);
-	playerCirc.setPosition(_Level.GetPlayerStart()._A, _Level.GetPlayerStart()._B);
-	_Window->draw(playerCirc);
-	////////////////////////////////////////////
-
+	//	Draw the collision map
 	if (_Mode == EditMode::TileSolidMode)
 	{
 		//	HACK: optimise by only drawing on-screen area
@@ -182,6 +193,30 @@ void EditorScene::DrawScreen()
 					_Window->draw(rect);
 				}
 			}
+	}
+
+	//	Draw the starting position of the player
+	sf::CircleShape playerCirc;
+	playerCirc.setFillColor(sf::Color::Transparent);
+	playerCirc.setOutlineColor(sf::Color::Blue);
+	playerCirc.setOutlineThickness(1.f);
+	playerCirc.setRadius(16.f);
+	playerCirc.setOrigin(16.f, 16.f);
+	playerCirc.setPosition(_Level.GetPlayerStart()._A, _Level.GetPlayerStart()._B);
+	_Window->draw(playerCirc);
+	////////////////////////////////////////////
+
+	//	Draw the enemies
+	for (int i = 0; i < _Level.CountEnemies(); i++)
+	{
+		sf::CircleShape circ;
+		circ.setRadius(16.f);
+		circ.setOrigin(16.f, 16.f);
+		circ.setFillColor(sf::Color::Transparent);
+		circ.setOutlineColor(sf::Color::Green);
+		circ.setOutlineThickness(1.f);
+		circ.setPosition(_Level.GetEnemy(i)._Position.GetX(), _Level.GetEnemy(i)._Position.GetY());
+		_Window->draw(circ);
 	}
 
 	//	GUI
@@ -210,8 +245,8 @@ void EditorScene::DrawScreen()
 	if (_Mode == EditMode::PlayerStartMode) rightText.setString("[" + IntToString(_Level.GetPlayerStart()._A) + "," + IntToString(_Level.GetPlayerStart()._B) + "]");
 	else if (_Mode == EditMode::GridSizeMode) rightText.setString("[" + IntToString(_Level.GetGrid().GetWidth()) + "," + IntToString(_Level.GetGrid().GetHeight()) + "]");
 	else if (_Mode == EditMode::TileSpriteMode) rightText.setString("Hold Ctrl to show tilesheet.");
-	else if (_Mode == EditMode::TileSolidMode) rightText.setString("");
-	else if (_Mode == EditMode::AddEnemyMode) rightText.setString("");
+	else if (_Mode == EditMode::TileSolidMode) rightText.setString("L-Click to toggle.");
+	else if (_Mode == EditMode::AddEnemyMode) rightText.setString(IntToString(_Level.CountEnemies()));
 	else if (_Mode == EditMode::EnemyMoveMode) rightText.setString("");
 	else if (_Mode == EditMode::AddPickupMode) rightText.setString("");
 	rightText.setFont(_Font);

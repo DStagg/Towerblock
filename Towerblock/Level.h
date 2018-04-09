@@ -75,6 +75,9 @@ public:
 	void SetPlayerStart(int x, int y);
 	PairInt GetPlayerStart();
 
+	Enemy& GetEnemy(int i);
+	void AddEnemy(Enemy e);
+
 private:
 
 	Grid<Tile> _Tiles;

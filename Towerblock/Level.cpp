@@ -506,3 +506,17 @@ PairInt Level::GetPlayerStart()
 {
 	return _PlayerStartPos;
 };
+
+Enemy& Level::GetEnemy(int i)
+{
+	if (CountEnemies() == 0) return Enemy();
+	if (i >= CountEnemies()) i = CountEnemies() - 1;
+	if (i < 0) i = 0;
+
+	return _Enemies[i];
+};
+
+void Level::AddEnemy(Enemy e)
+{
+	_Enemies.push_back(e);
+};
