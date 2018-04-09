@@ -5,6 +5,7 @@
 #include "Framework\Scene.h"
 
 #include "MainScene.h"
+#include "EditorScene.h"
 
 class TitleScene : public Scene
 {

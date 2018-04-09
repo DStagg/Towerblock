@@ -19,14 +19,9 @@ void MainScene::Begin()
 	_ImgMan.LoadTextureFromFile("Tilesheet", "Tilesheet.png");
 
 	sf::Image img = _ImgMan.GetTexturePntr("Tilesheet")->copyToImage();
-	std::map<int, PairInt> dic;
-
-	int tw = 32;
-	int th = 32;
 	
 	CompositeBuilder builder(img,PairInt(32,32));
 
-	//_Level.GenerateBox(20, 10);
 	_Level.GenerateFancyBox(20, 10);
 	_Level.GetGrid().SetCell(10, 5, Tile(6, 0, true));
 	_Level.Spawn(400, 400);

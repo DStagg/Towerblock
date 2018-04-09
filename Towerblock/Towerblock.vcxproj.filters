@@ -122,6 +122,9 @@
     <ClCompile Include="Pickup.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="EditorScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainScene.h">
@@ -219,6 +222,9 @@
     </ClInclude>
     <ClInclude Include="Pickup.h">
       <Filter>Source Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorScene.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -119,6 +119,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="EditorScene.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Framework\Data\Collision.cpp" />
     <ClCompile Include="Framework\Data\CompositeTex.cpp" />
@@ -151,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="EditorScene.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Framework\Data\Collision.h" />
     <ClInclude Include="Framework\Data\CompositeTex.h" />
