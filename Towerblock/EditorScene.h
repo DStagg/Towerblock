@@ -11,6 +11,8 @@
 
 #include "Level.h"
 
+#include "Framework\Debug\Console.h"
+
 class EditorScene : public Scene
 {
 public:
@@ -51,6 +53,7 @@ private:
 	int _Mode = 0;
 	int _TileX = 0;
 	int _TileY = 0;
+	int _EnemyDrag = -1;
 
 	Level _Level;
 };

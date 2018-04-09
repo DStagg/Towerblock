@@ -37,6 +37,8 @@ public:
 	void operator/=(const float& f);
 	void operator/=(const Vec& v);
 
+	bool operator==(const Vec& v);
+
 	float _X, _Y;
 
 };
@@ -93,10 +95,6 @@ float RadToDegree(float r);
 
 float CalcAngle(float startx, float starty, float endx, float endy);
 float CalcAngle(int startx, int starty, int endx, int endy);
-//	Returns the angle between two points relative to the x-axis in radians
-//	Right is 0, Down is Pi/2, Left is Pi, Up is -Pi/2
-//	Top half of semicircle is -Pi to 0, Bottom half is Pi to 0 (both left to right)
-
 float CalcAngle(float dx, float dy);
 float CalcAngle(int dx, int dy);
 //	Returns the angle between a vector and the x-axis in radians
@@ -105,9 +103,6 @@ float CalcAngle(int dx, int dy);
 
 float CalcHeading(float startx, float starty, float endx, float endy);
 float CalcHeading(int startx, int starty, int endx, int endy);
-//	Returns the heading of a vector between two points relative to the y-axis in radians
-//	Right is 1.5 Pi, Down is Pi, Right is 0.f Pi, Up is 0
-
 float CalcHeading(float dx, float dy);
 float CalcHeading(int dx, int dy);
 //	Returns the heading of a vector relative to the y-axis in radians
@@ -115,6 +110,8 @@ float CalcHeading(int dx, int dy);
 
 float CalcSFMLAngle(float startx, float starty, float endx, float endy);
 float CalcSFMLAngle(int startx, int starty, int endx, int endy);
+float CalcSFMLAngle(float dx, float dy);
+float CalcSFMLAngle(int dx, int dy);
 //	Up is 0, Right is 90, Down is 180, Left is 270
 //	Just returns CalcHeading()
 

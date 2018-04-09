@@ -23,11 +23,13 @@ void EditorScene::Begin()
 
 	_Level.Load("Level.sav");
 
+	Console::C()->Init(_Font, 16, 20);
+
 	RefreshTiles();
 };
 void EditorScene::End()
 {
-
+	Console::C()->DumpLog("EditorLog.txt");
 };
 void EditorScene::Pause()
 {
@@ -100,6 +102,17 @@ void EditorScene::Update(float dt)
 						_Level.AddEnemy(newE);
 					}
 				}
+				else if (_Mode == EditMode::EnemyMoveMode)
+				{
+					for (int i = 0; i < _Level.CountEnemies(); i++)
+					{
+						if (_Level.GetEnemy(i).GetMask().Collide(CircleMask(Circle(mx, my, 16)))._Collided)
+						{
+							_EnemyDrag = i;
+							break;
+						}
+					}
+				}
 				else if (_Mode == EditMode::AddPickupMode)
 				{
 					bool collided = false;
@@ -145,6 +158,32 @@ void EditorScene::Update(float dt)
 						}
 					}
 				}
+				else if (_Mode == EditMode::EnemyMoveMode)
+				{
+					for (int i = 0; i < _Level.CountEnemies(); i++)
+					{
+						if (_Level.GetEnemy(i).GetMask()._Mask.Contains(mx, my))
+						{
+							_Level.GetEnemyPntr(i)->_Velocity = Vec(0, 0);
+							_Level.GetEnemyPntr(i)->_Facing = 0.f;
+							break;
+						}
+					}
+				}
+			}
+		}
+		else if (Event.type == sf::Event::MouseButtonReleased)
+		{
+			int mx = sf::Mouse::getPosition(*_Window).x + _CameraView.getViewport().left;
+			int my = sf::Mouse::getPosition(*_Window).y + _CameraView.getViewport().top;
+
+			if ((_Mode == EditMode::EnemyMoveMode) && (_EnemyDrag != -1) && (Event.mouseButton.button == sf::Mouse::Button::Left))
+			{
+				Vec dir = (Vec(mx, my) - Vec(_Level.GetEnemy(_EnemyDrag)._Position)).UnitVec() * 100.f;
+				_Level.GetEnemyPntr(_EnemyDrag)->_Velocity = dir;
+				Log("Set enemy " + IntToString(_EnemyDrag) + " velocity to (" + FloatToString(_Level.GetEnemy(_EnemyDrag)._Velocity._X) + "," + FloatToString(_Level.GetEnemy(_EnemyDrag)._Velocity._Y) + ")");
+				_EnemyDrag = -1;
+
 			}
 		}
 		else if (Event.type == sf::Event::KeyPressed)
@@ -262,6 +301,20 @@ void EditorScene::DrawScreen()
 		circ.setOutlineThickness(1.f);
 		circ.setPosition(_Level.GetEnemy(i)._Position.GetX(), _Level.GetEnemy(i)._Position.GetY());
 		_Window->draw(circ);
+
+		if (_Mode == EditMode::EnemyMoveMode)
+		{
+			if (_Level.GetEnemy(i)._Velocity == Vec(0, 0))
+				continue;
+
+			sf::RectangleShape linedir;
+			linedir.setSize(sf::Vector2f(50.f, 1.f));
+			linedir.setPosition(_Level.GetEnemy(i)._Position.GetX(), _Level.GetEnemy(i)._Position.GetY());
+			linedir.setFillColor(sf::Color::Red);
+			linedir.setRotation(CalcSFMLAngle(_Level.GetEnemy(i)._Velocity._X, _Level.GetEnemy(i)._Velocity._Y));
+
+			_Window->draw(linedir);
+		}
 	}
 	////////////////////
 

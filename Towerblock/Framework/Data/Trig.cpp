@@ -113,6 +113,10 @@ void Vec::operator/=(const Vec& v)
 	_X /= v._X;
 	_Y /= v._Y;
 };
+bool Vec::operator==(const Vec& v)
+{
+	return ((_X == v._X) && (_Y == v._Y));
+};
 
 //	Point
 //	Constructors/Deconstructor
@@ -297,6 +301,18 @@ float CalcHeading(float dx, float dy)
 float CalcSFMLAngle(float startx, float starty, float endx, float endy)
 {
 	return RadToDegree(CalcAngle(startx, starty, endx, endy));
+};
+float CalcSFMLAngle(int startx, int starty, int endx, int endy)
+{
+	return CalcSFMLAngle((float)startx, (float)starty, (float)endx, (float)endy);
+};
+float CalcSFMLAngle(float dx, float dy)
+{
+	return CalcSFMLAngle(0.f, 0.f, dx, dy);
+};
+float CalcSFMLAngle(int dx, int dy)
+{
+	return CalcSFMLAngle((float)dx, (float)dy);
 };
 
 float CalcXComp(float heading)
