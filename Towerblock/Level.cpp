@@ -77,7 +77,7 @@ void Level::GenerateFancyBox(int w, int h)
 	_Tiles.SetCell(0, h - 1, Tile(4,1,true));		//	BL
 	_Tiles.SetCell(w - 1, h - 1, Tile(5,1,true));	//	BR
 	
-	_PlayerStartPos = PairInt(_TileWidth * 1.5f , _TileHeight * 1.5f);
+	_PlayerStartPos = PairInt((int)(_TileWidth * 1.5f) , (int)(_TileHeight * 1.5f));
 
 	//	(2, 0) (4, 0) (3, 0)
 	//	(2, 1) (6, 1) (3, 1)

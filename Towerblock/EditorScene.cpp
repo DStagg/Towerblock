@@ -49,15 +49,15 @@ void EditorScene::Update(float dt)
 		else if (Event.type == sf::Event::MouseMoved)
 		{
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle))
-				_CameraView.move(_CameraPanX - Event.mouseMove.x, _CameraPanY - Event.mouseMove.y);
+				_CameraView.move((float)_CameraPanX - Event.mouseMove.x, (float)_CameraPanY - Event.mouseMove.y);
 
 			_CameraPanX = Event.mouseMove.x;
 			_CameraPanY = Event.mouseMove.y;
 		}
 		else if (Event.type == sf::Event::MouseButtonPressed)
 		{
-			int mx = sf::Mouse::getPosition(*_Window).x + _CameraView.getCenter().x - (_CameraView.getSize().x / 2.f);
-			int my = sf::Mouse::getPosition(*_Window).y + _CameraView.getCenter().y - (_CameraView.getSize().y / 2.f);
+			int mx = (int)(sf::Mouse::getPosition(*_Window).x + _CameraView.getCenter().x - (_CameraView.getSize().x / 2.f));
+			int my = (int)(sf::Mouse::getPosition(*_Window).y + _CameraView.getCenter().y - (_CameraView.getSize().y / 2.f));
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
 			{
@@ -80,8 +80,8 @@ void EditorScene::Update(float dt)
 					}
 					else														//	Paint Tile
 					{
-						int col = _Level.CalcCol(mx);
-						int row = _Level.CalcRow(my);
+						int col = _Level.CalcCol((float)mx);
+						int row = _Level.CalcRow((float)my);
 
 						_Level.GetGrid().SetCell(col, row, Tile(_TileX, _TileY, _Level.GetGrid().GetCell(col, row)._Solid));
 
@@ -90,8 +90,8 @@ void EditorScene::Update(float dt)
 				}
 				else if (_Mode == EditMode::TileSolidMode)
 				{
-					int col = _Level.CalcCol(mx);
-					int row = _Level.CalcCol(my);
+					int col = _Level.CalcCol((float)mx);
+					int row = _Level.CalcCol((float)my);
 
 					_Level.GetGrid().SetCell(col, row, Tile(_Level.GetGrid().GetCell(col, row)._SpriteX, _Level.GetGrid().GetCell(col, row)._SpriteY, !_Level.GetGrid().GetCell(col, row)._Solid));
 				}
@@ -188,12 +188,12 @@ void EditorScene::Update(float dt)
 		}
 		else if (Event.type == sf::Event::MouseButtonReleased)
 		{
-			int mx = sf::Mouse::getPosition(*_Window).x + _CameraView.getCenter().x - (_CameraView.getSize().x / 2.f);
-			int my = sf::Mouse::getPosition(*_Window).y + _CameraView.getCenter().y - (_CameraView.getSize().y / 2.f);
+			int mx = (int)(sf::Mouse::getPosition(*_Window).x + _CameraView.getCenter().x - (_CameraView.getSize().x / 2.f));
+			int my = (int)(sf::Mouse::getPosition(*_Window).y + _CameraView.getCenter().y - (_CameraView.getSize().y / 2.f));
 
 			if ((_Mode == EditMode::EnemyMoveMode) && (_EnemyDrag != -1) && (Event.mouseButton.button == sf::Mouse::Button::Left))
 			{
-				Vec dir = (Vec(mx, my) - Vec(_Level.GetEnemy(_EnemyDrag)._Position)).UnitVec() * 100.f;
+				Vec dir = (Vec((float)mx, (float)my) - Vec(_Level.GetEnemy(_EnemyDrag)._Position)).UnitVec() * 100.f;
 				_Level.GetEnemyPntr(_EnemyDrag)->_Velocity = dir;
 				Log("Set enemy " + IntToString(_EnemyDrag) + " velocity to (" + FloatToString(_Level.GetEnemy(_EnemyDrag)._Velocity._X) + "," + FloatToString(_Level.GetEnemy(_EnemyDrag)._Velocity._Y) + ")");
 				_EnemyDrag = -1;
@@ -289,7 +289,7 @@ void EditorScene::DrawScreen()
 				if (_Level.GetGrid().GetCell(x, y)._Solid)
 				{
 					sf::RectangleShape rect;
-					rect.setPosition(x * 32, y * 32);
+					rect.setPosition((float)x * 32.f, (float)y * 32.f);
 					rect.setSize(sf::Vector2f(32.f, 32.f));
 					rect.setFillColor(sf::Color(255, 0, 0, 155));
 					rect.setOutlineColor(sf::Color::Blue);
@@ -306,7 +306,7 @@ void EditorScene::DrawScreen()
 	playerCirc.setOutlineThickness(1.f);
 	playerCirc.setRadius(16.f);
 	playerCirc.setOrigin(16.f, 16.f);
-	playerCirc.setPosition(_Level.GetPlayerStart()._A, _Level.GetPlayerStart()._B);
+	playerCirc.setPosition((float)_Level.GetPlayerStart()._A, (float)_Level.GetPlayerStart()._B);
 	_Window->draw(playerCirc);
 	////////////////////////////////////////////
 
@@ -319,7 +319,7 @@ void EditorScene::DrawScreen()
 		circ.setFillColor(sf::Color::Transparent);
 		circ.setOutlineColor(sf::Color::Red);
 		circ.setOutlineThickness(1.f);
-		circ.setPosition(_Level.GetEnemy(i)._Position.GetX(), _Level.GetEnemy(i)._Position.GetY());
+		circ.setPosition((float)_Level.GetEnemy(i)._Position.GetX(), (float)_Level.GetEnemy(i)._Position.GetY());
 		_Window->draw(circ);
 
 		if (_Mode == EditMode::EnemyMoveMode)
@@ -329,7 +329,7 @@ void EditorScene::DrawScreen()
 
 			sf::RectangleShape linedir;
 			linedir.setSize(sf::Vector2f(50.f, 1.f));
-			linedir.setPosition(_Level.GetEnemy(i)._Position.GetX(), _Level.GetEnemy(i)._Position.GetY());
+			linedir.setPosition((float)_Level.GetEnemy(i)._Position.GetX(), (float)_Level.GetEnemy(i)._Position.GetY());
 			linedir.setFillColor(sf::Color::Red);
 			linedir.setRotation(CalcSFMLAngle(_Level.GetEnemy(i)._Velocity._X, _Level.GetEnemy(i)._Velocity._Y));
 
@@ -347,7 +347,7 @@ void EditorScene::DrawScreen()
 		circ.setFillColor(sf::Color::Transparent);
 		circ.setOutlineColor(sf::Color::Yellow);
 		circ.setOutlineThickness(1.f);
-		circ.setPosition(_Level.GetPickup(i)._Position.GetX(), _Level.GetPickup(i)._Position.GetY());
+		circ.setPosition((float)_Level.GetPickup(i)._Position.GetX(), (float)_Level.GetPickup(i)._Position.GetY());
 		_Window->draw(circ);
 	}
 	////////////////////
@@ -361,7 +361,7 @@ void EditorScene::DrawScreen()
 			(int)(sf::Mouse::getPosition(*_Window).x + _CameraView.getCenter().x - (_CameraView.getSize().x / 2.f)),
 			(int)(sf::Mouse::getPosition(*_Window).y + _CameraView.getCenter().y - (_CameraView.getSize().y / 2.f)))
 			, 1.f));
-		linedir.setPosition(_Level.GetEnemy(_EnemyDrag)._Position.GetX(), _Level.GetEnemy(_EnemyDrag)._Position.GetY());
+		linedir.setPosition((float)_Level.GetEnemy(_EnemyDrag)._Position.GetX(), (float)_Level.GetEnemy(_EnemyDrag)._Position.GetY());
 		linedir.setFillColor(sf::Color::White);
 		linedir.setRotation(CalcSFMLAngle(_Level.GetEnemy(_EnemyDrag)._Position.GetX(), _Level.GetEnemy(_EnemyDrag)._Position.GetY(), (int)(sf::Mouse::getPosition(*_Window).x + _CameraView.getCenter().x - (_CameraView.getSize().x / 2.f)), (int)(sf::Mouse::getPosition(*_Window).y + _CameraView.getCenter().y - (_CameraView.getSize().y / 2.f))));
 
@@ -373,7 +373,7 @@ void EditorScene::DrawScreen()
 
 	sf::RectangleShape backBar;
 	backBar.setFillColor(sf::Color(155, 155, 155));
-	backBar.setSize(sf::Vector2f(_Window->getSize().x, 100.f));
+	backBar.setSize(sf::Vector2f((float)_Window->getSize().x, 100.f));
 	backBar.setPosition(0.f, _Window->getSize().y - 100.f);
 	_Window->draw(backBar);
 
@@ -419,7 +419,7 @@ void EditorScene::DrawScreen()
 			_Window->draw(tileSheet);
 
 			sf::RectangleShape tileRect;
-			tileRect.setPosition(_TileX * 32, _TileY * 32);
+			tileRect.setPosition((float)_TileX * 32, (float)_TileY * 32);
 			tileRect.setSize(sf::Vector2f(32.f, 32.f));
 			tileRect.setFillColor(sf::Color::Transparent);
 			tileRect.setOutlineColor(sf::Color::Red);
