@@ -95,6 +95,9 @@
     <ClCompile Include="Framework\Data\CompositeTex.cpp">
       <Filter>Framework\Data</Filter>
     </ClCompile>
+    <ClCompile Include="Framework\Data\Pair.cpp">
+      <Filter>Framework\Data</Filter>
+    </ClCompile>
     <ClCompile Include="Framework\Debug\DebugDraw.cpp">
       <Filter>Framework\Debug</Filter>
     </ClCompile>

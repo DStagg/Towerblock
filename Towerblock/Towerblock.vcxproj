@@ -123,6 +123,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Framework\Data\Collision.cpp" />
     <ClCompile Include="Framework\Data\CompositeTex.cpp" />
+    <ClCompile Include="Framework\Data\Pair.cpp" />
     <ClCompile Include="Framework\Data\SAT.cpp" />
     <ClCompile Include="Framework\Data\Shapes.cpp" />
     <ClCompile Include="Framework\Data\Trig.cpp" />

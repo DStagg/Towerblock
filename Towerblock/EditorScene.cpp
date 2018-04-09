@@ -46,16 +46,9 @@ void EditorScene::Update(float dt)
 	{
 		if (Event.type == sf::Event::Closed)
 			GetManager()->Quit();
-		else if (Event.type == sf::Event::MouseMoved)
-		{
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle))
-				_CameraView.move(_CameraPanX - Event.mouseMove.x, _CameraPanY - Event.mouseMove.y);
-
-			_CameraPanX = Event.mouseMove.x;
-			_CameraPanY = Event.mouseMove.y;
-		}
 		else if (Event.type == sf::Event::MouseButtonPressed)
 		{
+<<<<<<< HEAD
 			//int mx = sf::Mouse::getPosition(*_Window).x + _CameraView.getCenter().x - (_CameraView.getSize().x / 2.f);
 			//int my = sf::Mouse::getPosition(*_Window).y + _CameraView.getCenter().y - (_CameraView.getSize().y / 2.f);
 			PairInt mpos = KBMInput::GetMousePosWorld(_Window);
@@ -67,6 +60,10 @@ void EditorScene::Update(float dt)
 				IntToString(sf::Mouse::getPosition(*_Window).y + _CameraView.getCenter().y - (_CameraView.getSize().y / 2.f)) + ") => (" + 
 				IntToString(mx) + "," + 
 				IntToString(my) + ")");
+=======
+			int mx = sf::Mouse::getPosition(*_Window).x + _CameraView.getViewport().left;
+			int my = sf::Mouse::getPosition(*_Window).y + _CameraView.getViewport().top;
+>>>>>>> parent of f67bab3... Editor Scene: added camera panning and corrected mouse coordinates to take panning into account.
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
 			{
@@ -197,12 +194,17 @@ void EditorScene::Update(float dt)
 		}
 		else if (Event.type == sf::Event::MouseButtonReleased)
 		{
+<<<<<<< HEAD
 			//int mx = sf::Mouse::getPosition(*_Window).x + _CameraView.getCenter().x - (_CameraView.getSize().x / 2.f);
 			//int my = sf::Mouse::getPosition(*_Window).y + _CameraView.getCenter().y - (_CameraView.getSize().y / 2.f);
 
 			PairInt mpos = KBMInput::GetMousePosWorld(_Window);
 			int mx = mpos._A;
 			int my = mpos._B;
+=======
+			int mx = sf::Mouse::getPosition(*_Window).x + _CameraView.getViewport().left;
+			int my = sf::Mouse::getPosition(*_Window).y + _CameraView.getViewport().top;
+>>>>>>> parent of f67bab3... Editor Scene: added camera panning and corrected mouse coordinates to take panning into account.
 
 			if ((_Mode == EditMode::EnemyMoveMode) && (_EnemyDrag != -1) && (Event.mouseButton.button == sf::Mouse::Button::Left))
 			{
@@ -218,9 +220,6 @@ void EditorScene::Update(float dt)
 			{
 			case sf::Keyboard::Escape:
 				GetManager()->Quit();
-				break;
-			case sf::Keyboard::F1:
-				_ShowLog = !_ShowLog;
 				break;
 			case sf::Keyboard::S:
 				_Level.Save("Level.sav");
@@ -249,9 +248,6 @@ void EditorScene::Update(float dt)
 				break;
 			case sf::Keyboard::Num7:
 				_Mode = EditMode::AddPickupMode;
-				break;
-			case sf::Keyboard::Return:
-				_CameraView = _Window->getDefaultView();
 				break;
 			case sf::Keyboard::Left:
 				if (_Mode == EditMode::GridSizeMode)
@@ -369,10 +365,14 @@ void EditorScene::DrawScreen()
 	{
 		PairInt mpos = KBMInput::GetMousePosWorld(_Window);
 		sf::RectangleShape linedir;
+<<<<<<< HEAD
 		linedir.setSize(sf::Vector2f(CalcDistance(_Level.GetEnemy(_EnemyDrag)._Position.GetX(), _Level.GetEnemy(_EnemyDrag)._Position.GetY(), mpos._A, mpos._B), 1.f));
+=======
+		linedir.setSize(sf::Vector2f(CalcDistance(_Level.GetEnemy(_EnemyDrag)._Position.GetX(), _Level.GetEnemy(_EnemyDrag)._Position.GetY(), sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y), 1.f));
+>>>>>>> parent of f67bab3... Editor Scene: added camera panning and corrected mouse coordinates to take panning into account.
 		linedir.setPosition(_Level.GetEnemy(_EnemyDrag)._Position.GetX(), _Level.GetEnemy(_EnemyDrag)._Position.GetY());
 		linedir.setFillColor(sf::Color::White);
-		linedir.setRotation(CalcSFMLAngle(_Level.GetEnemy(_EnemyDrag)._Position.GetX(), _Level.GetEnemy(_EnemyDrag)._Position.GetY(), (int)(sf::Mouse::getPosition(*_Window).x + _CameraView.getCenter().x - (_CameraView.getSize().x / 2.f)), (int)(sf::Mouse::getPosition(*_Window).y + _CameraView.getCenter().y - (_CameraView.getSize().y / 2.f))));
+		linedir.setRotation(CalcSFMLAngle(_Level.GetEnemy(_EnemyDrag)._Position.GetX(), _Level.GetEnemy(_EnemyDrag)._Position.GetY(), sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y));
 
 		_Window->draw(linedir);
 	}
@@ -436,9 +436,6 @@ void EditorScene::DrawScreen()
 			_Window->draw(tileRect);
 		}
 	}
-
-	if (_ShowLog)
-		Console::C()->Draw(_Window);
 };
 
 void EditorScene::RefreshTiles()
