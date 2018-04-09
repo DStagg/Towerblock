@@ -1,0 +1,48 @@
+Okay, we have the basic working systems in place (collision, movement, etc.). 
+Time to plan out a v.1.0, strip the current build back and get something rock-solid to release.
+That means - one level. A static list of enemies. A static list of pickups. One level of solid play.
+
+Passes:
+ - Level Design Pass
+ - Menu Pass
+ - Artwork Pass
+ - Music Pass
+ - Advanced Pass
+
+Level Design Pass
+-----------------
+Add ability to save/load levels (tiles, list of enemies, start point, list of pickups).
+Add level editor. 
+
+Menu Pass
+-----------------
+Title screen graphics & selector
+Help/Controls scene accessed from the main menu
+Transitions between scenes
+Better win scene (with instructions for quitting, restarting, etc.)
+Better lose scene (with instructions for quitting, restarting, etc.)
+Better GUI
+
+Artwork Pass
+-----------------
+Sprite for player
+Sprite for enemies
+Sprite for bullets
+
+Music Pass
+-----------------
+SFX for player taking damage
+SFX for pistol firing
+SFX for shotgun firing
+SFX for bullet hitting enemy
+SFX for bullet hitting wall
+SFX for enemy dying
+SFX for player dying
+SFX for menu option change
+SFX for menu option select
+BGM for title
+BGM for game
+
+Advanced Pass
+-----------------
+Animated sprites

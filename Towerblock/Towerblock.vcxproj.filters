@@ -221,4 +221,9 @@
       <Filter>Source Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="ToDo.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+  </ItemGroup>
 </Project>
