@@ -43,6 +43,8 @@ void TitleScene::Update(float dt)
 				GetManager()->Quit();
 			else if (Event.key.code == sf::Keyboard::Key::Return)
 				GetManager()->PushScene(new MainScene(_Window));
+			else if (Event.key.code == sf::Keyboard::E)
+				GetManager()->PushScene(new EditorScene(_Window));
 		}
 	}
 };

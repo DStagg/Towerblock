@@ -496,3 +496,13 @@ void Level::Save(std::string file)
 
 	output.Close();
 };
+
+void Level::SetPlayerStart(int x, int y)
+{
+	_PlayerStartPos.Set(x, y);
+};
+
+PairInt Level::GetPlayerStart()
+{
+	return _PlayerStartPos;
+};

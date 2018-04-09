@@ -72,6 +72,9 @@ public:
 	void Load(std::string file);
 	void Save(std::string file);
 
+	void SetPlayerStart(int x, int y);
+	PairInt GetPlayerStart();
+
 private:
 
 	Grid<Tile> _Tiles;

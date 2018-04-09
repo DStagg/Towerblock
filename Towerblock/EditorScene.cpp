@@ -41,9 +41,13 @@ void EditorScene::Update(float dt)
 			GetManager()->Quit();
 		else if (Event.type == sf::Event::MouseButtonPressed)
 		{
+			int mx = sf::Mouse::getPosition(*_Window).x + _CameraView.getViewport().left;
+			int my = sf::Mouse::getPosition(*_Window).y + _CameraView.getViewport().top;
+
 			if (Event.mouseButton.button == sf::Mouse::Button::Left)
 			{
-
+				if (_Mode == EditMode::PlayerStartMode)
+					_Level.SetPlayerStart(mx, my);
 			}
 		}
 		else if (Event.type == sf::Event::KeyPressed)
@@ -66,4 +70,15 @@ void EditorScene::Update(float dt)
 void EditorScene::DrawScreen()
 {
 	_Level.Draw(_Window);
+
+	//	Draw the starting position of the player
+	sf::CircleShape playerCirc;
+	playerCirc.setFillColor(sf::Color::Transparent);
+	playerCirc.setOutlineColor(sf::Color::Blue);
+	playerCirc.setOutlineThickness(1.f);
+	playerCirc.setRadius(16.f);
+	playerCirc.setOrigin(16.f, 16.f);
+	playerCirc.setPosition(_Level.GetPlayerStart()._A, _Level.GetPlayerStart()._B);
+	_Window->draw(playerCirc);
+	////////////////////////////////////////////
 };
