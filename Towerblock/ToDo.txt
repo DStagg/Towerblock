@@ -12,7 +12,7 @@ Passes:
 Level Design Pass
 -----------------
 [DONE] Add ability to save/load levels (tiles, list of enemies, start point, list of pickups).
-Add level editor. 
+[DONE] Add level editor. 
 
 Menu Pass
 -----------------

@@ -13,6 +13,8 @@
 
 #include "Framework\Debug\Console.h"
 
+#include "Framework\IO\KBMInput.h"
+
 class EditorScene : public Scene
 {
 public:

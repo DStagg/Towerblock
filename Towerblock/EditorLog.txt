@@ -1,3 +1,4 @@
-Set enemy 6 velocity to (11.4006,-99.348)
-Set enemy 6 velocity to (81.1534,58.4305)
+Click: (296,365) => (296,365)
+Click: (94,223) => (94,223)
+Click: (-224,147) => (192,336)
 Log dumped to: EditorLog.txt

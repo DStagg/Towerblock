@@ -134,6 +134,7 @@
     <ClCompile Include="Framework\IO\BinarySave.cpp" />
     <ClCompile Include="Framework\IO\GUI.cpp" />
     <ClCompile Include="Framework\IO\ImageManager.cpp" />
+    <ClCompile Include="Framework\IO\KBMInput.cpp" />
     <ClCompile Include="Framework\IO\MenuList.cpp" />
     <ClCompile Include="Framework\IO\Service.cpp" />
     <ClCompile Include="Framework\IO\TextFile.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="Framework\IO\BinarySave.h" />
     <ClInclude Include="Framework\IO\GUI.h" />
     <ClInclude Include="Framework\IO\ImageManager.h" />
+    <ClInclude Include="Framework\IO\KBMInput.h" />
     <ClInclude Include="Framework\IO\MenuList.h" />
     <ClInclude Include="Framework\IO\Service.h" />
     <ClInclude Include="Framework\IO\TextFile.h" />

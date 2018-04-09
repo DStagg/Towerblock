@@ -56,8 +56,17 @@ void EditorScene::Update(float dt)
 		}
 		else if (Event.type == sf::Event::MouseButtonPressed)
 		{
-			int mx = sf::Mouse::getPosition(*_Window).x + _CameraView.getCenter().x - (_CameraView.getSize().x / 2.f);
-			int my = sf::Mouse::getPosition(*_Window).y + _CameraView.getCenter().y - (_CameraView.getSize().y / 2.f);
+			//int mx = sf::Mouse::getPosition(*_Window).x + _CameraView.getCenter().x - (_CameraView.getSize().x / 2.f);
+			//int my = sf::Mouse::getPosition(*_Window).y + _CameraView.getCenter().y - (_CameraView.getSize().y / 2.f);
+			PairInt mpos = KBMInput::GetMousePosWorld(_Window);
+			int mx = mpos._A;
+			int my = mpos._B;
+
+			Log("Click: (" + 
+				IntToString(sf::Mouse::getPosition(*_Window).x + _CameraView.getCenter().x - (_CameraView.getSize().x / 2.f)) + "," + 
+				IntToString(sf::Mouse::getPosition(*_Window).y + _CameraView.getCenter().y - (_CameraView.getSize().y / 2.f)) + ") => (" + 
+				IntToString(mx) + "," + 
+				IntToString(my) + ")");
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
 			{
@@ -188,8 +197,12 @@ void EditorScene::Update(float dt)
 		}
 		else if (Event.type == sf::Event::MouseButtonReleased)
 		{
-			int mx = sf::Mouse::getPosition(*_Window).x + _CameraView.getCenter().x - (_CameraView.getSize().x / 2.f);
-			int my = sf::Mouse::getPosition(*_Window).y + _CameraView.getCenter().y - (_CameraView.getSize().y / 2.f);
+			//int mx = sf::Mouse::getPosition(*_Window).x + _CameraView.getCenter().x - (_CameraView.getSize().x / 2.f);
+			//int my = sf::Mouse::getPosition(*_Window).y + _CameraView.getCenter().y - (_CameraView.getSize().y / 2.f);
+
+			PairInt mpos = KBMInput::GetMousePosWorld(_Window);
+			int mx = mpos._A;
+			int my = mpos._B;
 
 			if ((_Mode == EditMode::EnemyMoveMode) && (_EnemyDrag != -1) && (Event.mouseButton.button == sf::Mouse::Button::Left))
 			{
@@ -354,13 +367,9 @@ void EditorScene::DrawScreen()
 
 	if ((_Mode == EditMode::EnemyMoveMode) && (_EnemyDrag != -1))
 	{
+		PairInt mpos = KBMInput::GetMousePosWorld(_Window);
 		sf::RectangleShape linedir;
-		linedir.setSize(sf::Vector2f(CalcDistance(
-			_Level.GetEnemy(_EnemyDrag)._Position.GetX(), 
-			_Level.GetEnemy(_EnemyDrag)._Position.GetY(), 
-			(int)(sf::Mouse::getPosition(*_Window).x + _CameraView.getCenter().x - (_CameraView.getSize().x / 2.f)), 
-			(int)(sf::Mouse::getPosition(*_Window).y + _CameraView.getCenter().y - (_CameraView.getSize().y / 2.f)))
-			, 1.f));
+		linedir.setSize(sf::Vector2f(CalcDistance(_Level.GetEnemy(_EnemyDrag)._Position.GetX(), _Level.GetEnemy(_EnemyDrag)._Position.GetY(), mpos._A, mpos._B), 1.f));
 		linedir.setPosition(_Level.GetEnemy(_EnemyDrag)._Position.GetX(), _Level.GetEnemy(_EnemyDrag)._Position.GetY());
 		linedir.setFillColor(sf::Color::White);
 		linedir.setRotation(CalcSFMLAngle(_Level.GetEnemy(_EnemyDrag)._Position.GetX(), _Level.GetEnemy(_EnemyDrag)._Position.GetY(), (int)(sf::Mouse::getPosition(*_Window).x + _CameraView.getCenter().x - (_CameraView.getSize().x / 2.f)), (int)(sf::Mouse::getPosition(*_Window).y + _CameraView.getCenter().y - (_CameraView.getSize().y / 2.f))));
