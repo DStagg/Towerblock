@@ -9,6 +9,8 @@
 #include "Enemy.h"
 #include "Pickup.h"
 
+#include "Framework\IO\BinarySave.h"
+
 #include "Framework\Data\Collision.h"
 #include "Framework\Debug\DebugDraw.h"
 
@@ -67,6 +69,9 @@ public:
 	int CountEnemies();
 	Gun* GetGun(int i);
 
+	void Load(std::string file);
+	void Save(std::string file);
+
 private:
 
 	Grid<Tile> _Tiles;
@@ -82,6 +87,7 @@ private:
 	Gun* _GunB;
 
 	Player _Player;
+	PairInt _PlayerStartPos;
 	std::vector<Enemy> _Enemies;
 	std::vector<Bullet> _Bullets;
 	std::vector<Pickup> _Pickups;
@@ -89,4 +95,24 @@ private:
 	std::vector<Impulse> _Impulses;
 };
 
+/*	Level Save Format
+	int Width
+	int Height
+	Tiles: X by Y:
+		int SpriteX
+		int SpriteY
+		bool Solid
+	int PlayerStartX
+	int PlayerStartY
+	int NumberOfEnemies
+	Enemies: by int id:
+		int StartX
+		int StartY
+		float StartXVel
+		float StartYVel
+	int NumberOfPickups
+	Pickups: by int id:
+		int PositionX
+		int PositionY
+*/
 #endif

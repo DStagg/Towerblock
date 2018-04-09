@@ -77,6 +77,7 @@ void Level::GenerateFancyBox(int w, int h)
 	_Tiles.SetCell(0, h - 1, Tile(4,1,true));		//	BL
 	_Tiles.SetCell(w - 1, h - 1, Tile(5,1,true));	//	BR
 	
+	_PlayerStartPos = PairInt(_TileWidth * 1.5f , _TileHeight * 1.5f);
 
 	//	(2, 0) (4, 0) (3, 0)
 	//	(2, 1) (6, 1) (3, 1)
@@ -394,4 +395,104 @@ Gun* Level::GetGun(int i)
 		return _GunA;
 	else
 		return _GunB;
+};
+
+void Level::Load(std::string file)
+{
+	BinaryFile input(file, IO_IN);
+
+	if (!input.IsOpen())
+		return GenerateFancyBox(10, 10);
+
+	int width = input.Read<int>();
+	int height = input.Read<int>();
+
+	GetGrid().Resize(width, height);
+
+	for (int x = 0; x < width; x++)
+		for (int y = 0; y < height; y++)
+		{
+			int sprx = input.Read<int>();
+			int spry = input.Read<int>();
+			bool sol = input.Read<bool>();
+
+			GetGrid().SetCell(x, y, Tile(sprx, spry, sol));
+		}
+
+	int px = input.Read<int>();
+	int py = input.Read<int>();
+
+	_Player._Position.Set(px, py);
+	_PlayerStartPos = PairInt(px, py);
+
+	_Enemies.clear();
+	int numEnemy = input.Read<int>();
+	for (int i = 0; i < numEnemy; i++)
+	{
+		int ex = input.Read<int>();
+		int ey = input.Read<int>();
+		float evx = input.Read<float>();
+		float evy = input.Read<float>();
+
+		Enemy e;
+		e._Position.Set(ex, ey);
+		e._Velocity = Vec(evx, evy);
+
+		_Enemies.push_back(e);
+	}
+
+	_Pickups.clear();
+	int numPickups = input.Read<int>();
+	for (int i = 0; i < numPickups; i++)
+	{
+		int pux = input.Read<int>();
+		int puy = input.Read<int>();
+
+		Pickup p;
+		p._Position.Set(pux, puy);
+
+		_Pickups.push_back(p);
+	}
+
+	input.Close();
+};
+
+void Level::Save(std::string file)
+{
+	BinaryFile output(file, IO_OUT, true);
+
+	if (!output.IsOpen())
+		return;
+
+	output.Write<int>(GetGrid().GetWidth());
+	output.Write<int>(GetGrid().GetHeight());
+
+	for (int x = 0; x < GetGrid().GetWidth(); x++)
+		for (int y = 0; y < GetGrid().GetHeight(); y++)
+		{
+			output.Write<int>(GetGrid().GetCell(x, y)._SpriteX);
+			output.Write<int>(GetGrid().GetCell(x, y)._SpriteY);
+			output.Write<bool>(GetGrid().GetCell(x, y)._Solid);
+		}
+
+	output.Write<int>(_PlayerStartPos._A);
+	output.Write<int>(_PlayerStartPos._B);
+
+	output.Write<int>((int)_Enemies.size());
+	for (int i = 0; i < (int)_Enemies.size(); i++)
+	{
+		output.Write<int>(_Enemies[i]._Position.GetX());
+		output.Write<int>(_Enemies[i]._Position.GetY());
+		output.Write<float>(_Enemies[i]._Velocity._X);
+		output.Write<float>(_Enemies[i]._Velocity._Y);
+	}
+
+	output.Write<int>((int)_Pickups.size());
+	for (int i = 0; i < (int)_Pickups.size(); i++)
+	{
+		output.Write<int>(_Pickups[i]._Position.GetX());
+		output.Write<int>(_Pickups[i]._Position.GetY());
+	}
+
+	output.Close();
 };

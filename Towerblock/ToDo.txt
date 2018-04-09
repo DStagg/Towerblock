@@ -46,3 +46,4 @@ BGM for game
 Advanced Pass
 -----------------
 Animated sprites
+Enemy AI

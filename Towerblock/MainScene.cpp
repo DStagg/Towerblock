@@ -82,6 +82,12 @@ void MainScene::Update(float dt)
 			case sf::Keyboard::P:
 				_Paused = !_Paused;
 				break;
+			case sf::Keyboard::Num1:
+				_Level.Save("Save.sav");
+				break;
+			case sf::Keyboard::Num2:
+				_Level.Load("Save.sav");
+				break;
 			case sf::Keyboard::Left:
 				//_CameraView.move(-32.f, 0.f);
 				_Level.Spawn(_Level.GetPlayer()._Position.GetX() + 150, _Level.GetPlayer()._Position.GetY(), -100, 0);
