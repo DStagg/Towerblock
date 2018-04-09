@@ -64,9 +64,12 @@ void EditorScene::Update(float dt)
 					}
 					else														//	Paint Tile
 					{
+						int col = _Level.CalcCol(mx);
+						int row = _Level.CalcRow(my);
 
+						_Level.GetGrid().SetCell(col, row, Tile(_TileX, _TileY, _Level.GetGrid().GetCell(col, row)._Solid));
 
-
+						RefreshTiles();
 					}
 
 
