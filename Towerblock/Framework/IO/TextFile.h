@@ -4,7 +4,6 @@
 #include <fstream>
 
 //	TODO: add common base class/interface/methodology to BinaryFile and TextFile.
-//	TODO: move to framework folders
 enum TextFileMode
 {
 	IOS_IN = 0,

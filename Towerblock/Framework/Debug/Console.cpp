@@ -34,7 +34,7 @@ void Console::Draw(sf::RenderWindow* rw)
 		background.setSize(sf::Vector2f((float)rw->getSize().x, (float)(Console::C()->_TextSize * linesToShow) + (float)((linesToShow-1) * ConsoleMarginHeight * 0.5f) + (float)(ConsoleMarginHeight * 2)));
 	background.setFillColor(ConsoleBackgroundColour);
 	rw->draw(background);
-	//	TODO: add margin above/below first/last lines and buffer between lines
+	
 	int start_line = Console::C()->CountLines() - Console::C()->_LineLimit;	
 	if (start_line < 0) start_line = 0;
 

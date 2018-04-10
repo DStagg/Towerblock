@@ -281,9 +281,19 @@ float CalcAngle(float startx, float starty, float endx, float endy)
 	return (float)atan2(endy - starty, endx - startx);
 };
 
+float CalcAngle(int startx, int starty, int endx, int endy)
+{
+	return CalcAngle((float)startx, (float)starty, (float)endx, (float)endy);
+};
+
 float CalcAngle(float dx, float dy)
 {
 	return CalcAngle(0.f, 0.f, dx, dy);
+};
+
+float CalcAngle(int dx, int dy)
+{
+	return CalcAngle((float)dx, (float)dy);
 };
 
 float CalcHeading(float startx, float starty, float endx, float endy)
@@ -293,9 +303,19 @@ float CalcHeading(float startx, float starty, float endx, float endy)
 	return result;
 };
 
+float CalcHeading(int startx, int starty, int endx, int endy)
+{
+	return CalcHeading((float)startx, (float)starty, (float)endx, (float)endy);
+};
+
 float CalcHeading(float dx, float dy)
 {
 	return CalcHeading(0.f, 0.f, dx, dy);
+};
+
+float CalcHeading(int dx, int dy)
+{
+	return CalcHeading((float)dx, (float) dy);
 };
 
 float CalcSFMLAngle(float startx, float starty, float endx, float endy)
@@ -332,7 +352,17 @@ float CalcDistance(float x1, float y1, float x2, float y2)
 	return sqrtf((dx * dx) + (dy * dy));
 };
 
+float CalcDistance(float dx, float dy)
+{
+	return CalcDistance(0.f, 0.f, dx, dy);
+};
+
 float CalcDistance(int x1, int y1, int x2, int y2)
 {
 	return CalcDistance((float)x1, (float)y1, (float)x2, (float)y2);
+};
+
+float CalcDistance(int dx, int dy)
+{
+	return CalcDistance((float)dx, (float)dy);
 };

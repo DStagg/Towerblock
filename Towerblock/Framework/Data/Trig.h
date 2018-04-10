@@ -92,7 +92,7 @@ protected:
 
 float DegreeToRad(float d);
 float RadToDegree(float r);
-//	TODO: fill out remaining CalcAngle() overloads
+
 float CalcAngle(float startx, float starty, float endx, float endy);
 float CalcAngle(int startx, int starty, int endx, int endy);
 float CalcAngle(float dx, float dy);
@@ -100,7 +100,7 @@ float CalcAngle(int dx, int dy);
 //	Returns the angle between a vector and the x-axis in radians
 //	Right is 0, Down is Pi/2, Left is Pi, Up is -Pi/2
 //	Top half of semicircle is -Pi to 0, Bottom half is Pi to 0 (both left to right)
-//	TODO: fill out remaining CalcHeading overloads
+
 float CalcHeading(float startx, float starty, float endx, float endy);
 float CalcHeading(int startx, int starty, int endx, int endy);
 float CalcHeading(float dx, float dy);
@@ -123,7 +123,9 @@ float CalcYComp(float heading);
 //	Offset by Pi/2 (90deg) to work.
 
 float CalcDistance(float x1, float y1, float x2, float y2);
+float CalcDistance(float dx, float dy);
 float CalcDistance(int x1, int y1, int x2, int y2);
+float CalcDistance(int dx, int dy);
 //	Calculates the distance between two points. Always positive.
 
 #endif
