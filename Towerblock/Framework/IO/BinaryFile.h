@@ -5,45 +5,24 @@
 
 #include <fstream>
 
-enum
-{
-	IO_IN,
-	IO_OUT
-};
-
-class BinaryFile
+class BinaryFile : public BaseFile
 {
 public:
 
-	BinaryFile();
-	BinaryFile( std::string name , int mode = IO_IN , bool overwrite = false );
+	BinaryFile(std::string filename = "", int mode = IOMode::IO_In, bool overwrite = false);
+	~BinaryFile();
 
-	void Create( std::string file );
-	bool Open( std::string file , int mode = IO_IN , bool overwrite = false );
+	bool Open(std::string filename, int mode, bool overwrite);
 	void Close();
-	void SetFileName( std::string file );
-	std::string GetFileName();
 	bool IsOpen();
 
-	void SetPosition( int i );
-	int GetPosition();
-	void Advance( int i );
-	int FileSize();
-
-	void SetMode( int mode );
-	int GetMode();
-
 	template <class T>
-	void Write( T data );	//	generic funtion for writing T into the stream, can be overwritten for non-standard data types
+	T Read();
 	template <class T>
-	T Read();	//	generic function for reading T from the stream, can be overwritten for non-standard data types
-
-private:
-
-	std::fstream _Stream;
-	std::string _FileName;
-	int _Mode;
+	void Write(T data);
 };
+
+
 
 
 //	Read and Write	//
@@ -51,8 +30,8 @@ private:
 template <class T>
 void BinaryFile::Write( T data )	//	generic funtion for writing T into the stream, can be overwritten for non-standard data types
 {
-	if ( GetMode() != IO_OUT )
-		SetMode( IO_OUT );
+	if ( GetMode() != BinaryFile::IOMode::IO_Out )
+		SetMode( BinaryFile::IOMode::IO_Out );
 
 	_Stream.write( (char*)&data , sizeof( data ) );
 };
@@ -60,8 +39,8 @@ void BinaryFile::Write( T data )	//	generic funtion for writing T into the strea
 template <class T>	
 T BinaryFile::Read()	//	generic function for reading T from the stream, can be overwritten for non-standard data types
 {
-	if ( GetMode() != IO_IN )
-		SetMode( IO_IN );
+	if ( GetMode() != BinaryFile::IOMode::IO_In )
+		SetMode( BinaryFile::IOMode::IO_In );
 
 	T Data;
 	_Stream.read( (char*)&Data , sizeof( Data ) );

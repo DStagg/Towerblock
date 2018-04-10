@@ -3,16 +3,14 @@
 TextFile::TextFile(std::string filename, int mode, bool overwrite)
 {
 	if (filename != "")
-	{
 		Open(filename, mode, overwrite);
-	}
-}
+};
 
 TextFile::~TextFile()
 {
 	if (IsOpen())
 		Close();
-}
+};
 
 bool TextFile::Open(std::string filename, int mode, bool overwrite) 
 {

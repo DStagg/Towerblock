@@ -60,7 +60,7 @@ void Console::DumpLog(std::string filename)
 
 	TextFile output;
 	
-	if (!output.Open(filename, IO_OUT, true))
+	if (!output.Open(filename, TextFile::IOMode::IO_Out, true))
 		Log("Ouput file failed to open.");
 
 	Log("Log dumped to: " + filename);

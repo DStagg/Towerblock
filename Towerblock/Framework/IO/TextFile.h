@@ -7,12 +7,12 @@ class TextFile : public BaseFile
 {
 public:
 
-	TextFile(std::string filename = "", int mode = 0, bool over = false);
+	TextFile(std::string filename = "", int mode = IOMode::IO_In, bool over = false);
 	~TextFile();
 
-	virtual bool Open(std::string filename, int mode, bool overwrite);
-	virtual void Close();
-	virtual bool IsOpen();
+	bool Open(std::string filename, int mode, bool overwrite);
+	void Close();
+	bool IsOpen();
 
 	std::string Read();
 	void Write(std::string line);

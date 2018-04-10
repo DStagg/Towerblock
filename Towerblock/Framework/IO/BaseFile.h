@@ -20,7 +20,14 @@ public:
 
 	void SetFilename(std::string filename)
 	{
-		_Filename = filename;
+		if (IsOpen())
+		{
+			Close();
+			_Filename = filename;
+			Open(GetFilename(), GetMode(), GetOverwrite());
+		}
+		else
+			_Filename = filename;
 	};
 	std::string GetFilename()
 	{
@@ -29,7 +36,14 @@ public:
 
 	void SetMode(int mode)
 	{
-		_Mode = mode;
+		if (IsOpen())
+		{
+			Close();
+			_Mode = mode;
+			Open(GetFilename(), GetMode(), GetOverwrite());
+		}
+		else
+			_Mode = mode;
 	};
 	int GetMode()
 	{
@@ -38,7 +52,14 @@ public:
 
 	void SetOverwrite(bool over)
 	{
-		_Overwrite = over;
+		if (IsOpen())
+		{
+			Close();
+			_Overwrite = over;
+			Open(GetFilename(), GetMode(), GetOverwrite());
+		}
+		else
+			_Overwrite = over;
 	};
 	bool GetOverwrite()
 	{

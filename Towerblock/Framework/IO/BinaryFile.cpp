@@ -1,113 +1,37 @@
 #include "BinaryFile.h"
 
-BinaryFile::BinaryFile()
+BinaryFile::BinaryFile(std::string filename, int mode, bool overwrite)
 {
-	SetFileName( "" );
-	SetMode( IO_IN );
+	if (filename != "")
+		Open(filename, mode, overwrite);
 };
 
-BinaryFile::BinaryFile( std::string name , int mode , bool overwrite )
+BinaryFile::~BinaryFile()
 {
-	if ( mode == IO_IN )
-		overwrite = false;
-	if( !Open( name , mode , overwrite ) )
-		SetFileName( "" );
+	if (IsOpen())
+		Close();
 };
 
-void BinaryFile::Create( std::string file )
+bool BinaryFile::Open(std::string filename, int mode, bool overwrite)
 {
-	Open( file , IO_OUT , true );
-	Close();
-};
-
-bool BinaryFile::IsOpen()
-{
-	return _Stream.is_open();
-};
-
-void BinaryFile::SetMode( int mode )
-{
-	if ( GetMode() != mode )
-	{	
-		_Mode = mode;
-		if ( _Stream.is_open() )
-		{
-			_Stream.close();
-			Open( GetFileName() );
-		}
-	}
-};
-
-int BinaryFile::GetMode()
-{
-	return  _Mode;
-};
-
-void BinaryFile::SetPosition( int i )
-{
-	if ( i < 0 )
-		i = 0;
-	if ( i >= FileSize() )
-		i = FileSize() - 1;
-
-	if ( GetMode() == IO_IN )
-		_Stream.seekp( i );
-	else
-		_Stream.seekg( i );
-};
-
-int BinaryFile::GetPosition()
-{
-	if ( GetMode() == IO_IN )
-		return (int)_Stream.tellp();
-	else
-		return (int)_Stream.tellg();
-};
-
-void BinaryFile::Advance( int i )
-{
-	SetPosition( GetPosition() + i );
-};
-
-int BinaryFile::FileSize()
-{
-	int temp = GetPosition();
-	int size;
-
-	if ( GetMode() == IO_IN )
-	{
-		_Stream.seekp( 0 , std::ios::end );
-		size = (int)_Stream.tellp();
-		_Stream.seekp( temp );
-	}
-	else
-	{
-		_Stream.seekg( 0 , std::ios::end );
-		size = (int)_Stream.tellg();
-		_Stream.seekg( temp );
-	}
-
-	return size;
-};
-
-bool BinaryFile::Open( std::string file , int mode , bool overwrite )
-{
-	SetFileName( file );
-	SetMode( mode );
-
-	if ( GetMode() == IO_IN )
-		_Stream.open( GetFileName().c_str() , std::ios::binary | std::ios::in );
-	else if ( GetMode() == IO_OUT )
-	{
-		if ( overwrite )
-			_Stream.open( GetFileName().c_str() , std::ios::binary | std::ios::out | std::ios::trunc );		
-		else
-			_Stream.open( GetFileName().c_str() , std::ios::binary | std::ios::out );
-	}
-	else
+	if (filename == "")
 		return false;
 
-	return _Stream.is_open();
+	if (IsOpen())
+		Close();
+
+	SetFilename(filename);
+	SetMode(mode);
+	SetOverwrite(overwrite);
+
+	if (GetMode() == BinaryFile::IOMode::IO_In)
+		_Stream.open(GetFilename().c_str(), std::ios::binary | std::ios::in);									//	In
+	else if (GetOverwrite())
+		_Stream.open(GetFilename().c_str(), std::ios::binary | std::ios::out | std::ios::trunc);				//	Out, Append
+	else
+		_Stream.open(GetFilename().c_str(), std::ios::binary | std::ios::out | std::ios::app | std::ios::ate);	//	Out, Overwrite
+
+	return IsOpen();
 };
 
 void BinaryFile::Close()
@@ -115,12 +39,7 @@ void BinaryFile::Close()
 	_Stream.close();
 };
 
-void BinaryFile::SetFileName( std::string file )
+bool BinaryFile::IsOpen()
 {
-	_FileName = file;
-};
-
-std::string BinaryFile::GetFileName()
-{
-	return _FileName;
+	return _Stream.is_open();
 };

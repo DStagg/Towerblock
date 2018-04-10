@@ -399,13 +399,15 @@ Gun* Level::GetGun(int i)
 
 void Level::Load(std::string file)
 {
-	BinaryFile input(file, IO_IN);
+	BinaryFile input(file, BinaryFile::IOMode::IO_In);
 
 	if (!input.IsOpen())
 		return GenerateFancyBox(10, 10);
-
+	Log("Level opened: " + file + ".");
 	int width = input.Read<int>();
+	Log("Width: " + IntToString(width));
 	int height = input.Read<int>();
+	Log("Height: " + IntToString(height));
 
 	GetGrid().Resize(width, height);
 
@@ -417,23 +419,25 @@ void Level::Load(std::string file)
 			bool sol = input.Read<bool>();
 
 			GetGrid().SetCell(x, y, Tile(sprx, spry, sol));
+			Log("Cell [" + IntToString(x) + "," + IntToString(y) + "]: " + IntToString(sprx) + "," + IntToString(spry) + " & " + (sol ? "solid." : "passable."));
 		}
 
 	int px = input.Read<int>();
 	int py = input.Read<int>();
-
+	Log("Player starts at (" + IntToString(px) + "," + IntToString(py) + ")");
 	_Player._Position.Set(px, py);
 	_PlayerStartPos = PairInt(px, py);
 
 	_Enemies.clear();
 	int numEnemy = input.Read<int>();
+	Log(IntToString(numEnemy) + " enemies.");
 	for (int i = 0; i < numEnemy; i++)
 	{
 		int ex = input.Read<int>();
 		int ey = input.Read<int>();
 		float evx = input.Read<float>();
 		float evy = input.Read<float>();
-
+		Log("Enemy " + IntToString(i) + " at (" + IntToString(ex) + "," + IntToString(ey) + ") moves [" + FloatToString(evx) + "," + FloatToString(evy) + "].");
 		Enemy e;
 		e._Position.Set(ex, ey);
 		e._Velocity = Vec(evx, evy);
@@ -443,23 +447,24 @@ void Level::Load(std::string file)
 
 	_Pickups.clear();
 	int numPickups = input.Read<int>();
+	Log(IntToString(numPickups) + " pickups.");
 	for (int i = 0; i < numPickups; i++)
 	{
 		int pux = input.Read<int>();
 		int puy = input.Read<int>();
-
+		Log("Pickup " + IntToString(i) + " at (" + IntToString(pux) + "," + IntToString(puy) + ").");
 		Pickup p;
 		p._Position.Set(pux, puy);
 
 		_Pickups.push_back(p);
 	}
-
+	Log("Level loaded.");
 	input.Close();
 };
 
 void Level::Save(std::string file)
 {
-	BinaryFile output(file, IO_OUT, true);
+	BinaryFile output(file, BinaryFile::IOMode::IO_Out, true);
 
 	if (!output.IsOpen())
 		return;
