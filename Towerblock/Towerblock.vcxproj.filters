@@ -33,12 +33,12 @@
     <Filter Include="Framework\Scenes">
       <UniqueIdentifier>{a928adf8-7247-48b4-8164-2814f775fd7a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Scenes">
+      <UniqueIdentifier>{c59f4c94-db05-4757-bb4a-1059c4e32986}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MainScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Framework\IO\AudioService.cpp">
@@ -110,20 +110,8 @@
     <ClCompile Include="Framework\Data\Trig.cpp">
       <Filter>Framework\Data</Filter>
     </ClCompile>
-    <ClCompile Include="WinScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LoseScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TitleScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Pickup.cpp">
       <Filter>Source Files\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="EditorScene.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Framework\Scenes\Scene.cpp">
       <Filter>Framework\Scenes</Filter>
@@ -134,11 +122,23 @@
     <ClCompile Include="SceneTransitions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EditorScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="LoseScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="MainScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="WinScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MainScene.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Framework\Data\Grid.h">
       <Filter>Framework\Data</Filter>
     </ClInclude>
@@ -214,23 +214,8 @@
     <ClInclude Include="Framework\Data\Trig.h">
       <Filter>Framework\Data</Filter>
     </ClInclude>
-    <ClInclude Include="WinScene.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LoseScene.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TitleScene.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Gun.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Pickup.h">
       <Filter>Source Files\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="EditorScene.h">
-      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Framework\Scenes\Scene.h">
       <Filter>Framework\Scenes</Filter>
@@ -240,6 +225,24 @@
     </ClInclude>
     <ClInclude Include="SceneTransitions.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorScene.h">
+      <Filter>Source Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="LoseScene.h">
+      <Filter>Source Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="MainScene.h">
+      <Filter>Source Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Source Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Gun.h">
+      <Filter>Source Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="WinScene.h">
+      <Filter>Source Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

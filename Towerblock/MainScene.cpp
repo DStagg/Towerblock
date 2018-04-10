@@ -114,7 +114,7 @@ void MainScene::Update(float dt)
 	}
 	else if (_Level.GetPlayer()._HP <= 0)
 	{
-		GetManager()->PushScene(new LoseScene(_Window), new FadeTransition(_Window, 1.f));
+		GetManager()->PushScene(new LoseScene(_Window), new DelayTransition(_Window, 0.5f));
 	}
 	//	TODO: fix enemy knockback
 	//	TODO: grab world mouse coordinates rather than screen (even if screen is relative to the window)
