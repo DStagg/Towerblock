@@ -37,6 +37,18 @@ private:
 	bool _Running;
 };
 
+class SceneTransition
+{
+public:
+
+	virtual void Update(float dt) = 0;
+	virtual void DrawScreen() = 0;
+
+	Scene* _Scene1 = 0;
+	Scene* _Scene2 = 0;
+	SceneManager* _ManagerPntr = 0;
+};
+
 class SceneManager
 {
 public:
@@ -44,7 +56,7 @@ public:
 	SceneManager();
 	~SceneManager();
 
-	void PushScene(Scene* new_scene);
+	void PushScene(Scene* new_scene, SceneTransition* scene_transition = 0);
 
 	void CullScenes();
 
@@ -54,9 +66,13 @@ public:
 
 	Scene* GetRootScenePntr();
 
+	SceneTransition* GetTransitionPntr();
+	void CompleteTransition();
+
 private:
 
 	Scene* _RootScenePntr;
+	SceneTransition* _TransitionPntr;
 };
 
 #endif

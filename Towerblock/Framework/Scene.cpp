@@ -49,13 +49,14 @@ void Scene::SetManager(SceneManager* sm)
 SceneManager::SceneManager()
 {
 	_RootScenePntr = 0;
+	_TransitionPntr = 0;
 };
 SceneManager::~SceneManager()
 {
 
 };
 
-void SceneManager::PushScene(Scene* new_scene)
+void SceneManager::PushScene(Scene* new_scene, SceneTransition* scene_transition)
 {
 	if (new_scene == 0)
 		return;
@@ -71,6 +72,14 @@ void SceneManager::PushScene(Scene* new_scene)
 		GetActiveScenePntr()->SetChild(new_scene);
 	}
 	GetActiveScenePntr()->Begin();
+
+	_TransitionPntr = scene_transition;
+	if (_TransitionPntr != 0)
+	{
+		_TransitionPntr->_Scene2 = GetActiveScenePntr();
+		_TransitionPntr->_Scene1 = GetActiveScenePntr()->GetParent();
+		_TransitionPntr->_ManagerPntr = this;
+	}
 };
 
 void SceneManager::CullScenes()
@@ -123,4 +132,15 @@ Scene* SceneManager::GetActiveScenePntr()
 Scene* SceneManager::GetRootScenePntr()
 {
 	return _RootScenePntr;
+};
+
+SceneTransition* SceneManager::GetTransitionPntr()
+{
+	return _TransitionPntr;
+};
+
+void SceneManager::CompleteTransition()
+{
+	delete GetTransitionPntr();
+	_TransitionPntr = 0;
 };

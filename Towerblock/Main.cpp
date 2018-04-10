@@ -20,9 +20,15 @@ int main()
 	UpdateClock.restart();
 	while (SCM.GetActiveScenePntr() != 0)
 	{
-		SCM.GetActiveScenePntr()->Update(UpdateClock.restart().asSeconds());
+		if (SCM.GetTransitionPntr() != 0)
+			SCM.GetTransitionPntr()->Update(UpdateClock.restart().asSeconds());
+		else
+			SCM.GetActiveScenePntr()->Update(UpdateClock.restart().asSeconds());
 		_Window.clear();
-		SCM.GetActiveScenePntr()->DrawScreen();
+		if (SCM.GetTransitionPntr() != 0)
+			SCM.GetTransitionPntr()->DrawScreen();
+		else
+			SCM.GetActiveScenePntr()->DrawScreen();
 		_Window.display();
 		SCM.CullScenes();
 	}
