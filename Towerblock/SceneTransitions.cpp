@@ -1,8 +1,7 @@
-#include "SceneTransition.h"
+#include "SceneTransitions.h"
 
-FadeTransition::FadeTransition(sf::RenderWindow* rw, float time)
+FadeTransition::FadeTransition(sf::RenderWindow* rw, float time) : SFMLSceneTransition(rw)
 {
-	_Window = rw;
 	_TransitionTime = time;
 };
 
@@ -17,10 +16,7 @@ void FadeTransition::Update(float dt)
 void FadeTransition::DrawScreen()
 {
 	if (this->_Window == 0)
-	{
-		Log("FadeTransition _Window is 0.");
 		return;
-	}
 
 	if (_ElapsedTime < _TransitionTime / 2.f)
 	{

@@ -1,8 +1,7 @@
 #ifndef EDITOR_SCENE_H
 #define EDITOR_SCENE_H
 
-#include <SFML\Graphics.hpp>
-#include "Framework/Scene.h"
+#include "Framework\SFMLScene.h"
 
 #include "Framework\Data\Grid.h"
 #include "Framework\Data\CompositeTex.h"
@@ -13,7 +12,7 @@
 
 #include "Framework\Debug\Console.h"
 
-class EditorScene : public Scene
+class EditorScene : public SFMLScene
 {
 public:
 
@@ -41,7 +40,6 @@ private:
 
 	void RefreshTiles();
 
-	sf::RenderWindow* _Window;
 	sf::View _CameraView;
 
 	ImageManager _ImgMan;

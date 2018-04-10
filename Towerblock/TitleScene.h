@@ -1,13 +1,12 @@
 #ifndef TITLE_SCENE_H
 #define TITLE_SCENE_H
 
-#include <SFML\Graphics.hpp>
-#include "Framework\Scene.h"
+#include "Framework\SFMLScene.h"
 
 #include "MainScene.h"
 #include "EditorScene.h"
 
-class TitleScene : public Scene
+class TitleScene : public SFMLScene
 {
 public:
 
@@ -23,7 +22,6 @@ public:
 
 private:
 
-	sf::RenderWindow* _Window;
 	sf::Font _Font;
 };
 

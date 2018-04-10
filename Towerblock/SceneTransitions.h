@@ -1,12 +1,9 @@
 #ifndef SCENE_TRANSITION_H
 #define SCENE_TRANSITION_H
 
-#include "Framework\Scene.h"
-#include "SFML\Graphics.hpp"
+#include "Framework\SFMLScene.h"
 
-#include "Framework\Debug\Console.h"
-
-class FadeTransition : public SceneTransition
+class FadeTransition : public SFMLSceneTransition
 {
 public:
 
@@ -17,7 +14,6 @@ public:
 
 private:
 
-	sf::RenderWindow* _Window = 0;
 	float _TransitionTime;
 	float _ElapsedTime = 0.f;
 };

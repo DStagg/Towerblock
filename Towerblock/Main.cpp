@@ -1,6 +1,4 @@
-#include <SFML/Graphics.hpp>
-
-#include "Framework/Scene.h"
+#include "Framework/SFMLScene.h"
 #include "TitleScene.h"
 #include "MainScene.h"
 
@@ -15,7 +13,6 @@ int main()
 
 	SceneManager SCM;
 	SCM.PushScene(new TitleScene(&_Window));
-	//SCM.PushScene(new MainScene(&_Window));
 
 	UpdateClock.restart();
 	while (SCM.GetActiveScenePntr() != 0)

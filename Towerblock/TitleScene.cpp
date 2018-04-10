@@ -1,8 +1,8 @@
 #include "TitleScene.h"
 
-TitleScene::TitleScene(sf::RenderWindow* rw)
+TitleScene::TitleScene(sf::RenderWindow* rw) : SFMLScene(rw)
 {
-	_Window = rw;
+	
 };
 
 TitleScene::~TitleScene()
@@ -42,9 +42,9 @@ void TitleScene::Update(float dt)
 			if (Event.key.code == sf::Keyboard::Key::Escape)
 				GetManager()->Quit();
 			else if (Event.key.code == sf::Keyboard::Key::Return)
-				GetManager()->PushScene(new MainScene(_Window));
+				GetManager()->PushScene(new MainScene(_Window), new FadeTransition(_Window, 1.f));
 			else if (Event.key.code == sf::Keyboard::E)
-				GetManager()->PushScene(new EditorScene(_Window));
+				GetManager()->PushScene(new EditorScene(_Window), new FadeTransition(_Window, 1.f));
 		}
 	}
 };

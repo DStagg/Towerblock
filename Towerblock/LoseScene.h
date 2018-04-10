@@ -1,10 +1,9 @@
 #ifndef LOSE_SCENE_H
 #define LOSE_SCENE_H
 
-#include <SFML\Graphics.hpp>
-#include "Framework\Scene.h"
+#include "Framework\SFMLScene.h"
 
-class LoseScene : public Scene
+class LoseScene : public SFMLScene
 {
 public:
 
@@ -20,7 +19,6 @@ public:
 
 private:
 
-	sf::RenderWindow* _Window;
 	sf::Font _Font;
 };
 

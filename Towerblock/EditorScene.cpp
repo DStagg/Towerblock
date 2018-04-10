@@ -1,8 +1,8 @@
 #include "EditorScene.h"
 
-EditorScene::EditorScene(sf::RenderWindow* rw)
+EditorScene::EditorScene(sf::RenderWindow* rw) : SFMLScene(rw)
 {
-	_Window = rw;
+	
 };
 EditorScene::~EditorScene()
 {

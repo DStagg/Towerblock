@@ -1,9 +1,8 @@
 #ifndef MainScene_H
 #define MainScene_H
 
-#include <SFML\Graphics.hpp>
 #include "Framework/Utility/Utility.h"
-#include "Framework/Scene.h"
+#include "Framework/SFMLScene.h"
 
 #include "Framework\Data\Grid.h"
 #include "Framework\Data\CompositeTex.h"
@@ -20,9 +19,9 @@
 #include "WinScene.h"
 #include "LoseScene.h"
 
-#include "SceneTransition.h"
+#include "SceneTransitions.h"
 
-class MainScene : public Scene
+class MainScene : public SFMLScene
 {
 public:
 
@@ -38,7 +37,6 @@ public:
 
 private:
 
-	sf::RenderWindow* _Window;
 	sf::View _CameraView;
 
 	ImageManager _ImgMan;

@@ -1,8 +1,8 @@
 #include "WinScene.h"
 
-WinScene::WinScene(sf::RenderWindow* rw)
+WinScene::WinScene(sf::RenderWindow* rw) : SFMLScene(rw)
 {
-	_Window = rw;
+	
 };
 
 WinScene::~WinScene()

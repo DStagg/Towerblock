@@ -1,8 +1,8 @@
 #include "LoseScene.h"
 
-LoseScene::LoseScene(sf::RenderWindow* rw)
+LoseScene::LoseScene(sf::RenderWindow* rw) : SFMLScene(rw)
 {
-	_Window = rw;
+	
 };
 
 LoseScene::~LoseScene()
