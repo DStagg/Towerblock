@@ -1,6 +1,8 @@
 #ifndef BINARY_FILE_H
 #define BINARY_FILE_H
 
+#include "BaseFile.h"
+
 #include <fstream>
 
 enum

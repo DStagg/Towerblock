@@ -244,6 +244,9 @@
     <ClInclude Include="WinScene.h">
       <Filter>Source Files\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Framework\IO\BaseFile.h">
+      <Filter>Framework\IO</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ToDo.txt">

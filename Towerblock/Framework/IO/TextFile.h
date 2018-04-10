@@ -1,31 +1,21 @@
 #ifndef TEXT_FILE_H
 #define TEXT_FILE_H
 
-#include <fstream>
+#include "BaseFile.h"
 
-//	TODO: add common base class/interface/methodology to BinaryFile and TextFile.
-enum TextFileMode
-{
-	IOS_IN = 0,
-	IOS_OUT
-};
-
-class TextFile
+class TextFile : public BaseFile
 {
 public:
 
-	TextFile();
-	TextFile(std::string filename, int open_mode, bool overwrite);
+	TextFile(std::string filename = "", int mode = 0, bool over = false);
 	~TextFile();
 
-	bool Open(std::string filename, int open_mode, bool overwrite);
+	virtual bool Open(std::string filename, int mode, bool overwrite);
+	virtual void Close();
+	virtual bool IsOpen();
+
+	std::string Read();
 	void Write(std::string line);
-	void Close();
-
-private:
-
-	std::ofstream _Stream;
-
 };
 
 #endif

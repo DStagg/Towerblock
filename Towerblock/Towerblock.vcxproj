@@ -168,6 +168,7 @@
     <ClInclude Include="Framework\Debug\DebugDraw.h" />
     <ClInclude Include="Framework\Entities\Entity.h" />
     <ClInclude Include="Framework\IO\AudioService.h" />
+    <ClInclude Include="Framework\IO\BaseFile.h" />
     <ClInclude Include="Framework\IO\BinaryFile.h" />
     <ClInclude Include="Framework\IO\BinarySave.h" />
     <ClInclude Include="Framework\IO\GUI.h" />
