@@ -132,7 +132,6 @@
     <ClCompile Include="Framework\Entities\Entity.cpp" />
     <ClCompile Include="Framework\IO\AudioService.cpp" />
     <ClCompile Include="Framework\IO\BinaryFile.cpp" />
-    <ClCompile Include="Framework\IO\BinarySave.cpp" />
     <ClCompile Include="Framework\IO\GUI.cpp" />
     <ClCompile Include="Framework\IO\ImageManager.cpp" />
     <ClCompile Include="Framework\IO\MenuList.cpp" />
@@ -170,7 +169,6 @@
     <ClInclude Include="Framework\IO\AudioService.h" />
     <ClInclude Include="Framework\IO\BaseFile.h" />
     <ClInclude Include="Framework\IO\BinaryFile.h" />
-    <ClInclude Include="Framework\IO\BinarySave.h" />
     <ClInclude Include="Framework\IO\GUI.h" />
     <ClInclude Include="Framework\IO\ImageManager.h" />
     <ClInclude Include="Framework\IO\MenuList.h" />

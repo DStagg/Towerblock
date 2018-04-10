@@ -47,9 +47,6 @@
     <ClCompile Include="Framework\IO\BinaryFile.cpp">
       <Filter>Framework\IO</Filter>
     </ClCompile>
-    <ClCompile Include="Framework\IO\BinarySave.cpp">
-      <Filter>Framework\IO</Filter>
-    </ClCompile>
     <ClCompile Include="Framework\IO\GUI.cpp">
       <Filter>Framework\IO</Filter>
     </ClCompile>
@@ -146,9 +143,6 @@
       <Filter>Framework\IO</Filter>
     </ClInclude>
     <ClInclude Include="Framework\IO\BinaryFile.h">
-      <Filter>Framework\IO</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\IO\BinarySave.h">
       <Filter>Framework\IO</Filter>
     </ClInclude>
     <ClInclude Include="Framework\IO\GUI.h">

@@ -9,7 +9,7 @@
 #include "Enemy.h"
 #include "Pickup.h"
 
-#include "Framework\IO\BinarySave.h"
+#include "Framework\IO\BinaryFile.h"
 
 #include "Framework\Data\Collision.h"
 #include "Framework\Debug\DebugDraw.h"

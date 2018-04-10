@@ -48,4 +48,16 @@ T BinaryFile::Read()	//	generic function for reading T from the stream, can be o
 	return Data;
 };
 
+//std::string
+template <>
+void BinaryFile::Write<std::string>(std::string s);
+template <>
+std::string BinaryFile::Read<std::string>();
+
+//bool
+template <>
+void BinaryFile::Write<bool>(bool b);
+template <>
+bool BinaryFile::Read<bool>();
+
 #endif

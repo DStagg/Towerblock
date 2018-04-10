@@ -3,7 +3,6 @@
 
 #include <vector>
 #include "SFML\Graphics.hpp"
-#include "..\IO\BinarySave.h"
 #include <iostream>
 #include "..\IO\TextFile.h"
 #include "..\Utility\Utility.h"
