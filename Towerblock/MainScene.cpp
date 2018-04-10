@@ -110,7 +110,8 @@ void MainScene::Update(float dt)
 
 	if (_Level.CountEnemies() == 0)
 	{
-		GetManager()->PushScene(new WinScene(_Window));
+		//GetManager()->PushScene(new WinScene(_Window));
+		GetManager()->PushScene(new FadeTransition(this, new WinScene(_Window), _Window, 1.f));
 	}
 	else if (_Level.GetPlayer()._HP <= 0)
 	{

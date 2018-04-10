@@ -20,6 +20,8 @@
 #include "WinScene.h"
 #include "LoseScene.h"
 
+#include "SceneTransition.h"
+
 class MainScene : public Scene
 {
 public:
