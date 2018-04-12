@@ -3,6 +3,8 @@
 
 #include "Framework\SFMLScene.h"
 
+#include "Framework\IO\MenuList.h"
+
 #include "MainScene.h"
 #include "EditorScene.h"
 
@@ -23,6 +25,7 @@ public:
 private:
 
 	sf::Font _Font;
+	SFMLMenuList _MenuList;
 };
 
 #endif

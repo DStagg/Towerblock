@@ -112,6 +112,7 @@ void SFMLMenuList::SetBuffers(float x, float y)
 
 void SFMLMenuList::Draw(sf::RenderWindow* rw)
 {
+	float ySpace = 0.f;
 	for (int i = 0; i < CountList(); i++)
 	{
 		sf::Text tex;
@@ -121,12 +122,14 @@ void SFMLMenuList::Draw(sf::RenderWindow* rw)
 			tex.setStyle(sf::Text::Underlined);
 		
 		if (_Orientation == SFMLMenuList::Left)
-			tex.setPosition(_X + _XBuffer, _Y + (i * _YBuffer));
+			tex.setPosition(_X + _XBuffer, _Y + ySpace + (i * _YBuffer));
 		else if (_Orientation == SFMLMenuList::Center)
-			tex.setPosition(_X - (tex.getLocalBounds().width / 2.f), _Y + (i * _YBuffer));
+			tex.setPosition(_X - (tex.getLocalBounds().width / 2.f), _Y + ySpace + (i * _YBuffer));
 		else
-			tex.setPosition(_X - (tex.getLocalBounds().width + _XBuffer), _Y + (i * _YBuffer));
+			tex.setPosition(_X - (tex.getLocalBounds().width + _XBuffer), _Y + ySpace + (i * _YBuffer));
 
 		rw->draw(tex);
+
+		ySpace += tex.getLocalBounds().height;
 	};
 };

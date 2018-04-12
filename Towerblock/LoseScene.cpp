@@ -12,6 +12,7 @@ LoseScene::~LoseScene()
 
 void LoseScene::Begin()
 {
+	_Window->setView(_Window->getDefaultView());
 	_Font.loadFromFile("Resources\\Roboto-Regular.ttf");
 };
 
