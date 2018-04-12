@@ -30,6 +30,8 @@ void MainScene::Begin()
 
 	Console::C()->Init(_Font, ConsoleTextSize, ConsoleLineLimit);
 
+	_MouseInput.Init(_Window);
+
 };
 void MainScene::End()
 {
@@ -58,7 +60,7 @@ void MainScene::Update(float dt)
 			}
 			else if (Event.mouseButton.button == sf::Mouse::Button::Middle)
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift))
-					_Level.GetPlayer()._Position.Set(sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y);
+					_Level.GetPlayer()._Position.Set(_MouseInput.GetWorldPos()._A, _MouseInput.GetWorldPos()._B);
 				else
 					_Level.Spawn(sf::Mouse::getPosition(*_Window).x, sf::Mouse::getPosition(*_Window).y);
 
@@ -180,4 +182,6 @@ void MainScene::DrawScreen()
 	
 	if (_DrawLog)
 		Console::C()->Draw(_Window);
+
+	_Window->setView(_CameraView);
 };

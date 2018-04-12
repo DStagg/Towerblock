@@ -135,6 +135,7 @@
     <ClCompile Include="Framework\IO\GUI.cpp" />
     <ClCompile Include="Framework\IO\ImageManager.cpp" />
     <ClCompile Include="Framework\IO\MenuList.cpp" />
+    <ClCompile Include="Framework\IO\MouseInput.cpp" />
     <ClCompile Include="Framework\IO\Service.cpp" />
     <ClCompile Include="Framework\IO\TextFile.cpp" />
     <ClCompile Include="Framework\Scenes\Scene.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Framework\IO\GUI.h" />
     <ClInclude Include="Framework\IO\ImageManager.h" />
     <ClInclude Include="Framework\IO\MenuList.h" />
+    <ClInclude Include="Framework\IO\MouseInput.h" />
     <ClInclude Include="Framework\IO\Service.h" />
     <ClInclude Include="Framework\IO\TextFile.h" />
     <ClInclude Include="Framework\Scenes\Scene.h" />

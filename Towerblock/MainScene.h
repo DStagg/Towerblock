@@ -20,6 +20,7 @@
 #include "LoseScene.h"
 
 #include "SceneTransitions.h"
+#include "Framework\IO\MouseInput.h"
 
 class MainScene : public SFMLScene
 {
@@ -38,6 +39,8 @@ public:
 private:
 
 	sf::View _CameraView;
+
+	SFMLMouseInput _MouseInput;
 
 	ImageManager _ImgMan;
 
