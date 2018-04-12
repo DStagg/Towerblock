@@ -108,7 +108,10 @@ void MainScene::Update(float dt)
 	}
 
 	if (!_Paused)
+	{
 		_Level.Update(dt, _Window);
+		_Level.GetPlayer()._Facing = CalcHeading((float)_Level.GetPlayer()._Position.GetX(), (float)_Level.GetPlayer()._Position.GetY(), (float)_MouseInput.GetWorldPos()._A, (float)_MouseInput.GetWorldPos()._B);
+	}
 
 	if (_Level.CountEnemies() == 0)
 	{

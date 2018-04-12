@@ -205,7 +205,7 @@ void Level::Update(float dt, sf::RenderWindow* rw)
 	}
 
 	//	Input
-	_Player._Facing = CalcHeading((float)_Player._Position.GetX(), (float)_Player._Position.GetY(), (float)sf::Mouse::getPosition(*rw).x, (float)sf::Mouse::getPosition(*rw).y);
+	//_Player._Facing = CalcHeading((float)_Player._Position.GetX(), (float)_Player._Position.GetY(), (float)sf::Mouse::getPosition(*rw).x, (float)sf::Mouse::getPosition(*rw).y);
 	_Player.Input();
 	for (int i = 0; i < (int)_Enemies.size(); i++)
 		_Enemies[i].Input();
