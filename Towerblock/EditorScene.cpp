@@ -25,6 +25,8 @@ void EditorScene::Begin()
 
 	Console::C()->Init(_Font, 16, 20);
 
+	_MouseInput.Init(_Window);
+
 	RefreshTiles();
 };
 void EditorScene::End()
@@ -56,8 +58,9 @@ void EditorScene::Update(float dt)
 		}
 		else if (Event.type == sf::Event::MouseButtonPressed)
 		{
-			int mx = (int)(sf::Mouse::getPosition(*_Window).x + _CameraView.getCenter().x - (_CameraView.getSize().x / 2.f));
-			int my = (int)(sf::Mouse::getPosition(*_Window).y + _CameraView.getCenter().y - (_CameraView.getSize().y / 2.f));
+			PairInt mpos = _MouseInput.GetWorldPos();
+			int mx = mpos._A;
+			int my = mpos._B;
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
 			{
@@ -188,8 +191,9 @@ void EditorScene::Update(float dt)
 		}
 		else if (Event.type == sf::Event::MouseButtonReleased)
 		{
-			int mx = (int)(sf::Mouse::getPosition(*_Window).x + _CameraView.getCenter().x - (_CameraView.getSize().x / 2.f));
-			int my = (int)(sf::Mouse::getPosition(*_Window).y + _CameraView.getCenter().y - (_CameraView.getSize().y / 2.f));
+			PairInt mpos = _MouseInput.GetWorldPos();
+			int mx = mpos._A;
+			int my = mpos._B;
 
 			if ((_Mode == EditMode::EnemyMoveMode) && (_EnemyDrag != -1) && (Event.mouseButton.button == sf::Mouse::Button::Left))
 			{
@@ -358,8 +362,8 @@ void EditorScene::DrawScreen()
 		linedir.setSize(sf::Vector2f(CalcDistance(
 			_Level.GetEnemy(_EnemyDrag)._Position.GetX(),
 			_Level.GetEnemy(_EnemyDrag)._Position.GetY(),
-			(int)(sf::Mouse::getPosition(*_Window).x + _CameraView.getCenter().x - (_CameraView.getSize().x / 2.f)),
-			(int)(sf::Mouse::getPosition(*_Window).y + _CameraView.getCenter().y - (_CameraView.getSize().y / 2.f)))
+			_MouseInput.GetWorldPos()._A,
+			_MouseInput.GetWorldPos()._B)
 			, 1.f));
 		linedir.setPosition((float)_Level.GetEnemy(_EnemyDrag)._Position.GetX(), (float)_Level.GetEnemy(_EnemyDrag)._Position.GetY());
 		linedir.setFillColor(sf::Color::White);
@@ -430,6 +434,8 @@ void EditorScene::DrawScreen()
 
 	if (_ShowLog)
 		Console::C()->Draw(_Window);
+
+	_Window->setView(_CameraView);
 };
 
 void EditorScene::RefreshTiles()

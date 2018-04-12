@@ -12,6 +12,8 @@
 
 #include "Framework\Debug\Console.h"
 
+#include "Framework\IO\MouseInput.h"
+
 class EditorScene : public SFMLScene
 {
 public:
@@ -59,6 +61,8 @@ private:
 	bool _ShowLog = false;
 
 	Level _Level;
+
+	SFMLMouseInput _MouseInput;
 };
 
 #endif
