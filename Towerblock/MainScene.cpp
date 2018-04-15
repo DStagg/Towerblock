@@ -122,7 +122,7 @@ void MainScene::Update(float dt)
 		GetManager()->PushScene(new LoseScene(_Window), new DelayTransition(_Window, 0.5f));
 	}
 	//	TODO: fix enemy knockback
-	//	TODO: grab world mouse coordinates rather than screen (even if screen is relative to the window)
+
 	//	Asymptotic Averaging
 	//	Ratio can be anything  - just make sure it equals 1.f. Lower followFactor = faster zoom.
 	float followFactor = 0.99f;

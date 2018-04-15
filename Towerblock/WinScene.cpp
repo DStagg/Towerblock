@@ -46,6 +46,8 @@ void WinScene::Update(float dt)
 
 void WinScene::DrawScreen()
 {
+	_Window->setView(_Window->getDefaultView());
+
 	sf::Text winMsg;
 	winMsg.setString("Winner!");
 	winMsg.setFont(_Font);
