@@ -14,6 +14,15 @@ Level Design Pass
 [DONE] Add ability to save/load levels (tiles, list of enemies, start point, list of pickups).
 [DONE] Add level editor. 
 
+Physics Pass
+-----------------
+Input (controls, impulses, etc.) -> Static Collisions -> Dynamic Collisions -> Resolve -> Update Position
+
+
+
+
+
+
 Menu Pass
 -----------------
 Title screen graphics & selector
